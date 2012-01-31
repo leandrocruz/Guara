@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Get Real Path</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Get Real Path<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.GetRealPath/action/test.GetRealPath?fileName=foo.txt</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='fileName']</td>
+		<td>foo.txt</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='path']</td>
+		<td>/home/leandro/cvs/guara/webapp/foo.txt</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.GetRealPath/action/test.GetRealPath?fileName=/tmp/foo.txt</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='fileName']</td>
+		<td>/tmp/foo.txt</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='path']</td>
+		<td>/home/leandro/cvs/guara/webapp/tmp/foo.txt</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.GetRealPath/action/test.GetRealPath?fileName=tmp/foo.txt</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='fileName']</td>
+		<td>tmp/foo.txt</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='path']</td>
+		<td>/home/leandro/cvs/guara/webapp/tmp/foo.txt</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.GetRealPath/action/test.GetRealPath</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='fileName']</td>
+		<td>$fileName</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//p[@id='path']</td>
+		<td>$path</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<root>
+	<configuration key="br.com.ibnetwork.guara.pull.tools.ContentTool">
+		<!--
+		<baseAddress 	protocol="http" 
+						hostName="localhost" 
+						port="8080"
+						contextName="/guara"/>
+		-->
+	</configuration>
+	<configuration key="br.com.ibnetwork.guara.pull.tools.LinkTool">
+		<encoding name="ISO-8859-1"/>
+	</configuration>	
+</root>

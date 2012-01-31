@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<pulga>
+	<component	key="groovy"
+				role="br.com.ibnetwork.guara.view.TemplateEngine"
+				class="br.com.ibnetwork.guara.view.impl.groovy.GroovyTemplateEngine">
+		<!-- loaded from classpath -->
+		<templates extension=".gtl">
+			<root>${app.root}/templates/groovy/app</root>
+			<onError template="screens.Error"/>
+		</templates>
+		<encoding name="ISO-8859-1"/>
+	</component>
+	<component	key="velocity"
+				role="br.com.ibnetwork.guara.view.TemplateEngine"
+				class="br.com.ibnetwork.guara.view.impl.velocity.VelocityTemplateEngine">
+		<!-- loaded from classpath -->
+		<templates extension=".vm">
+			<onError template="screens.Error"/>
+		</templates>
+		<encoding name="ISO-8859-1"/>
+		<file name="velocity.properties"/>
+	</component>
+	<component	key="freemarker"
+				role="br.com.ibnetwork.guara.view.TemplateEngine"
+				class="br.com.ibnetwork.guara.view.impl.freemarker.FreemarkerTemplateEngine">
+		<!-- loaded from classpath -->
+		<templates extension=".ftl">
+			<onError template="screens.Error"/>
+		</templates>
+		<encoding name="ISO-8859-1"/>
+		<file name="freemarker.properties"/>
+	</component>
+	<component	role="br.com.ibnetwork.guara.view.TemplateEngine"
+				class="br.com.ibnetwork.guara.view.impl.TemplateEngineImpl">
+		<delegates>
+			<delegate key="velocity"/>
+			<delegate key="freemarker"/>
+			<delegate key="groovy"/>
+		</delegates>
+	</component>
+	<component	role="br.com.ibnetwork.guara.rundata.RunDataPool"
+				class="br.com.ibnetwork.guara.rundata.impl.RunDataPoolImpl">
+	</component>	
+	<component	role="br.com.ibnetwork.guara.parameters.ParameterParserBuilder"
+        		class="br.com.ibnetwork.guara.parameters.impl.ParameterParserBuilderImpl">
+		<fileUpload 	enabled="true"
+						maxFileSize="100000"
+						sizeThreshold="10000"
+						repository="/tmp/guara/uploads"
+						createRepository="true"/>
+        <extractPathInfo enabled="true"/>
+		<encoding name="ISO-8859-1"/>
+	</component>
+	<component	role="br.com.ibnetwork.guara.modules.ModuleLoader"
+        		class="br.com.ibnetwork.guara.modules.impl.ModuleLoaderImpl">
+		<loader type="screens" recurse="true">
+            <packages>
+                <package name="br.com.ibnetwork.guara.modules.screens"/>
+            </packages>
+		</loader>
+		<loader type="actions" recurse="true">
+            <packages>
+                <package name="br.com.ibnetwork.guara.modules.actions"/>
+            </packages>
+		</loader>
+	</component>
+	<component	role="br.com.ibnetwork.guara.pull.PullManager"
+				class="br.com.ibnetwork.guara.pull.impl.PullManagerImpl">
+		<tools>
+			<tool 	name="link" 		
+					scope="request" 
+					className="br.com.ibnetwork.guara.pull.tools.LinkTool"
+			/>
+			<tool 	name="content" 		
+					scope="request" 
+					className="br.com.ibnetwork.guara.pull.tools.ContentTool"
+			/>
+			<tool 	name="templateTool" 
+					scope="global" 
+					className="br.com.ibnetwork.guara.pull.tools.TemplateTool"
+			/>
+			<tool 	name="errorTool" 
+					scope="global" 
+					className="br.com.ibnetwork.guara.pull.tools.ErrorTool"
+			/>
+		</tools>
+	</component>	
+	<component	role= "br.com.ibnetwork.guara.message.SystemMessageBroker"
+             	class="br.com.ibnetwork.guara.message.impl.XMLSystemMessageBroker">
+		<localeConfig language="pt" country="BR"/>
+		<repository path="${app.root}/resources/messages/"/>
+	</component>
+
+</pulga>

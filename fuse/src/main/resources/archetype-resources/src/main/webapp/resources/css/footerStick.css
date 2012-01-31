@@ -1,0 +1,24 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+#page {
+	position: relative;
+	min-height: 100%;
+}
+
+* html #page {
+	height: 100%;
+}
+
+#bottom {
+	position: relative;
+	margin: -76px auto 0 auto;        
+}
+
+/* A CSS hack that only applies to IE -- specifies a different height for the footer */
+
+* html #bottom {
+	margin-top: -76px;
+}

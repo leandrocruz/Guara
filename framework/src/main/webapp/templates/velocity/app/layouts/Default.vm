@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>Guara Web Application Framework</title>
+		<link href="$content.getURI("/resources/css/guara.css")" type="text/css" rel="stylesheet"/> 
+	</head>
+	<body>
+		<div id="page">
+			<div id="screen">$screen_placeholder</div>
+			<div class="clearer"></div>
+		</div>
+		#debug()
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Render Page</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Test Render Page<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.Test</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyTitle</td>
+		<td>Guara Web Application Framework</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']</td>
+		<td>This is a test $var</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='parameters']/ul/li[1]</td>
+		<td>template = test.Test</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='pageInfo']/ul/li[1]</td>
+		<td>template: test.Test</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

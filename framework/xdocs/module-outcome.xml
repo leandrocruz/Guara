@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Module Outcomes</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="How it works: Module outcomes">
+			<p>
+				Guara uses a special object, called Outcome, to convey the execution result from a Module.
+				Outcomes may be returned from all methods executed by Modules. 
+				<br/>
+				The Outcome object holds enough information to determine which template 
+				the <b>RenderScreen</b> valve should render. 
+				The code, module and method are matched to determine the template name. 
+				Is there is no match, the default template is returned
+				<br/>
+				If there is not outcome, or outcome is Outcome.UNKNOWN, the template set o RunData is used.
+			</p>
+			<p>Example configuration:</p>
+			<div style="white-space: pre; border: 1px solid #f5f5f5; margin: 10px; padding: 10px; font-size: small;">
+&lt;templateMapping&gt;
+	&lt;module name="test.ActionTest"&gt;
+		&lt;outcome code="SUCCESS" template="test.outcome.Success"/&gt;
+		&lt;outcome code="SUCCESS" method="doX" template="test.outcome.SuccessWhenDoX"/&gt;
+		&lt;outcome code="ERROR" template="test.outcome.Error"/&gt;
+		&lt;outcome code="MyCode" template="test.outcome.MyTemplate"/&gt;
+		&lt;outcome template="test.outcome.Default"/&gt;
+	&lt;/module&gt;
+&lt;/templateMapping&gt;					
+			</div>
+			<p>
+				There are three reserved codes:
+				<ul>
+					<li>ERROR</li>
+					<li>UNKNOWN</li>
+					<li>SUCCESS</li>
+				</ul>
+			</p>
+			Scenario based on the mapping above:
+			<table style="margin: 5px">
+				<thead>
+					<tr>
+						<th>Outcome Code</th>
+						<th>Method Name</th>
+						<th>Template Rendered</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>UNKNOWN</td>
+						<td>n/a</td>
+						<td>template defined on RunData</td>
+					</tr>
+					<tr>
+						<td>SUCCESS</td>
+						<td>n/a</td>
+						<td>screens/test/outcome/Sucess.vm</td>
+					</tr>
+					<tr>
+						<td>SUCCESS</td>
+						<td>doX</td>
+						<td>screens/test/outcome/SucessWhenDoX.vm</td>
+					</tr>
+					<tr>
+						<td>SUCCESS</td>
+						<td>doY</td>
+						<td>screens/test/outcome/Default.vm</td>
+					</tr>
+					<tr>
+						<td>ERROR</td>
+						<td>n/a</td>
+						<td>screens/test/outcome/Error.vm</td>
+					</tr>
+					<tr>
+						<td>MyCode</td>
+						<td>n/a</td>
+						<td>screens/test/outcome/MyTemplate.vm</td>
+					</tr>
+					<tr>
+						<td>every other code</td>
+						<td>n/a</td>
+						<td>screens/test/outcome/Default.vm</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<section name="Motivation">
+			<p>
+				The nice thing about this approach is that the user may configure the same valve (RenderScreen) with
+				different template mappings on different pipelines. <br/>
+				This should enable the programmer to reuse the same 
+				action Module and send different types of content without having to hard code this logic on the module.
+				(Example: hole page using the default pipeline or just a chunck using the ajax pipeline)
+			</p>				 
+		</section>
+	</body>
+</document>

@@ -1,0 +1,21 @@
+<form	id="upload"
+		name="upload"
+		method="post"
+		action="$link.setTemplate('test.Upload')"
+		enctype="multipart/form-data">
+	<input type="text" name="myField"/> <br/>
+	<input type="file" name="myFile"/>
+	<input type="submit" value="upload"/>
+</form>
+<h1> Uploaded Files </h1>
+#set($files = $parameters.getFileItems("myFile"))
+#foreach($file in $files)
+	$file.name <br>	
+#end
+
+<h1> Fields </h1>
+#set($keys = $parameters.keySet())
+#foreach($key in $keys)
+	key: $key <br>
+	value: $parameters.get($key) <br>
+#end

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Redirect</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Test Redirect<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/Index</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>clickAndWait</td>
+		<td>link=test redirect</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='result']</td>
+		<td>Redirection worked</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

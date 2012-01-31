@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Action Execution</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Test Action Execution<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.Action/action/test.ActionTest</td>
+      <td>execute doPerform</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>id=methodExecuted</td>
+		<td>doPerform</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.Action/action/test.ActionTest?exec_doSomething=0</td>
+      <td>execute doSomething</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>id=methodExecuted</td>
+		<td>doSomething</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.Action/action/test.ActionTest?exec_doVoid=0</td>
+      <td>execute doSomething</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>id=errorMessage</td>
+		<td>System Error: Error executing module[test.ActionTest] type[actions]</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.Action/action/test.ActionTest?exec_toString=0</td>
+      <td>execute doSomething</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>id=errorMessage</td>
+		<td>System Error: Error executing module[test.ActionTest] type[actions]</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

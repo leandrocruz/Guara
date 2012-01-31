@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>SVN access</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="SVN Access Instructions">
+			<p>
+				<ul>
+					<li>svn co svn://72.29.82.60/public/guara/<b>trunk</b></li>
+				</ul>
+			</p>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Ajax integration</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Ajax Integration">
+			<p>
+                One of the key concepts of Guara that makes it suitable for ajax integration
+                is this: all user requests are fulfilled through the execution of a particular
+                <a href="#">Pipeline</a> instance. <br/>
+                The correct Pipeline object is selected using the <b>pipeline</b> parameter on the url or the
+                default Pipeline if null. <br/>
+			</p>             
+			<subsection name="How Does Guara Simplifies Ajax Integration ?">
+                <p>
+                    Guara <b>will</b> have two specific valves to decode <b>XMLHttpRequest</b> and make them
+                    look like normal <b>HttpServletRequest</b>s (ParameterParser wise) and vice-versa. <br/>
+                    The developer should configure a specific pipeline, using these valves and
+                    the <b>ModuleExecutor</b>s of interest to fulfill XMLHttpRequests using the same code it would
+                    via normal HttpServletRequests. What do you think ?
+                </p>
+                <b>TODO: add image here</b>
+			</subsection>
+		</section>
+	</body>
+</document>

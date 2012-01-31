@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Error Handling</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Test Error Handling<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/action/test.ForceError</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/p</td>
+		<td>System Error: Error executing module[test.ForceError] type[actions]</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.ErrorTool</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/p</td>
+		<td>System Error: Error rendering template [screens.test.ErrorTool]</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

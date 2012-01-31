@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>How it Works</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="How it Works">
+			<p>
+				The Guara servlet executes these steps for every user request:
+                <ol>
+                   <li><b>Create a RunData instance:</b> this instance is passed to all pipeline valves</li> 
+                   <li><b>Select one Pipeline instance:</b> may use a request parameter on the selection</li>
+                   <li><b>Execute the selected Pipeline:</b> call execute(RunData) on all valves</li>
+                   <li><b>Reclycle the RunData instance:</b> not implemented yet</li>
+                </ol>
+			</p>             
+			<subsection name="The RunData object">
+                <p>
+                    The <b>RunData</b> object is created for every request and passed to all pipeline valves. <br/>
+                    Through this object the developer has access to:
+                    <ul>
+                        <li>Request and response details</li>
+                        <li>Page generation info</li>
+                        <li>The Context object that glues Java and some markup (HTML)</li>
+                        <li>The current Pipeline</li>
+                    </ul>
+					After the end of the request, the <b>RunData</b> object is reclycled!
+                </p>
+			</subsection>
+			<subsection name="The Pipeline">
+                <p>
+                    The <b>Pipeline</b> object is composed of valves that get 
+                    executed on a particular order defined declaretively. <br/>
+                    The file that defines the pipeline format is configured at <b>guara.xml</b>.
+                    Often it will be called pipeline.xml. <br/>
+                    Pipeline valves are single instances, create and initialized 
+                    by the <b>Factory</b> component.
+                </p>
+                <p>
+                    The <b>default Pipeline</b> is this:
+                    <div style="white-space: pre; border: 1px solid #f5f5f5; margin: 10px;">
+&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+
+&lt;pipelines&gt;
+	&lt;pipeline&gt;
+		&lt;valve name="logStartRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve"&gt;
+			&lt;message text="---- Default Pipeline START ----"/&gt;
+		&lt;/valve&gt;
+		&lt;valve name="populateContextWithTools" className="br.com.ibnetwork.guara.pipeline.valve.pull.PopulateContextWithTools"/&gt;
+		&lt;valve name="populateContextWithConstants" className="br.com.ibnetwork.guara.pipeline.valve.view.PopulateContextWithConstants"/&gt;
+        &lt;valve name="executeAction"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ActionExecutor"/&gt;
+        &lt;valve name="executeScreen"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ScreenExecutor"/&gt;
+		&lt;valve name="renderScreen" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderScreen"&gt;
+			&lt;homePage template="Index"/&gt;
+			&lt;onTemplateNotFound template="screens.TemplateNotFound"/&gt;
+        &lt;/valve&gt;
+		&lt;valve name="renderLayout" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderLayout"&gt;
+			&lt;onLayoutNotFound template="layouts.LayoutNotFound"/&gt;
+        &lt;/valve&gt;
+		&lt;valve name="logEndRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve"&gt;
+			&lt;message text="---- Default Pipeline END ----"/&gt;
+		&lt;/valve&gt;
+	&lt;/pipeline&gt;    
+&lt;/pipelines&gt;
+                    </div>
+					The logXX valves are used for audit purposes and can be ignored for now <br/>
+					The <b>populateContextWithTools</b> valve uses the 
+						<a href="#">PullManager</a> to add objects to the Context <br/>
+                    The <b>populateContextWithConstants</b> valve adds some default objects to the Context <br/>
+					The <b>executeAction</b> valve <a href="/module-loading.html">executes</a> action modules <br/>
+                    The <b>executeAction</b> valve <a href="/module-loading.html">executes</a> screen modules <br/>
+                    The <b>renderScreen</b> and <b>renderLayout</b> valves merge the 
+                    	Context objects from RunData with templates on PageInfo 
+                    	objects using the TemplateEngine <br/>
+                </p>
+                <p>
+                    Please note that valves accept configuration values.
+                </p>
+			</subsection>
+			<subsection name="Guara URLs">
+				<p>
+					Guara adds some specific url parameters to used for it's own control. For instance : <br/>
+					<ul>
+						<li><b>pipeline:</b> the pipeline that will be executed</li>
+						<li><b>template:</b> the template you want to render</li>
+						<li><b>layout:</b> the layout that will be applied to the template above</li>
+						<li><b>screen:</b> the screen module to be executed</li>
+						<li><b>action:</b> the action module to be executed</li>
+					</ul>
+					You can add parameters to the url using the <b>$link</b> referece (LinkTool). Examples :
+					<ul>
+						<li><b>$link.setTemplate("MyTemplate")</b> <br/>
+							will generate : http://host:port/context/<b>template/MyTemplate</b></li>
+
+						<li><b>$link.setTemplate("MyTemplate").setAction("MyAction")</b> <br/> 
+							will generate : http://host:port/context/<b>template/MyTemplate/action/MyAction</b></li>
+
+					</ul>
+					
+					<p>
+						Please note that MyTemplate does not contains the file extension (.vm|.ftl).
+						This happens because Guara is designed to be template engine agnostic. <br/>
+						The real file extension is resolved at runtime by the template engine<br/> 
+					</p>
+					<p>
+						Guara uses the <b>"." dot</b> as package or directory 
+						separator for templates and modules. <br/>
+						Template Example: <br/>  
+						<b>$link.setTemplate("dir.MyTemplate")</b> will render the template called 
+						$TEMPLATE_ROOT/screens/dir/MyTemplate.vm if the VelocityTemplateEngine is beeing used. <br/>
+						Module Example: <br/>
+						<b>$link.setAction("dir.MyAction")</b> will start the module search process
+						at $PACKAGE_NAME/dir/MyAction. <br/>
+
+					</p>
+					 
+					The default ParameterParser adopts Turbine's convention for extracting parameters from the url
+					using this simple scheme : http://host:port/context<b>/var/value/</b> <br/>
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

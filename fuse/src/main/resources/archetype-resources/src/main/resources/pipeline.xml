@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<pipelines>
+	<pipeline>
+		<valve name="logStartRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve">
+			<message text="---- Default Pipeline START ----"/>
+		</valve>
+		<valve name="populateContextWithTools" className="br.com.ibnetwork.guara.pipeline.valve.pull.PopulateContextWithTools"/>
+		<valve name="populateContextWithConstants" className="br.com.ibnetwork.guara.pipeline.valve.view.PopulateContextWithConstants"/>
+        <valve name="executeAction"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ActionExecutor"/>
+        <valve name="executeScreen"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ScreenExecutor"/>
+		<valve name="renderScreen" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderScreen">
+			<templateMapping>
+				<!--
+				<module name="MyController">
+					<outcome 	code="SUCCESS"	method="doX"	template="x.Ok"/>
+					<outcome 	code="ERROR"	method="doY"	template="x.Error"/>
+				</module>
+				-->
+			</templateMapping>
+        </valve>
+		<valve name="renderLayout" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderLayout"/>
+		<valve name="logEndRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve">
+			<message text="---- Default Pipeline END ----"/>
+		</valve>
+	</pipeline>
+	    
+	<pipeline name="ajax">
+		<valve name="logStartRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve">
+			<message text="---- AJAX Pipeline START ----"/>
+		</valve>
+		<valve name="populateContextWithTools" className="br.com.ibnetwork.guara.pipeline.valve.pull.PopulateContextWithTools"/>
+		<valve name="populateContextWithConstants" className="br.com.ibnetwork.guara.pipeline.valve.view.PopulateContextWithConstants"/>
+        <valve name="executeAction"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ActionExecutor"/>
+        <valve name="executeScreen"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ScreenExecutor"/>
+		<valve name="renderScreen" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderScreen">
+			<templateMapping>
+				<module name="CrudControlSupport">
+					<outcome 	code="SUCCESS"	method="store"	template="ajax.StoreSuccess"/>
+					<outcome 	code="ERROR"	method="store"	template="ajax.StoreError"/>
+				</module>
+			</templateMapping>
+        </valve>
+		<valve name="renderLayout" 	className="br.com.ibnetwork.guara.pipeline.valve.view.WriteOutput"/>
+		<valve name="logStartRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve">
+			<message text="---- AJAX Pipeline END ----"/>
+		</valve>
+	</pipeline>    
+</pipelines>

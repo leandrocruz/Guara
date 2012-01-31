@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Multiple Template Engines</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Multiple Template Engines">
+			<p>
+				Guara uses a template engine to bind Java code and markup before sending the response to the browser.
+				Actually it's not markup, it's any type of text: you can generate HTML, XML or even javascript code. 
+				<br/>
+				Right now <a href="http://jakarta.apache.org/velocity">velocity</a> 
+				and <a href="http://freemarker.sourceforge.net">freemarker</a> are supported.
+				<br/>
+				The template system <b>completely</b> hides the underlying template engine implementation configured on pulga.xml.
+				For this reason you don't have to use complete template names on URLs (<b><strike>MyTemplate.vm</strike></b>).
+				It's better if you remove the file extension (<b>MyTemplate</b>).
+			</p>
+			<p>
+				Guara allows you to use <b>more that one template engine running at the same time</b>.
+				This enables a slow and seamless migration between template engines (Velocity -> Freemarker, for example).
+				<br/>
+				The default template engine, will try to load the template according to your configuration on pulga.xml.
+				First match wins. 
+				<br/>
+				If you are sure that you want to use a particular template engine implemention 
+				you can use the file extension to tell Guara which engine to activate.
+				Here is an example:
+				<ul>
+					<li>mydir.MyTemplate: first definition wins.</li>
+					<li>mydir.MyTemplate.vm: uses velocity.</li>
+					<li>mydir.MyTemplate.ftl: uses freemarker.</li>
+				</ul>
+				No matter how your templates are loaded and parsed, you can mix layouts, screens and navigations without problems.
+			</p>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap 
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+
+	<resultMap id="getById" class="br.com.ibnetwork.xingu.user.impl.UserImpl">
+		<result property="id" 				column="ID"/>
+		<result property="name" 			column="NAME"/>
+		<result property="username" 		column="USERNAME"/>
+		<result property="password" 		column="PASSWORD"/>
+		<result property="active" 			column="IS_ACTIVE"/>
+		<result property="attributeListId" 	column="LIST_ID"/>
+		<result property="registrationDate" column="REGISTRATION"/>
+		<result property="confirmed" 		column="CONFIRMED"/>
+		<result property="confirmationCode"	column="CONFIRMATION_CODE"/>
+	</resultMap>
+	
+	<parameterMap id="insert" class="br.com.ibnetwork.xingu.user.impl.UserImpl">
+		<parameter property="id" />
+		<parameter property="name" />
+		<parameter property="username" />
+		<parameter property="password" />
+		<parameter property="active" jdbcType="BIT"/>
+		<parameter property="attributeListId" />
+		<parameter property="registrationDate" jdbcType="DATETIME"/>
+		<parameter property="confirmed" />
+		<parameter property="confirmationCode" />
+	</parameterMap>
+
+	<select id="getById" parameterClass="long" resultMap="getById">
+		SELECT * FROM user WHERE id = #value#
+	</select>
+
+	<select id="getAll" resultMap="getById">
+		SELECT * FROM user ORDER BY username
+	</select>
+
+	<select id="getByUsername" parameterClass="string" resultMap="getById">
+		SELECT * FROM user WHERE username = #value#
+	</select>
+	
+	<delete id="delete"  parameterClass="long" >
+		DELETE FROM user WHERE id = #value#
+	</delete>
+	
+	<insert id="insert" parameterMap="insert">
+		INSERT INTO user (id, name, username, password, is_active, list_id, registration, confirmed, confirmation_code) 
+		VALUES (?,?,?,?,?,?,?,?,?)
+	</insert>
+
+	<insert id="update" parameterClass="br.com.ibnetwork.xingu.user.impl.UserImpl">
+		UPDATE
+			user
+		SET
+			name				= #name#,
+			username			= #username#,
+			password			= #password#,
+			is_active			= #active#,
+			list_id				= #attributeListId#,
+			registration 		= #registrationDate#,
+			confirmed			= #confirmed#,
+			confirmation_code	= #confirmationCode#
+		WHERE
+			id = #id#
+	</insert>
+
+</sqlMap>

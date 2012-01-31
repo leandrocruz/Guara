@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Sites using Guara</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Sites using Guara">
+			<ul>
+				<li>
+					<a href="http://www.sitedafesta.com.br">Site da Festa</a>
+					: is a photo sharing and printing service focused on weddings and graduation parties.
+					<br/>
+					This web application was ported from Turbine to Guara.
+				</li>
+			</ul>
+		</section>
+	</body>
+</document>

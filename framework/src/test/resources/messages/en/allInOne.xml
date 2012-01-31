@@ -1,0 +1,8 @@
+<system-messages>
+	<message id="userLogin">
+		{0}, welcome to xingu
+	</message>
+	<message id="userLogout">
+		Good bye {0}
+	</message>	
+</system-messages>

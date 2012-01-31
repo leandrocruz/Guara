@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<pulga>
+	<component	role="br.com.ibnetwork.xingu.template.TemplateEngine"
+				class="br.com.ibnetwork.xingu.template.impl.freemarker.FreemarkerTemplateEngine">
+	</component>
+</pulga>

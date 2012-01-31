@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Module Outcome</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Test Module Outcome<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0</td>
+      <td>
+			<!-- 
+				Test UNKNOWN outcome. 
+				Should render page set on RunData: Unknown.vm
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Unknown.vm): UNKNOWN $outcome.source.name $outcome.method</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0&code=FOO</td>
+      <td>
+			<!-- 
+				Test FOO outcome. 
+				Can't match code.Should render: Default.vm
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Default.vm): FOO test.ActionTest $outcome.method</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0&code=FOO&method=doX</td>
+      <td>
+			<!-- 
+				Test FOO (doX) outcome. 
+				Can't match code.Should render: Default.vm
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Default.vm): FOO test.ActionTest doX</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0&code=SUCCESS</td>
+      <td>
+			<!-- 
+				Test SUCCESS outcome. 
+				Should render Success.vm 
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Success.vm): SUCCESS test.ActionTest $outcome.method</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0&code=SUCCESS&method=doX</td>
+      <td>
+			<!-- 
+				Test SUCCESS outcome. 
+				Should render Success.vm 
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Success.vm): SUCCESS test.ActionTest doX</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0&code=ERROR</td>
+      <td>
+			<!-- 
+				Test ERROR outcome. 
+				Should render Error.vm 
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Error.vm): ERROR test.ActionTest $outcome.method</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/action/test.ActionTest?exec_doOutcome=0&code=ERROR&method=doX</td>
+      <td>
+			<!-- 
+				Test ERROR outcome. 
+				Should render Error.vm 
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(Error.vm): ERROR test.ActionTest doX</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/screen/test.ChangeOutcome/action/test.ActionTest?exec_doOutcome=0&code=SAMPLE_CODE</td>
+      <td>
+			<!-- 
+				Test SAMPLE_CODE outcome. 
+				Should render SampleCode.vm 
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(SampleCode.vm): SAMPLE_CODE test.ActionTest $outcome.method</td>
+	</tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.outcome.Unknown/screen/test.ChangeOutcome/action/test.ActionTest?exec_doOutcome=0&code=SAMPLE_CODE&method=doX</td>
+      <td>
+			<!-- 
+				Test SAMPLE_CODE outcome. 
+				Should render SampleCode.vm 
+			-->
+	  </td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/</td>
+		<td>Outcome(SampleCode.vm): SAMPLE_CODE test.ActionTest doX</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

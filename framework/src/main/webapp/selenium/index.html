@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Selenium starting points</title>
+<script language="Javascript">
+function fixUnitTestLink() {
+  baseurl = document.location + "";
+  baseurl = baseurl.replace(/[^\/]*$/, '');
+  jsunitLink = document.getElementById("unitTestLink");
+  jsunitLink['href'] = jsunitLink['href'].replace('BASEURL', baseurl);
+}
+</script>
+<style>
+li { margin-top: 6pt; }
+</style>
+</head>
+<body onload="fixUnitTestLink();">
+
+<h1>Selenium</h1>
+
+<p>
+	<b>Guara Framework Tests</b>
+	<ul>
+		<li>
+			<a href="TestRunner.html?test=tests/guara/TestSuite.html">
+				Guara Test Suite
+			</a>
+		</li>
+	</ul>
+</p>
+</body>
+</html>

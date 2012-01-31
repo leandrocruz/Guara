@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+	
+<sqlMapConfig>
+	<settings 	cacheModelsEnabled="true"
+				enhancementEnabled="true"
+   				lazyLoadingEnabled="true"
+   				maxRequests="32"
+   				maxSessions="10"
+   				maxTransactions="5"
+   				useStatementNamespaces="true" />
+   	
+   	<resultObjectFactory type="br.com.ibnetwork.xingu.ibatis.factory.XinguObjectFactory"/>
+   	
+	<transactionManager type="JDBC" >
+		<dataSource type="SIMPLE">
+			
+			<!-- MySQL
+			<property name="JDBC.Driver" value="com.mysql.jdbc.Driver" />
+			<property name="JDBC.ConnectionURL" value="jdbc:mysql://localhost/database" />
+			<property name="JDBC.Username" value="root"/>
+			<property name="JDBC.Password" value=""/>
+			-->
+			
+			<!-- HSQL DB -->
+			<property name="JDBC.Driver" value="org.hsqldb.jdbcDriver"/>
+			<property name="JDBC.ConnectionURL" value="jdbc:hsqldb:file:@APP_ROOT@/src/test/resources/database"/>
+			<property name="JDBC.Username" value="sa"/>
+			<property name="JDBC.Password" value=""/>
+
+		</dataSource>
+	</transactionManager>
+	
+	<!-- XINGU -->
+	<sqlMap resource="iBatis/xingu-user.xml" />
+	<sqlMap resource="iBatis/xingu-attributes.xml" />
+	
+	<!-- APP -->
+</sqlMapConfig>

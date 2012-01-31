@@ -1,0 +1,46 @@
+<h1>Welcome to Guara</h1>
+
+<div id="global" class="box" style="float: left;">
+	<p>Global</p>
+	<ol>
+		<li><a href="$link">home</a></li>
+		<li><a href="$link.setTemplate("Ghost")">template not found</a></li>
+		<li><a href="$link.setLayout("test.WithMenu")">layout with menu</a></li>
+		<li><a href="$link.setLayout("Ghost")">layout not found</a></li>
+		<li><a href="$link.add("var")">just var</a></li>
+		<li><a href="$link.add("var","value")">var and value</a></li>
+		<li><a href="$link.add("var1","v1").add("var2","v2")">2 vars</a></li>
+		<li><a href="$link.add("var1","v1").add("var2","v2").add("var1","v3")">2 vars, 1 duplicate</a></li>
+		<li><a href="$link.setTemplate("Message")">message</a></li>
+	</ol>
+</div>
+
+<div id="tools" class="box" style="float: left;">
+	<p>Tools</p>
+	<ol>
+		<li><a href="$link.setTemplate("test.LinkTool")">link tool</a></li>
+		<li><a href="$link.setTemplate("test.ContentTool")">content tool</a></li>
+		<li><a href="$link.setTemplate("test.GuaraTool")">guara tool</a></li>
+	</ol>
+</div>
+
+<div id="errorHandling" class="box" style="float: left;">
+	<p>Error handling</p>
+	<ol>
+		<li><a href="$link.setTemplate("test.ErrorTool")">tool with error</a></li>
+		<li><a href="$link.setAction("test.ForceError")">action with error</a></li>
+	</ol>
+</div>
+
+<div class="box" style="float: left;">
+	<p>Get Real Path</p>
+	<ol>
+		<li><a href="$link.setTemplate("test.GetRealPath").setAction("test.GetRealPath").add("fileName","foot.txt")">foo.txt</a></li>
+	</ol>
+</div>
+<div class="box" style="float: left;">
+	<p>Redirect Valve</p>
+	<ol>
+		<li><a href="$link.pipeline("redirect").page("test.Redirect")">test redirect</a></li>
+	</ol>
+</div>

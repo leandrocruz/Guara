@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system-messages>
+	<message id="formError" type="warning">
+		Erro no formulário
+	</message>	
+
+	<message id="stored" type="info">
+		{0} persistido
+	</message>	
+
+	<message id="storeError" type="error">
+		Erro ao persistir {0}
+	</message>	
+
+	<message id="deleted" type="info">
+		{0} removido
+	</message>	
+
+	<message id="deleteError" type="error">
+		Erro ao remover {0}
+	</message>	
+
+</system-messages>

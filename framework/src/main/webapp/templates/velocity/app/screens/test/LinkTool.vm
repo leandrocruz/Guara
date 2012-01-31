@@ -1,0 +1,22 @@
+<p>Link tool: <b>$link</b></p>
+<ol id="links">
+	<li><a href="$link">link</a></li>
+	<li><a href="$link.setPipeline("Pipeline")">link.setPipeline("Pipeline")</a></li>
+	<li><a href="$link.setAction("Action")">link.setAction("Action")</a></li>
+	<li><a href="$link.setScreen("Screen")">link.setScreen("Screen")</a></li>
+	<li><a href="$link.setLayout("Layout")">link.setLayout("Layout")</a></li>
+	<li><a href="$link.setTemplate("Template")">link.setTemplate("Template")</a></li>
+	<li><a href="$link.setTemplate("Template").setAction("Action")">link.setTemplate("Template").setAction("Action")</a></li>
+	<li><a href="$link.setTemplate($null)">link.setTemplate($null) *</a></li>
+	<li><a href="$link.addQueryData($null,1)">link.addQueryData($null,1) *</a></li>
+	<li><a href="$link.addQueryData("var",$null)">link.addQueryData("var",$null) *</a></li>
+	<li><a href="$link.addQueryData("var")">link.addQueryData("var")</a></li>	
+	<li><a href="$link.addQueryData("var",1)">link.addQueryData("var",1)</a></li>
+	<li><a href="$link.addQueryData("var","value")">link.addQueryData("var","value")</a></li>
+	<li><a href="$link.addQueryData("var","value").addQueryData("var",1)">link.addQueryData("var","value").addQueryData("var",1)</a></li>
+	<li><a href="$link.addQueryData($null,"value").addQueryData("var",1)">link.addQueryData($null,"value").addQueryData("var",1) *</a></li>
+	<li><a href="$link.addPathInfo("var",1)">link.addPathInfo("var",1)</a></li>
+	<li><a href="$link.addPathInfo("var","value")">link.addPathInfo("var","value")</a></li>
+	<li><a href="$link.addPathInfo("var","value").addPathInfo("var",1)">link.addPathInfo("var","value").addPathInfo("var",1)</a></li>
+	<li><a href="$link.addPathInfo($null,"value").addPathInfo("var",1)">link.addPathInfo($null,"value").addPathInfo("var",1) *</a></li>
+</ol>

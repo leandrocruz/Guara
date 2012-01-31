@@ -1,0 +1,66 @@
+<p>
+  Content tool: <b>$content</b>
+  <br>
+  $content.getURI("/resources/css/guara.css")
+</p>
+
+<p>
+  <b>getRealPath</b>
+  <table cellPadding="4" cellSpacing="0">
+  	<tr>
+  		<td>""</td>
+  		<td>$content.getRealPath("")</td>
+  	</tr>
+  	<tr>
+  		<td>/</td>
+  		<td>$content.getRealPath("/")</td>
+  	</tr>
+  	<tr>
+  		<td>x</td>
+  		<td>$content.getRealPath("x")</td>
+  	</tr>
+  	<tr>
+  		<td>/x</td>
+  		<td>$content.getRealPath("/x")</td>
+  	</tr>
+  	<tr>
+  		<td>index.html</td>
+  		<td>$content.getRealPath("index.html")</td>
+  	</tr>
+  	<tr>
+  		<td>/index.html</td>
+  		<td>$content.getRealPath("/index.html")</td>
+  	</tr>
+  </table>
+</p>
+
+<p>
+  <b>getResource</b>
+  <table cellPadding="4" cellSpacing="0">
+  	<tr>
+  		<td>""</td>
+  		<td>$content.getResource("")</td>
+  	</tr>
+  	<tr>
+  		<td>/</td>
+  		<td>$content.getResource("/")</td>
+  	</tr>
+  	<tr>
+  		<td>x</td>
+  		<td>$content.getResource("x")</td>
+  	</tr>
+  	<tr>
+  		<td>/x</td>
+  		<td>$content.getResource("/x")</td>
+  	</tr>
+  	<tr>
+  		<td>index.html</td>
+  		<td>$content.getResource("index.html")</td>
+  	</tr>
+  	<tr>
+  		<td>/index.html</td>
+  		<td>$content.getReasource("/index.html")</td>
+  	</tr>
+  </table>
+</p>
+

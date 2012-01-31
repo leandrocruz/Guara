@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Guara Overview</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Latest Changes (since Mar/2006)">
+			<p>
+				<ul>
+					<li><b>11/Jun/2006</b> (guara-0.7.5 on svn TRUNK)</li>
+					<li>Moved guara source tree to svn</li>
+					<li><b>May/2006</b></li>
+					<li>replaced JCL by SLF4J</li>
+					<li>Added template mapping (like struts) to determine which template should be rendered after controller/action execution</li>
+					<li>Moved Factory component to xingu-creator</li>
+					<li><b>04/Mar/2006</b> (guara-0.7.3 on cvs HEAD)</li>
+					<li>Changed module <a href="module-outcome.html">Outcome</a> code to String</li>
+					<li>Mapping methods on Outcomes</li>
+					<li>Exporting mock classes as part of the public API</li>
+				</ul>
+			</p>
+		</section>
+		<section name="Overview">
+      		<p>
+				Guara is a <b>really simple and small</b> web application framework, 
+				with a minimum set of dependencies that should serve 
+				as a base to build other frameworks. <br/>
+				Today we provide a basic configuration that resembles 
+				<a href="http://jakarta.apache.org/turbine/fsd.html">Turbine Functional Specification</a> 
+				were applications are composed of modules (Actions and Screens)
+				performing business and presentation logic
+				and different template types (Layouts,Navigations and Screens) 
+				that are glued together by a template engine.
+			</p>
+			<subsection name="Motivation">
+				<p>
+					Guara was inspired by <a href="http://jakarta.apache.org/turbine/">Turbine's</a>
+					accomplishments and mistakes. <br/>
+					One of the things that we <b>really</b> like about Turbine is the ability to build
+					the page from different chunks (templates) of data, promoting greater code reuse 
+					at the template level. <br/>
+					Some of the the many things we don't like about Turbine are :
+					<ul>
+						<li>Turbine is too big: this is a problem with lots of web frameworks I have seem</li>
+						<li>Turbine is both a framework and a set off components/services put together</li>
+						<li>Most of the Turbine components are tied to the framework some how</li>
+						<li>Turbine enforces a particular workflow to serve the user request. <a href="#">Read more</a></li>
+						<li>Turbine page generation is complicated and difficult to customize or extend</li>
+						<li>Turbine removed support for <a href="http://freemarker.sourceforge.net/">Freemarker</a></li>
+						<li>Turbine doesn't provide a good module initialization scheme</li>
+						<li>Huge release cycles</li>
+					</ul>
+					Maybe,  I'm giving the impression that I don't like Turbine, but I started to learn about
+					frameworks using Turbine and developed more than 10 web applications using it and it's 
+					mailing list support. Thanks very, very much !
+				</p>
+			</subsection>
+			<subsection name="Features">
+				<p>
+					Guara tries to be as simple as possible. At it's core, the framework comprises :
+					<ul>
+						<li>A <a href="components/pipelineManager.html">Pipeline Manager</a></li>
+						<li>An Avalon container implementation called 
+							<a href="components/pulga.html">Pulga</a></li>
+						<li>Some valves, modules,templates and simple 
+							<a href="components/index.html">components</a></li>
+					</ul>
+					Guara fulfills all user request executing a selected <a href="#">Pipeline</a>. <br/>
+					This enables Guara to be particularly proper to 
+						<a href="ajax-integration.html">ajax integration</a> maximizing code reuse.
+				</p>
+      		</subsection>
+		</section>
+	</body>
+</document>

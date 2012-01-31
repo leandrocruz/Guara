@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<pipelines>
+	<pipeline>
+		<valve name="startProfiler" className="br.com.ibnetwork.guara.pipeline.valve.audit.StartProfiler">
+			<profiler label="profiler.guara.global"/>
+		</valve>
+		<valve name="logStartRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve">
+			<message text="---- Default Pipeline START ----"/>
+		</valve>
+		<valve name="populateContextWithTools" className="br.com.ibnetwork.guara.pipeline.valve.pull.PopulateContextWithTools"/>
+		<valve name="populateContextWithConstants" className="br.com.ibnetwork.guara.pipeline.valve.view.PopulateContextWithConstants"/>
+		<valve name="startProfiler" className="br.com.ibnetwork.guara.pipeline.valve.audit.StartProfiler">
+			<profiler label="profiler.guara.module.action"/>
+		</valve>
+        <valve name="executeAction"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ActionExecutor"/>
+		<valve name="startProfiler" className="br.com.ibnetwork.guara.pipeline.valve.audit.StopProfiler">
+			<profiler label="profiler.guara.module.action"/>
+		</valve>
+		
+        <valve name="executeScreen"	className="br.com.ibnetwork.guara.pipeline.valve.modules.ScreenExecutor"/>
+		<valve name="renderScreen" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderScreen">
+			<defaultTemplate	template="Index"/>
+			<onTemplateNotFound template="TemplateNotFound"/>
+			<templateMapping>
+				<module name="test.ActionTest">
+					<outcome code="SUCCESS" 		template="test.outcome.Success"/>
+					<outcome code="SUCCESS" 		method="doX" template="test.outcome.Success"/>
+					<outcome code="ERROR" 				template="test.outcome.Error"/>
+					<outcome code="ERROR" 				method="doX" template="test.outcome.Error"/>
+					<outcome code="SAMPLE_CODE" template="test.outcome.SampleCode"/>
+					<outcome code="SAMPLE_CODE" method="doX" template="test.outcome.SampleCode"/>
+					<outcome 										template="test.outcome.Default"/>
+				</module>
+			</templateMapping>
+        </valve>
+		<valve name="renderLayout" 	className="br.com.ibnetwork.guara.pipeline.valve.view.RenderLayout">
+			<defaultLayout		template="Default"/>
+			<onLayoutNotFound 	template="LayoutNotFound"/>
+        </valve>
+		<valve name="logEndRequest" className="br.com.ibnetwork.guara.pipeline.valve.audit.LogValve">
+			<message text="---- Default Pipeline END ----"/>
+		</valve>
+		<valve name="stopProfiler" className="br.com.ibnetwork.guara.pipeline.valve.audit.StopProfiler">		
+			<profiler label="profiler.guara.global"/>
+		</valve>
+	</pipeline>    
+
+	<pipeline name="redirect">
+		<valve name="redirectRequest" className="br.com.ibnetwork.guara.pipeline.valve.RedirectRequest">
+			<config code="301" url="/guara/redirectTarget.html"/>
+		</valve>
+	</pipeline>    
+</pipelines>

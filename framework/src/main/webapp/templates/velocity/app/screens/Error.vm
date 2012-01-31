@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>Guara Web Application Framework - System Error</title>
+		<link href="$content.getURI("/resources/css/guara.css")" type="text/css" rel="stylesheet"/> 
+	</head>
+	<body>
+		<div id="page">
+			<div id="screen">
+				<p id="errorMessage">System Error: <b>$throwable.message</b></p>
+				<div id="errorStackTrace" class="stackTrace">$stackTrace</div>	
+			</div>
+			<div class="clearer"></div>
+		</div>
+		#debug()
+	</body>
+</html>

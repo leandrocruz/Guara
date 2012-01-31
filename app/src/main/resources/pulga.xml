@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<pulga>
+	
+	<component	role="br.com.ibnetwork.xingu.template.TemplateEngine"
+				class="br.com.ibnetwork.xingu.template.impl.freemarker.FreemarkerTemplateEngine">
+	</component>
+	
+	<component	role="br.com.ibnetwork.guara.modules.ModuleLoader"
+        		class="br.com.ibnetwork.guara.modules.impl.ModuleLoaderImpl">
+		<loader type="screens" recurse="true">
+            <packages>
+                <package name="br.com.ibnetwork.guara.app.modules.screens"/>
+				<package name="br.com.ibnetwork.guara.modules.screens"/>
+            </packages>
+		</loader>
+		<loader type="actions" recurse="true">
+            <packages>
+				<package name="br.com.ibnetwork.guara.app.modules.actions"/>
+                <package name="br.com.ibnetwork.guara.modules.actions"/>
+            </packages>
+		</loader>
+	</component>
+	
+	<component 	role= "br.com.ibnetwork.xingu.attributes.AttributeListManager"
+				class="br.com.ibnetwork.xingu.attributes.impl.IbatisAttributeListManager"/>
+
+</pulga>

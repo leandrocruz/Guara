@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Guara" href="http://guara.sf.net">
+	<title>Guara Web Application Framework</title>
+	<body>
+		<links>
+			<item name="InterBusiness"      href="www.ibnetwork.com.br"/>
+		</links>
+		<menu name="General Information">
+			<item name="Overview"     		href="/index.html"/>
+			<item name="How it works"    	href="/how-it-works.html"/>
+			<item name="Running"    		href="/running.html"/>
+			<item name="Module Loading and Execution"		href="/module-loading.html"/>
+			<item name="Component List"		href="/components/index.html"/>
+			<item name="Ajax integration"	href="/ajax-integration.html"/>
+			<item name="Multiple Template Engines"	href="/multiple-template-engines.html"/>
+			<item name="URL Handler"  		href="/url-handler.html"/>
+			<item name="Sites using Guara"  href="/sites-using.html"/>
+			<item name="Related projects"	href="/related-projects.html"/>
+		</menu>
+		<menu name="Developer Docs">
+			<item name="SVN access"			href="/scm-access.html"/>
+			<item name="Building"			href="/build-with-maven.html"/>
+			<item name="TODO"				href="/todo.html"/>
+			<item name="SourceForge page"	href="https://sourceforge.net/projects/guara-framework/"/>
+		</menu>
+		<menu name="Download from SF.net">
+			<item name="Guara"				href="https://sourceforge.net/project/showfiles.php?group_id=145102&amp;package_id=160442"/>
+			<item name="Xingu Components"	href="https://sourceforge.net/project/showfiles.php?group_id=145102&amp;package_id=160968"/>
+			<item name="All"				href="https://sourceforge.net/project/showfiles.php?group_id=145102"/>
+		</menu>
+	</body>
+</project>
+

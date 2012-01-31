@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+	
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true"
+					enhancementEnabled="true"
+   					lazyLoadingEnabled="true"
+   					maxRequests="32"
+   					maxSessions="10"
+   					maxTransactions="5"
+   					useStatementNamespaces="true" />
+   	
+   	<resultObjectFactory type="br.com.ibnetwork.xingu.ibatis.factory.XinguObjectFactory"/>
+   	
+	<transactionManager type="JDBC" >
+		<dataSource type="DBCP">
+
+			<!-- HSQL DB -->
+			<property name="JDBC.Driver" value="org.hsqldb.jdbcDriver"/>
+			<property name="JDBC.ConnectionURL" value="jdbc:hsqldb:file:/@APP_ROOT@/src/test/resources/database"/>
+			<property name="JDBC.Username" value="sa"/>
+			<property name="JDBC.Password" value=""/>
+			
+			<!-- Postgresql
+			<property name="JDBC.Driver" 		value="org.postgresql.Driver"/>
+			<property name="JDBC.ConnectionURL" value="jdbc:postgresql://localhost/${artifactId}"/>
+			<property name="JDBC.Username" 		value="postgres"/>
+			<property name="JDBC.Password" 		value=""/>
+			-->
+
+		</dataSource>
+	</transactionManager>
+	
+	<!-- user defined -->
+	<!-- sqlMap resource="iBatis/myCrud.xml" /-->
+	  	
+</sqlMapConfig>

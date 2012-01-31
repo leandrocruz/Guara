@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Main Components</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Main Components">
+			<p>
+                The framework is organized internally into these main components:
+                <ul>
+					<li><a href="pulga.html"><b>Pulga:</b></a> a tiny avalon container</li>
+                    <li><b>Factory:</b> responsible for creating and initializing all framework objects</li>
+                    <li><b>Module Loader:</b> loads Modules from configured packages applying module search policy</li>
+                    <li><b>ParameterParserBuilder:</b> builds the ParameterParser object from HttpServletRequest</li>
+                    <li><b>PipelineManager:</b> manages Pipelines</li>
+                    <li><b>RunDataPool:</b> manages RunData objects</li>
+                    <li><b>TemplateEngine:</b> responsible for page rendering (Velocity and Freemarker)</li>
+					<li><b>PullManager:</b> responsible for adding common objects to the Context object</li>
+                </ul>
+			</p>             
+		</section>
+	</body>
+</document>

@@ -1,0 +1,3 @@
+Outcome: <b id="outcome">$data.outcome.type $data.outcome.code</b>
+<br>
+Method executed: <b id="methodExecuted">$methodExecuted</b>

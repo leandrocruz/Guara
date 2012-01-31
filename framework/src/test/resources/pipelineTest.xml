@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--
+	This file is used to test the PipelineManager only, not guara
+-->
+<pipelines>
+	<pipeline>
+    	<valve name="d1" className="br.com.ibnetwork.guara.pipeline.valve.TestValve">
+			<some key="value1"/>
+        </valve>
+	    <valve name="d2" className="br.com.ibnetwork.guara.pipeline.valve.TestValve">
+            <some key="value2"/>
+		</valve>
+	</pipeline>    
+	<pipeline name="test">
+    	<valve name="t1" className="br.com.ibnetwork.guara.pipeline.valve.TestValve"/>
+	    <valve name="t2" className="br.com.ibnetwork.guara.pipeline.valve.TestValve"/>
+	</pipeline>    
+
+	<pipeline name="testAbort">
+    	<valve name="v1" className="br.com.ibnetwork.guara.pipeline.valve.AbortValve"/>
+	    <valve name="v2" className="br.com.ibnetwork.guara.pipeline.valve.TestValve"/>
+	</pipeline>    
+
+</pipelines>

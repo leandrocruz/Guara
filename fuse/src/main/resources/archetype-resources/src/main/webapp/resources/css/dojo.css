@@ -1,0 +1,50 @@
+.dojoTabContainer
+{
+}
+
+.dojoTab
+{
+}
+
+.dojoTab div
+{
+}
+
+.dojoTab.current
+{
+}
+
+.dojoTabLabels-top
+{
+}
+
+.dojoTooltip
+{
+	border: 1px solid #463626;
+	padding: 4px;
+	background: white;
+	text-align: left;
+}
+
+.dojoTooltip h1
+{
+	margin: 0;
+	padding: 0px 4px; 
+	font-size: 12px;
+}
+
+.dojoTooltip a 
+{
+	color: #463626;
+}
+
+.datePickerContainer
+{
+	font-size: 16px;
+}
+
+.datePickerContainer table td
+{
+	margin: 0;
+	padding: 0;
+}

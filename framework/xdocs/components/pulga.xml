@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Pulga - The tiny avalon container</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Pulga - The tiny avalon container">
+			<subsection name="What is it?">
+				<p>
+					<b>Pulga</b> is a tiny (16k only) implementation of 
+					<a href="http://avalon.apache.org/">avalon framework</a> container. <br/>
+					It is used by guara internally and some applications written on guara. <br/>
+					<a href="http://xingu.sf.net">Xingu</a> 
+					replaced excalibur by Pulga as its internal container.
+				</p>
+			</subsection>
+			<subsection name="Download">
+				<p>
+					Download it <a href="https://sourceforge.net/project/showfiles.php?group_id=145102&amp;package_id=160968">here.</a>
+					<ul>
+						<li>xingu-container-beta-1.0.jar: this package contains <b>Pulga</b> (the container) and a component called <b>ConfigurationManager</b></li>
+						<li>xingu-utils-beta-2.0.jar: this package contains some utilities</li>
+					</ul>
+					Pulga depends on:
+					<ul>
+						<li><a href="http://jakarta.apache.org/commons/io">commons-io-1.0.jar</a></li>
+					</ul>
+				</p>   
+			</subsection>
+			<subsection name="Base Configuration">
+				Pulga looks for a file called pulga.xml in your classpath.
+				The syntax is:
+				<code>
+				<div style="white-space: pre; border: 1px solid #f5f5f5; margin: 10px; padding: 10px; font-size: small;">
+&lt;pulga&gt;
+	&lt;component	role="<code>a.package.Component</code>" class="<code>a.package.impl.ComponentImpl</code>"&gt;
+		&lt;!-- inline configuration --&gt;
+	&lt;/component&gt;
+	&lt;component	role="<code>a.package.SomeOtherComponent</code>" class="<code>a.package.MyImpl</code>" configuration="<code>key</code>"/&gt;
+&lt;/pulga&gt;
+				</div>
+				</code>
+				<p>
+					On the first example, if you component lives on <code>a.package.Component</code> 
+					Pulga will search for a default implementation on <code>a.package.impl.ComponentImpl</code>. <br/>
+					So you don't have to add configuration lines on this case. 
+					Do it if you want to provide another implementation (second example).
+				</p>
+				<p>
+					You can supply inline configuration elements if you want, or, you can place them on
+					separate files using a key to join the component and it's configuration (second example).
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,39 @@
+<archetype>
+  	<id>guara-fuse</id>
+	<resources>
+		<resource filtered="false">src/main/resources/log4j.properties</resource>
+		<resource filtered="false">src/main/resources/freemarker.properties</resource>
+		<resource>src/main/resources/pulga.xml</resource>
+		<resource>src/main/resources/pulga/pullManager.xml</resource>
+		<resource>src/main/resources/pipeline.xml</resource>
+		<resource>src/main/resources/pulga.xml</resource>
+		<resource>src/main/resources/sqlMap.xml</resource>
+		<resource>src/main/webapp/WEB-INF/web.xml</resource>
+		<resource filtered="false">src/main/webapp/resources/js/guara.js</resource>
+		<resource filtered="false">src/main/webapp/resources/js/ajax.js</resource>
+		<resource filtered="false">src/main/webapp/resources/js/dojo/foo.txt</resource>
+		<resource filtered="false">src/main/webapp/resources/css/app.css</resource>
+		<resource filtered="false">src/main/webapp/resources/css/guara.css</resource>
+		<resource filtered="false">src/main/webapp/resources/css/dojo.css</resource>
+		<resource filtered="false">src/main/webapp/resources/css/footerStick.css</resource>
+		<resource filtered="false">src/main/webapp/resources/images/bodyBg.gif</resource>
+		<resource filtered="false">src/main/webapp/resources/images/footer.gif</resource>
+		<resource filtered="false">src/main/webapp/resources/messages/pt_BR/guara.xml</resource>
+		<resource filtered="false">src/main/webapp/templates/app/lib/AppMacros.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/lib/GuaraMacros.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/lib/GuaraGeneratedMacros.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/layouts/Default.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/layouts/ajax/Body.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/layouts/ajax/iFrameIO.ftl</resource>
+		<resource >src/main/webapp/templates/app/navigations/Top.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/navigations/Bottom.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/screens/Index.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/screens/Error.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/screens/TemplateNotFound.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/screens/ajax/StoreSuccess.ftl</resource>
+		<resource filtered="false">src/main/webapp/templates/app/screens/ajax/StoreError.ftl</resource>
+	</resources>  
+	<testResources>
+		<resource filtered="false">src/test/resources/database.script</resource>
+	</testResources>
+</archetype>

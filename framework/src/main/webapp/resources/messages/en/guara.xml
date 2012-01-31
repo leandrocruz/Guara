@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<system-messages>
+	<message id="error" type="error">
+		error
+	</message>	
+	<message id="success">
+		success
+	</message>
+</system-messages>

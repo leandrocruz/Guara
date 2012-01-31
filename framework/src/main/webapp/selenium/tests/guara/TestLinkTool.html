@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Test Link Tool</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+  <tbody>
+    <tr>
+      <td rowspan="1" colspan="3">Test Link Tool<br>
+      </td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>/guara/g/template/test.LinkTool</td>
+      <td>&nbsp;</td>
+    </tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='screen']/p</td>
+		<td>Link tool: http://localhost:8080/guara/g</td>
+	</tr>
+	<tr>
+		<td>verifyText</td>
+		<td>//div[@id='parameters']/ul/li[1]</td>
+		<td>template = test.LinkTool</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[1]/a/@href</td>
+		<td>http://localhost:8080/guara/g</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[2]/a/@href</td>
+		<td>http://localhost:8080/guara/g/pipeline/Pipeline</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[3]/a/@href</td>
+		<td>http://localhost:8080/guara/g/action/Action</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[4]/a/@href</td>
+		<td>http://localhost:8080/guara/g/screen/Screen</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[5]/a/@href</td>
+		<td>http://localhost:8080/guara/g/layout/Layout</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[6]/a/@href</td>
+		<td>http://localhost:8080/guara/g/template/Template</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[7]/a/@href</td>
+		<td>http://localhost:8080/guara/g/template/Template/action/Action</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[8]/a/@href</td>
+		<td>http://localhost:8080/guara/g</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[9]/a/@href</td>
+		<td>http://localhost:8080/guara/g</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[10]/a/@href</td>
+		<td>http://localhost:8080/guara/g?var</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[11]/a/@href</td>
+		<td>http://localhost:8080/guara/g?var</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[12]/a/@href</td>
+		<td>http://localhost:8080/guara/g?var=1</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[13]/a/@href</td>
+		<td>http://localhost:8080/guara/g?var=value</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[14]/a/@href</td>
+		<td>http://localhost:8080/guara/g?var=value&var=1</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[15]/a/@href</td>
+		<td>http://localhost:8080/guara/g?var=1</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[16]/a/@href</td>
+		<td>http://localhost:8080/guara/g/var/1</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[17]/a/@href</td>
+		<td>http://localhost:8080/guara/g/var/value</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[18]/a/@href</td>
+		<td>http://localhost:8080/guara/g/var/value/var/1</td>
+	</tr>
+	<tr>
+		<td>verifyAttribute</td>
+		<td>//ol[@id='links']/li[19]/a/@href</td>
+		<td>http://localhost:8080/guara/g/var/1</td>
+	</tr>
+  </tbody>
+</table>
+</body>
+</html>

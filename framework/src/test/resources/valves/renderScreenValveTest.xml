@@ -1,0 +1,23 @@
+<valve>
+	<defaultTemplate	template="Index"/>
+	<onTemplateNotFound template="TemplateNotFound"/>
+	<templateMapping>
+		<module name="test.ActionTest">
+			<outcome code="SUCCESS" 	method="doX" 	template="test.outcome.Success"/>
+			<outcome code="SUCCESS" 					template="test.outcome.Success"/>
+			<outcome code="ERROR" 		method="doX"	template="test.outcome.Error"/>
+			<outcome code="ERROR" 						template="test.outcome.Error"/>
+			<outcome code="SAMPLE_CODE" method="doX"	template="test.outcome.SampleCode"/>
+			<outcome code="SAMPLE_CODE" 				template="test.outcome.SampleCode"/>
+			<outcome 									template="test.outcome.Default"/>
+		</module>
+		<module name="test.ParentModule">
+			<outcome code="SUCCESS" 	method="doX" 	template="test.outcome.Parent"/>
+			<outcome code="ERROR" 	method="doX" 	template="test.outcome.Parent"/>
+		</module>
+		<module name="test.ChildModule">
+			<outcome code="SUCCESS" 	method="doX" 	template="test.outcome.Child"/>
+		</module>
+	</templateMapping>
+	<alias	name="big" target="bang"/>
+</valve>

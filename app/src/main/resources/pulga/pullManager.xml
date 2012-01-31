@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<root>
+	<configuration key="br.com.ibnetwork.guara.pull.PullManager">
+		<tools>
+			<tool 	name="link" 		
+					scope="request" 	
+					className="br.com.ibnetwork.guara.pull.tools.LinkTool"/>
+			<tool 	name="content"		
+					scope="request" 		
+					className="br.com.ibnetwork.guara.pull.tools.ContentTool"/>
+			<tool 	name="templateTool"	
+					scope="global"	
+					className="br.com.ibnetwork.guara.pull.tools.TemplateTool"/>
+			<tool 	name="userTool"	
+					scope="global"	
+					className="br.com.ibnetwork.guara.app.xingu.pull.UserTool"/>
+		</tools>
+	</configuration>
+</root>

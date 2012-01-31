@@ -1,0 +1,287 @@
+* 
+{
+	margin: 0;
+	padding: 0;
+}
+
+body 
+{
+    margin: 0 auto;
+    width: 800px;
+    text-align: center; /* IE bug */
+    font: normal 10px verdana;
+	background:#51646e url("/resources/images/bodyBg.gif") repeat-x top left;
+    color: #444;
+}
+
+h1, h2, h3, h4, h5, p
+{
+	margin: 4px;
+}
+
+a:link, a:visited 
+{ 
+  	color: #3080CB;
+  	text-decoration: none;
+  	border-bottom: 1px dotted #68C3EE;
+}
+
+a:hover 
+{
+	color: #444;
+}
+
+a img
+{
+	border: 0;
+}
+
+ul 
+{
+	padding: 4px;
+}
+
+li 
+{
+	padding: 2px;
+	list-style-type: square;
+	padding-left: 2px;
+	margin-left: 10px;
+}
+
+input[type="text"]
+{
+	border: 1px solid gray;
+	padding: 2px;
+}
+
+#page 
+{
+	margin: 0px auto;
+	border: 1px solid #f5f5f5;
+    text-align: left; /* IE bug */
+    overflow: hidden; /* IE bug */
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+#top, #bottom, #screen 
+{
+	border: 0px solid red;
+	padding: 4px;
+	clear: both;
+}
+
+#top 
+{
+	border-bottom: 1px dotted gray;
+	padding: 10px;
+}
+
+#bottom 
+{
+	text-align: center;
+	padding-top: 25px;
+    height: 76px;
+    background-image: url('/resources/images/footer.gif');
+    background-repeat: repeat-x;
+}
+
+div#progressIndicator {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        margin: 2px;
+        padding: 4px;
+        background: #c44;
+        color: white;
+        text-decoration: blink;
+        display: none;
+        font: bold 9px verdana;
+        z-index: 101;
+}
+
+div.clearer 
+{		
+    clear: both;
+	height: 0;
+}
+
+.centered
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.debug 
+{
+	border: 1px solid red;
+	margin: 5px;
+    text-align: left; /* IE bug */
+}
+
+.debug>h1 
+{
+	color: white;
+	font: bold 12px verdana;
+	background-color: red;
+	margin: 0px;
+	padding: 4px;
+}
+
+.stackTrace, .templateSource
+{
+	margin: 10px 0px; 
+	padding: 5px; 
+	font: normal 9px verdana; 
+	white-space: pre;
+	overflow: auto;
+}
+
+.templateSource 
+{
+	_color: blue;
+}
+
+.templateSource span.error 
+{
+	font-size: 12px;
+}
+
+.templateSource span.error b 
+{
+	color: red;
+}
+
+.box 
+{
+	margin: 2px;
+	padding: 4px;	
+	border: 1px solid #eee;
+}
+
+.guaraEdit { display: none; }
+.guaraShow { display: table-row; }
+input[type="button"].guaraEdit {display: inline;}
+input[type="button"].guaraShow {display: none;}
+select.dirty, input.dirty, textarea.dirty {border: 2px solid yellow;}
+select.formError, input.formError, textarea.formError {border: 2px solid #900;}
+a.errorTooltip {display: none;}
+td.formError a.errorTooltip {color: #900; border-color: #900; display: inline;}
+td.formError {color: #900; font-weight: bold;}
+div.formError a.errorTooltip {color: #900; border-color: #900; display: inline;}
+div.formError {color: #900; font-weight: bold;}
+div.field , div.fieldLabel {
+	_border: 1px solid red; 
+	_display: table-cell;
+	_vertical-align: middle;
+	float: left;
+	text-align: right; 
+	height: 25px;
+	width: 100px;
+}
+div.field {text-align: left;}
+div.fieldLabel {padding-right: 4px;}
+div.fieldValue {}
+span.bindLabel {border: 1px solid gray; background: #f5f5f5; padding: 4px;}
+
+/*
+ * Tables
+ */
+table.dataGrid 
+{
+	background: #ddd;
+}
+
+table.dataGrid thead th {
+	border-bottom: 1px solid #f5f5f5;
+	text-align: center;
+}
+
+
+table.dataGrid tfoot td {
+	border-top: 1px solid #f5f5f5;
+}
+
+table.dataGrid th, td {
+	padding: 4px;
+	margin: 0px;
+	background: white;
+}
+
+table.nameValue
+{
+	border: 1px solid #ccc;
+	padding: 0px;
+}
+
+table.nameValue th
+{
+	background: #444;
+	color: white;
+	padding: 4px;
+	font-weight: normal;
+}
+
+table.nameValue td:first-child
+{
+	border-right: 1px solid #ccc;
+	background: #f5f5f5;
+	width: 150px;
+}
+
+table.nameValue td.groupSeparator
+{
+	font-weight: bold;
+	border-bottom: 1px dotted #ccc;
+}
+
+table.nameValue td.groupSeparator:first-child
+{
+	border-bottom: 0;
+}
+
+table.error
+{
+	width: 100%;
+}
+
+table.error td
+{
+	border-bottom: 1px solid #eee;
+	text-align: left;
+}
+
+table.error td:first-child
+{
+	width: 20%;
+	text-align: right;
+	font-weight: bold
+}
+
+/*
+ * Dialog
+ */
+.guaraDialog 
+{
+	background: white;
+	border: 1px solid #444;
+}
+
+.guaraDialogHead 
+{
+	background: #444;
+	padding: 4px;
+	text-align: right;
+}
+
+.guaraDialogHead a:link, .guaraDialogHead a:visited
+{
+	color: white;
+	border-bottom: 1px dotted white;
+}
+
+.guaraDialogBody 
+{
+}
+

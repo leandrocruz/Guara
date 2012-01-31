@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Building</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Build Instructions">
+			<p>
+				<b>$GUARA_ROOT</b> is your guara checkout directory <br/>
+				<ul>
+					<li><code>cd <b>$GUARA_ROOT</b></code></li>
+					<li><code>maven jar</code></li>
+				</ul>
+				You <b>must</b> have <a href="http://maven.apache.org/">maven 1.x</a> installed to build Guara.
+			</p>
+		</section>
+	</body>
+</document>

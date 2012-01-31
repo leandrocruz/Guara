@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "web-app_2_3.dtd">
+
+<web-app>
+	<servlet>
+		<servlet-name>guara</servlet-name>
+		<servlet-class>br.com.ibnetwork.guara.Guara</servlet-class>
+		<init-param>
+			<param-name>pulgaConfiguration</param-name>
+			<param-value>
+				<!-- relative to your app context -->
+				/WEB-INF/classes/pulga.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	
+	<!-- mappings -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/resources/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/robots.txt</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/selenium/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>guara</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- security -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Forbidden Web</web-resource-name>
+			<url-pattern>/conf/*</url-pattern>
+			<url-pattern>/repository/*</url-pattern>      
+		</web-resource-collection>
+		<auth-constraint/>
+	</security-constraint>
+</web-app>

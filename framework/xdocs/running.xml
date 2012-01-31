@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Running</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Running the Sample application">
+			<p>
+				Guara comes with a little sample application located at <b>$GUARA_ROOT</b>/webapp
+				<ul>
+					<li>Edit <b>$GUARA_ROOT</b>/webapp/WEB-INF/web.xml to suite your needs</li>
+					<li>Deploy this sample application in your servlet container</li>
+					<li>Point your browser to http://localhost:<b>$PORT/$CONTEXT/</b></li>
+				</ul>
+				You can pass the following parameters (using the default pipeline):
+				<ul>
+					<li><b>pipeline:</b> the pipeline that will be executed</li>
+					<li><b>template:</b> the template you want to render</li>
+					<li><b>layout:</b> the layout that will be applied to the template above</li>
+					<li><b>screen:</b> the screen module to be executed</li>
+					<li><b>action:</b> the action module to be executed</li>
+				</ul>
+				The default ParameterParser mimics Turbine too, 
+				so your URL should be something like this : <br/>
+				<b>http://localhost:8080/guara/g/template/Test/action/Test</b> <br/>
+			</p>
+			<p>
+				The module loading scheme resembles Turbine too.
+				<a href="/module-loading.html">Read more here</a>
+			</p>
+		</section>
+	</body>
+</document>

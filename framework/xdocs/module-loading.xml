@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<title>Module Loading and Execution</title>
+		<author email="leandro@ibnetwork.com.br">Leandro Rodrigo Saad Cruz</author>
+	</properties>
+	<body>
+		<section name="Module Loading and Execution">
+			<subsection name="About Modules">
+				<p>
+					Modules are objects that execute business/presentation logic. <br/>
+					In Turbine, you have 5 types of modules :  
+					<ul>
+						<li>Page:</li>
+						<li>Layout:</li>
+						<li>Navigation:</li>
+						<li><b>Screen:</b> executes presentation logic</li>
+						<li><b>Action:</b> executes business logic</li>
+					</ul>
+					Each type of module is loaded by a specific module loader 
+					and the module execution sequence is hardcoded into Turbine.java (the main servlet).
+					<p>
+						Guara takes a new approach.
+						We choose to have a generic ModuleExecutor valve, which grabs module names from your request parameters
+						and tries to execute them calling <br/>
+						<p>
+							<b>int doPerform(RunData runData, Context context) throws Exception;</b> <br/>
+							OBS: for action modules, one can define a specific method to be executed, not only doPerform()
+						</p>
+						There is no distinction on module types. All modules are loaded using the 
+						<a href="#">ModuleLoader</a> component, which determines the right object to 
+						create giving a module name. and caches modules instances.<br/>
+						All modules instances should be thread-safe <br/>
+						This organization gives you the power to define abstract modules and maximize code reuse.
+						Example: the url http://localhost/action/DoSomething can execute DoSomethingImpl which is defined 
+						at guara.xml
+					</p>
+				</p>
+			</subsection>
+			<subsection name="Module Loading Details">
+				<p>
+					The ModuleExecutor is responsible for determining the name of the module that is going to be loaded,
+					thats is why we can defined default modules for a particular request. <br/>
+					Other task performed by the ModuleExecutor is recursive module lookup, which walks on the package tree
+					trying to find the module by it's class name. If no module is found, a module called <b>Default</b> 
+					is returned.
+					<p>
+						Here is how it works
+					</p>
+					Once the module name is determined, the ModuleExecutor calls ModuleLoader.loadModule(String name, String type)
+					which checks it's internal cache first, if null, it searches the module tree and
+					creates the module using it's name and type using the 
+					<a href="#">Factory</a> component. <br/>
+					The Factory can then initialize the Module and return it to the ModuleLoader, which caches it 
+					and returns to the ModuleExecutor <br/>
+					<b>TODO: add sequence diagram here</b>
+				</p>
+			</subsection>
+			<subsection name="Predefined Module Executors">
+				<p>
+					Guara provides two predefined Module Executors:
+					<ul>
+						<li><b>ActionExecutor:</b> determines the action module, calling a specific method other than doPerform if it applies</li>
+						<li><b>ScreenExecutor:</b> determines the screen module using the template name as a hint</li>
+					</ul>
+					<b>TODO: write examples with URLs</b>
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

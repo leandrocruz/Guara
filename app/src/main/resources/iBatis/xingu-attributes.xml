@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap 
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="attributes">
+
+	<resultMap id="getAttributes" class="br.com.ibnetwork.xingu.attributes.impl.AttributeImpl">
+		<result property="id" 			column="ID"/>
+		<result property="listId" 		column="LIST_ID"/>
+		<result property="typeName" 	column="TYPE"/>
+		<result property="storedValue" 	column="VALUE"/>
+	</resultMap>
+	
+	<parameterMap id="insertAttribute" class="br.com.ibnetwork.xingu.attributes.impl.AttributeImpl">
+		<parameter property="listId"/>
+		<parameter property="typeName"/>
+		<parameter property="storedValue"/>
+	</parameterMap>
+
+	<select 	id="getById" parameterClass="long" resultClass="java.util.HashMap">
+		SELECT * FROM attribute_list WHERE id = #value#
+	</select>
+		
+	<select 	id="getAttributes" parameterClass="long" resultMap="getAttributes">
+		SELECT * FROM attribute WHERE list_id = #value#
+	</select>
+	
+	<delete 	id="delete"  parameterClass="long" >
+		DELETE FROM attribute_list WHERE id = #value#
+	</delete>
+
+	<delete 	id="deleteAttributes"  parameterClass="long" >
+		DELETE FROM attribute WHERE list_id = #value#
+	</delete>
+	
+	<insert 	id="insert" parameterClass="java.util.Map">
+		INSERT INTO attribute_list (id, namespace) VALUES (#id#,#namespace#)
+	</insert>
+
+	<insert 	id="insertAttribute" parameterMap="insertAttribute">
+		INSERT INTO attribute (list_id, type, value) VALUES (?,?,?)
+	</insert>
+     
+</sqlMap>

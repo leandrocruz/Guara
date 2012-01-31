@@ -1,0 +1,28 @@
+#macro(debug)
+	<div id="debug" class="debug">
+		<h1>Debug</h1>
+		<div id="pageInfo" class="debug" style="float: left;">
+			<h1>Page Info</h1>
+			<ul>
+				<li>template: $!pageInfo.template</li>
+				<li>layout: $!pageInfo.layoutTemplate</li>
+				<li>screen: $!pageInfo.screenName</li>
+				<li>action: $!pageInfo.actionName</li>
+			</ul>
+		</div>
+		<div id="parameters" class="debug" style="float: left;">
+			<h1>
+				Parameters
+				<font style="font-size: 9px;">
+					(encoding: $parameters.encoding)</font>
+			</h1>
+			<ul>
+				#set($keys = $parameters.keySet())
+				#foreach($key in $keys)
+					<li>$key = $parameters.get($key)</li>
+				#end
+			</ul>				
+		</div>
+		<div class="clearer">&nbsp;</div>
+	</div>	
+#end

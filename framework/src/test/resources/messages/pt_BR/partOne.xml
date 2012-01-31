@@ -1,0 +1,5 @@
+<system-messages>
+	<message id="userLogin">
+		{0}, bem vindo ao xingu
+	</message>
+</system-messages>
