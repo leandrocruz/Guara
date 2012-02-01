@@ -1,6 +1,1 @@
-ASF 2.0
-
---
-
-Leandro Rodrigo Saad Cruz
-leandro.saad (at) gmail.com
+See http://www.apache.org/licenses/LICENSE-2.0
