@@ -16,9 +16,9 @@
     		  </license>
      	</licenses>
 	<scm>
-        <url>http://svn.ibcorp.com.br/svn/public/guara/trunk/</url>
-        <connection>scm:svn:http://svn.ibcorp.com.br/svn/public/guara/trunk/</connection>
-        <developerConnection>scm:svn:https://svn.ibcorp.com.br/svn/public/guara/trunk/</developerConnection>
+        <url>https://github.com/leandrocruz/Xingu.git</url>
+        <connection>scm:git:https://kixbuild@github.com/leandrocruz/Guara.git</connection>
+        <developerConnection>scm:git:https://kixbuild@github.com/leandrocruz/Guara.git</developerConnection>
     </scm>
      <distributionManagement>
         <repository>
