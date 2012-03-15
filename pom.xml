@@ -92,6 +92,6 @@
 		-->
   	</modules>
 	<properties>
-        <xingu.version>1.4.19-SNAPSHOT</xingu.version>
+        <xingu.version>1.4.19</xingu.version>
 	</properties>
 </project>
