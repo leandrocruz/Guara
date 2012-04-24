@@ -10,7 +10,7 @@ import br.com.ibnetwork.guara.pipeline.valve.ValveSupport;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.view.TemplateUtils;
 import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
+import xingu.template.TemplateEngine;
 
 /**
  * @author leandro

@@ -2,7 +2,7 @@ package br.com.ibnetwork.guara.modules;
 
 import br.com.ibnetwork.guara.rundata.Outcome;
 import br.com.ibnetwork.guara.rundata.RunData;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 
 /**

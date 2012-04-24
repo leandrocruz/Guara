@@ -13,8 +13,8 @@ import br.com.ibnetwork.guara.rundata.PageInfo;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.view.TemplateUtils;
 import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
+import xingu.template.Context;
+import xingu.template.TemplateEngine;
 
 /**
  * @author leandro

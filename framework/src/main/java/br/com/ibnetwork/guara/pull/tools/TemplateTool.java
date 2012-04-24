@@ -4,8 +4,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
-import br.com.ibnetwork.xingu.template.TemplateEngineException;
+import xingu.template.TemplateEngine;
+import xingu.template.TemplateEngineException;
 import br.com.ibnetwork.xingu.container.Inject;
 
 /**

@@ -21,7 +21,7 @@ import br.com.ibnetwork.guara.test.GuaraTestCase;
 import br.com.ibnetwork.guara.test.mock.MockHttpServletRequest;
 import br.com.ibnetwork.guara.test.mock.MockHttpServletResponse;
 import br.com.ibnetwork.guara.test.mock.MockServletOutputStream;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 public class RenderLayoutValveTest
 	extends GuaraTestCase

@@ -13,15 +13,15 @@
 		<file name="pipelineTest.xml"/>
 	</component>
 	<component	key="velocity"
-				role="br.com.ibnetwork.xingu.template.TemplateEngine"
-				class="br.com.ibnetwork.xingu.template.impl.velocity.VelocityTemplateEngine">
+				role="xingu.template.TemplateEngine"
+				class="xingu.template.impl.velocity.VelocityTemplateEngine">
 		<!-- loaded from classpath -->
 		<templates extension=".vm"/>
 		<encoding name="ISO-8859-1"/>
 		<file name="velocity.properties"/>
 	</component>
-	<component	role="br.com.ibnetwork.xingu.template.TemplateEngine"
-				class="br.com.ibnetwork.xingu.template.impl.TemplateEngineImpl">
+	<component	role="xingu.template.TemplateEngine"
+				class="xingu.template.impl.TemplateEngineImpl">
 		<delegates>
 			<delegate key="velocity"/>
 		</delegates>

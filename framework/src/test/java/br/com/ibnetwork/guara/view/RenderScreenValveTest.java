@@ -21,7 +21,7 @@ import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.rundata.impl.RunDataImpl;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
 import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 /**
  * @author <a href="mailto:leandro.saad@gmail.com">Leandro Rodrigo Saad Cruz</a>

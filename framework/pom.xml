@@ -34,14 +34,8 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<version>1.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>xingu</groupId>
-			<artifactId>xingu-template</artifactId>
+			<artifactId>template-velocity</artifactId>
 			<version>${xingu.version}</version>
 		</dependency>
 	</dependencies>

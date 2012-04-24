@@ -13,7 +13,7 @@ import br.com.ibnetwork.guara.pull.ApplicationToolHandler;
 import br.com.ibnetwork.guara.pull.PullManager;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 public class PopulateContextWithTools 
 	extends ValveSupport

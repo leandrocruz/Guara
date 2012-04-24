@@ -19,8 +19,8 @@ import br.com.ibnetwork.guara.test.mock.MockServletConfig;
 import br.com.ibnetwork.guara.test.mock.MockServletContext;
 import br.com.ibnetwork.xingu.container.Inject;
 import br.com.ibnetwork.xingu.container.XinguTestCase;
-import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
+import xingu.template.Context;
+import xingu.template.TemplateEngine;
 import br.com.ibnetwork.xingu.utils.FSUtils;
 
 public abstract class GuaraTestCase
