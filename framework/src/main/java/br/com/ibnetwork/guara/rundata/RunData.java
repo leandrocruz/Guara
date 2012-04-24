@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.ibnetwork.guara.message.SystemMessage;
 import br.com.ibnetwork.guara.parameters.Parameters;
 import br.com.ibnetwork.guara.pipeline.Pipeline;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 /**
  * @author <a href="mailto:leandro@ibnetwork.com.br">leandro</a>

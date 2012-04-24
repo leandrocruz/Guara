@@ -13,7 +13,7 @@ import br.com.ibnetwork.guara.pipeline.valve.pull.PopulateContextWithTools;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.rundata.RunDataPool;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 public class PopulateContextWithToolsTest
 	extends GuaraTestCase

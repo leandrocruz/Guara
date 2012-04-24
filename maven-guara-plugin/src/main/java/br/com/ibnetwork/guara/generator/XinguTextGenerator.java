@@ -4,8 +4,8 @@ import java.io.StringWriter;
 
 import br.com.ibnetwork.guara.metadata.Metadata;
 import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
+import xingu.template.Context;
+import xingu.template.TemplateEngine;
 
 public class XinguTextGenerator
     implements Generator

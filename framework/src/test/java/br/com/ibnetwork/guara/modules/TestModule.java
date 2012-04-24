@@ -3,7 +3,7 @@ package br.com.ibnetwork.guara.modules;
 import br.com.ibnetwork.guara.AvalonObject;
 import br.com.ibnetwork.guara.rundata.Outcome;
 import br.com.ibnetwork.guara.rundata.RunData;
-import br.com.ibnetwork.xingu.template.Context;
+import xingu.template.Context;
 
 /**
  * @author <a href="mailto:leandro@ibnetwork.com.br">leandro</a>

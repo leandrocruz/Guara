@@ -18,8 +18,8 @@ import br.com.ibnetwork.guara.rundata.RunDataException;
 import br.com.ibnetwork.guara.rundata.RunDataPool;
 import br.com.ibnetwork.guara.util.ServletUtils;
 import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
+import xingu.template.Context;
+import xingu.template.TemplateEngine;
 
 public class RunDataPoolImpl
     implements RunDataPool

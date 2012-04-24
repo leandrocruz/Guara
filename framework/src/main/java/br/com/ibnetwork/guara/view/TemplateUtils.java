@@ -11,9 +11,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.com.ibnetwork.guara.rundata.RunData;
-import br.com.ibnetwork.xingu.template.TemplateEngine;
-import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.template.TemplateEngineException;
+import xingu.template.TemplateEngine;
+import xingu.template.Context;
+import xingu.template.TemplateEngineException;
 
 public class TemplateUtils 
 {
