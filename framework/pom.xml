@@ -40,6 +40,12 @@
 			<artifactId>template-api</artifactId>
 			<version>${xingu.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>xingu</groupId>
+			<artifactId>template-velocity</artifactId>
+			<version>${xingu.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
     	<plugins>
