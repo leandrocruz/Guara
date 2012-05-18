@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git pull
+
+mvn clean install
+
+mvn -Declipse.workspace=~/dev/eclipse/ws-kidux eclipse:eclipse
