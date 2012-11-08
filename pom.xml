@@ -4,7 +4,7 @@
 	<groupId>br.com.ibnetwork.guara</groupId>
 	<artifactId>guara</artifactId>
 	<packaging>pom</packaging>
-	<version>1.19-SNAPSHOT</version>
+	<version>1.19</version>
 	<name>Guara</name>
 	<url>http://guara-framework.sf.net</url>
 	<description>Guara Web Application Framework</description>
@@ -98,6 +98,6 @@
 		-->
   	</modules>
 	<properties>
-        <xingu.version>1.4.24-SNAPSHOT</xingu.version>
+        <xingu.version>1.4.24</xingu.version>
 	</properties>
 </project>
