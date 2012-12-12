@@ -98,6 +98,6 @@
 		-->
   	</modules>
 	<properties>
-        <xingu.version>1.4.25-SNAPSHOT</xingu.version>
+        <xingu.version>1.4.25</xingu.version>
 	</properties>
 </project>
