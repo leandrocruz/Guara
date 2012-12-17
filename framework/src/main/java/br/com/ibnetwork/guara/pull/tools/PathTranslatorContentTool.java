@@ -12,6 +12,7 @@ import org.apache.avalon.framework.configuration.ConfigurationException;
 import org.apache.commons.io.IOUtils;
 
 import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
+import br.com.ibnetwork.xingu.lang.Sys;
 import br.com.ibnetwork.xingu.utils.StringUtils;
 
 public class PathTranslatorContentTool
@@ -22,11 +23,13 @@ public class PathTranslatorContentTool
 	
 	private Map<String, String> map;
 	
+	private String path;
+	
 	@Override
 	public void configure(Configuration conf)
 		throws ConfigurationException
 	{
-		file = conf.getChild("file").getAttribute("name");
+		file = conf.getChild("dictionary").getAttribute("file");
 	}
 
 	@Override
@@ -34,8 +37,7 @@ public class PathTranslatorContentTool
 		throws Exception
 	{
 		map = new HashMap<String, String>();
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream is = cl.getResourceAsStream(file);
+		InputStream is = Sys.getContextClassLoader().getResourceAsStream(file);
 		
 		@SuppressWarnings("unchecked")
 		List<String> lines = IOUtils.readLines(is);
@@ -45,8 +47,15 @@ public class PathTranslatorContentTool
 			String key = StringUtils.trimToNull(values[0]);
 			if(key != null)
 			{
-				String value = StringUtils.trimToNull(values[1]); 
-				map.put(key, value);
+				String value = StringUtils.trimToNull(values[1]);
+				if("path".equals(key))
+				{
+					path = value;
+				}
+				else
+				{
+					map.put(key, value);
+				}
 			}
 		}
 		IOUtils.closeQuietly(is);
@@ -54,6 +63,11 @@ public class PathTranslatorContentTool
 
 	public String getURI(String resource)
 	{
-		return map.get(resource);
+		String s = map.get(resource);
+		if(s == null)
+		{
+			return path + resource;
+		}
+		return s;
 	}
 }

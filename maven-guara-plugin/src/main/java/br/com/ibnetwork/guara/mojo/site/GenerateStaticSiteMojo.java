@@ -32,29 +32,34 @@ public class GenerateStaticSiteMojo
 	extends MojoSupport
 {
 	/**
+	 * @parameter expression="${dictionary}
+	 */
+	private String dictionary = "dictionary.txt";
+
+	/**
 	 * @parameter expression="${pulga}
 	 */
-	public static String pulga = "pulga-static.xml";
+	public String pulga = "pulga-static.xml";
 
 	/**
 	 * @parameter expression="${path}
 	 */
-	public static String path = "";
+	public String path = "";
 
 	/**
 	 * @parameter expression="${index}
 	 */
-	public static String index = "/index.html";
+	public String index = "/index.html";
 
 	/**
 	 * @parameter expression="${resources}
 	 */
-	public static String resources = "/resources";
+	public String resources = "/resources";
 
 	/**
 	 * @parameter expression="${jsResources}
 	 */
-	public static String jsResources = "/resources/js";
+	public String jsResources = "/resources/js";
 
 	/**
 	 * @parameter expression="${webapp}
@@ -75,21 +80,25 @@ public class GenerateStaticSiteMojo
 		File dst = createOutputDirectory();
 
 		log.info("Application path is: " + path);
+		log.info("Pulga is: " + pulga);
+		log.info("Index is: " + index);
+		log.info("Resources is: " + resources);
+		log.info("Resources (js) is: " + jsResources);
+		log.info("WebApp is: " + webapp);
+		log.info("---------------------------------------------------------------");
 		log.info("Building from: " + src);
 		log.info("To: " + dst);
+		log.info("---------------------------------------------------------------");
 
 		/* Hash Resources */
-		Map<String, String> nameToHashedName = hashResourceFiles(src, dst);
-		writeNameToHashedName(nameToHashedName);
+		Map<String, String> dict = hashResourceFiles(src, dst);
+		writeDictionary(dict);
 		
 		/* Write gl.js */
-		String gl = remapJavascriptLocations(nameToHashedName);
-		writeGl(dst, gl);
+		writeGuaraJavascriptLoader(dst, dict);
 
 		/* Write index.html */
-		String index = renderIndex();
-		writeIndex(dst, index);
-
+		writeIndex(dst);
 	}
 
 	private File createOutputDirectory()
@@ -115,19 +124,21 @@ public class GenerateStaticSiteMojo
 		return dst;
 	}
 
-	private void writeNameToHashedName(Map<String, String> nameToHashedName)
+	private void writeDictionary(Map<String, String> dict)
 		throws Exception
 	{
 		StringBuffer sb = new StringBuffer();
-		Set<String> keys = nameToHashedName.keySet();
+		sb.append("path = ").append(path).append("\n");
+		
+		Set<String> keys = dict.keySet();
 		for (String key : keys)
 		{
-			String value = nameToHashedName.get(key);
-			sb.append(key).append("=").append(value).append("\n");
+			String value = dict.get(key);
+			sb.append(key).append(" = ").append(value).append("\n");
 		}
 
 		String target = project.getBuild().getOutputDirectory();
-		File file = new File(target, "nameToHashedName.txt");
+		File file = new File(target, dictionary);
 		IOUtils.write(sb, new FileOutputStream(file));
 	}
 
@@ -168,43 +179,46 @@ public class GenerateStaticSiteMojo
 		return cl;
 	}
 
-	private void writeGl(File build, String map)
+	private void writeIndex(File dst)
 		throws Exception
 	{
-		String toReplace = "return {};";
-		File file = new File(build, path + jsResources + "/gl.js");
-		String txt = IOUtils.toString(new FileInputStream(file));
-		int idx = txt.indexOf(toReplace);
-		txt = txt.substring(0, idx) + map + txt.substring(idx + toReplace.length());
+		ClassLoader cl = classLoaderFromProjectResources();
+		String txt = new RunGuara().execute(pulga, cl);
+
+		File file = new File(dst, path + index);
 		IOUtils.write(txt, new FileOutputStream(file));
-
-	}
-
-	private void writeIndex(final File build, String contents)
-		throws Exception
-	{
-		File file = new File(build, path + index);
-		IOUtils.write(contents, new FileOutputStream(file));
 		log.info("Result written to " + file);
 	}
 
-	private String remapJavascriptLocations(Map<String, String> nameToHashedName)
+	private void writeGuaraJavascriptLoader(File dst, Map<String, String> dict)
+		throws Exception
+	{
+		String txt = dictionaryToString(dict);
+		String toReplace = "return {};";
+		File file = new File(dst, path + jsResources + "/gl.js");
+		String template = IOUtils.toString(new FileInputStream(file));
+		int idx = template.indexOf(toReplace);
+		template = template.substring(0, idx) + txt + template.substring(idx + toReplace.length());
+		IOUtils.write(template, new FileOutputStream(file));
+	}
+
+	private String dictionaryToString(Map<String, String> dict)
 	{
 		int len = (jsResources).length() + 1;
 		StringBuffer sb = new StringBuffer();
-		sb.append("var nameToHashedName = {};\n");
-		Set<String> keys = nameToHashedName.keySet();
+		sb.append("var dictionary = {};\n");
+		Set<String> keys = dict.keySet();
 		for (String key : keys)
 		{
 			if (key.endsWith(".js"))
 			{
-				String hashedName = nameToHashedName.get(key);
+				String hashedName = dict.get(key);
 				String k = key.substring(len, key.length() - 3);
 				hashedName = hashedName.substring(len + path.length(), hashedName.length() - 3);
-				sb.append("\t\tnameToHashedName['").append(k).append("'] = '").append(hashedName).append("';\n");
+				sb.append("\t\tdictionary['").append(k).append("'] = '").append(hashedName).append("';\n");
 			}
 		}
-		sb.append("\t\treturn nameToHashedName;");
+		sb.append("\t\treturn dictionary;");
 		return sb.toString();
 	}
 
@@ -212,7 +226,7 @@ public class GenerateStaticSiteMojo
 		throws Exception
 	{
 		final int len = build.getAbsolutePath().length() + path.length();
-		final Map<String, String> nameToHashedName = new HashMap<String, String>();
+		final Map<String, String> dict = new HashMap<String, String>();
 		File src = new File(root, webapp + resources);
 		File dst = new File(build, path + resources);
 		
@@ -242,7 +256,7 @@ public class GenerateStaticSiteMojo
 				 */
 				String value = path + folder + hashedName;
 				log.debug("Adding " + key + " = " + value);
-				nameToHashedName.put(key, value);
+				dict.put(key, value);
 
 				org.apache.commons.io.FileUtils.moveFile(file, new File(file.getParentFile(), hashedName));
 			}
@@ -257,7 +271,7 @@ public class GenerateStaticSiteMojo
 
 		}).visit();
 		
-		return nameToHashedName;
+		return dict;
 	}
 
 	private boolean skip(File file)
@@ -268,15 +282,12 @@ public class GenerateStaticSiteMojo
 		}
 
 		String name = file.getName();
-		return "gl.js".equals(name) || "moment.js".equals(name);
-	}
-
-	private String renderIndex()
-		throws Exception
-	{
-		ClassLoader cl = classLoaderFromProjectResources();
-		String result = new RunGuara().execute(pulga, cl);
-		return result;
-
+		if("gl.js".equals(name) || "moment.js".equals(name))
+		{
+			return true;
+		}
+		
+		boolean accept = name.endsWith(".js") || name.endsWith(".css"); 
+		return !accept;
 	}
 }

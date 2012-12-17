@@ -34,7 +34,7 @@
 			<tool 	name="content"
 					scope="request"
 					className="br.com.ibnetwork.guara.pull.tools.PathTranslatorContentTool">
-				<file name="nameToHashedName.txt" />
+				<dictionary file="dictionary.txt" />
 			</tool>
 			<tool 	name="templateTool"
 					scope="global"
