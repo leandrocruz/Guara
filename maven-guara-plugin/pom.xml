@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>br.com.ibnetwork.guara</groupId>
 		<artifactId>guara</artifactId>
- 		<version>1.16-SNAPSHOT</version>
+ 		<version>1.21-SNAPSHOT</version>
  	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.ibnetwork.guara</groupId>
@@ -12,8 +12,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>br.com.ibnetwork.guara</groupId>
-			<artifactId>guara-commons</artifactId>
-			<version>${project.version}</version>
+			<artifactId>guara-framework</artifactId>
+            <version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -29,6 +34,11 @@
 			<groupId>xingu</groupId>
 			<artifactId>template-freemarker</artifactId>
 			<version>${xingu.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.8.1</version> 
 		</dependency>
 	</dependencies>
 </project>

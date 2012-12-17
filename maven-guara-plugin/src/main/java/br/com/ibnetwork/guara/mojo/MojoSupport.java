@@ -1,84 +1,98 @@
 package br.com.ibnetwork.guara.mojo;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.maven.model.Resource;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Build;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
-public abstract class MojoSupport
-    extends AbstractMojo
+public class MojoSupport
+	extends AbstractMojo
 {
-    /**
-     * @parameter expression="${debug}
-     */
-    private boolean debug = false;
+	/**
+	 * @parameter expression="${debug}
+	 */
+	protected boolean debug = false;
 
-    /**
-     * @parameter expression="${overwrite}
-     * 
-     */
-    protected boolean overwrite = true;
+	/**
+	 * @parameter expression="${project.compileClasspathElements}"
+	 * @required
+	 * @readonly
+	 */
+	protected List<String> classpathElements;
 
-//    /**
-//     * Project classpath.
-//     *
-//     * @parameter expression="${project.compileClasspathElements}"
-//     * @required
-//     * @readonly
-//     */
-//    @SuppressWarnings("unchecked")
-//	private List classpathElements;
+	/**
+	 * @parameter expression="${project}"
+	 */
+	protected MavenProject project;
 
-    /**
-     * @parameter expression="${project}"
-     */
-    protected MavenProject project;
-    
-    /**
-     * @parameter expression="${modulePackage}"  default-value="guara.modules.actions"
-     */
-    protected String modulePackage;
+	/**
+	 * @parameter expression="${localRepository}"
+	 * @required
+	 * @readonly
+	 */
+	protected ArtifactRepository localRepository;
 
-    /**
-     * @parameter expression="${model}" 
-     */
-    protected String model;
-    
-    /**
-     * @parameter
-     */
-    protected List<String> modelNames;
-    
-    /**
-     * @parameter
-     */
-    protected Map<String, String> database = new HashMap<String, String>();
-    
-	@SuppressWarnings("unchecked")
+	protected Log log;
+
 	protected void printEnv()
 	{
-		if(debug)
+		if (debug)
 		{
-			Log log = getLog();
 			log.info("-- Plugin Environment --");
-			log.info("Group id: "+project.getGroupId());
-			log.info("Source directory: "+project.getBuild().getSourceDirectory());
-			log.info("Test Source directory: "+project.getBuild().getTestSourceDirectory());
-			List<Resource> resources = project.getResources();
-            for (Resource resource : resources) {
-                log.info("Resource: " + resource.getDirectory());
-            }
-			
-			List<Resource> testResources = project.getTestResources();
-            for (Resource resource : testResources) {
-                log.info("Test Resource: " + resource.getDirectory());
-            }
-			//log.info("Classpath: "+classpathElements.toString().replace( ',', '\n' ));
+			log.info("file: " + project.getFile());
+			log.info("base dir: " + project.getBasedir());
+			log.info("project name: " + project.getName());
+			log.info("project main artifact id: " + project.getArtifact().getArtifactId());
+			log.info("project id: " + project.getId());
+			log.info("group id: " + project.getGroupId());
+			Build build = project.getBuild();
+			log.info("source directory: " + build.getSourceDirectory());
+			log.info("test source directory: " + build.getTestSourceDirectory());
 			log.info("");
+		}
+	}
+
+	@Override
+	public void execute()
+		throws MojoExecutionException, MojoFailureException
+	{
+		log = getLog();
+		printEnv();
+		try
+		{
+			go();
+		}
+		catch (Exception e)
+		{
+			throw new MojoExecutionException("Error executing mojo", e);
+		}
+
+	}
+
+	protected void go()
+		throws Exception
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	protected void copyFile(File directory, File file)
+		throws MojoExecutionException
+	{
+		try
+		{
+			FileUtils.copyFileToDirectory(file, directory);
+		}
+		catch (IOException e)
+		{
+			throw new MojoExecutionException("", e);
 		}
 	}
 }
