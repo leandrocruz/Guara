@@ -23,14 +23,17 @@ public class ApplicationToolHandlerImpl
     private ApplicationTool instance;
     
     private boolean useCache;
+
+	private Configuration conf;
     
     public ApplicationToolHandlerImpl(Configuration conf, Factory factory) 
     	throws ConfigurationException
     {
-        name = conf.getAttribute("name");
+    	this.factory = factory;
+        this.conf = conf;
+		name = conf.getAttribute("name");
         scope = conf.getAttribute("scope");
         className = conf.getAttribute("className");
-        this.factory = factory;
         useCache = PullManager.SCOPE_GLOBAL.equals(scope); 
     }
 
@@ -57,7 +60,7 @@ public class ApplicationToolHandlerImpl
         Object obj;
         if(instance == null)
         {
-            obj = factory.create(className);
+            obj = factory.create(className, conf);
         }
         else
         {
