@@ -1,5 +1,6 @@
 package br.com.ibnetwork.guara;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.ibnetwork.guara.metadata.handler.MacroReplacer;
@@ -18,6 +19,7 @@ import br.com.ibnetwork.guara.metadata.impl.ShowScreen;
 import br.com.ibnetwork.guara.metadata.impl.SqlMap;
 import br.com.ibnetwork.guara.metadata.impl.Tool;
 
+@Ignore
 public class GeneratorTest
 	extends GeneratorTestSupport
 {

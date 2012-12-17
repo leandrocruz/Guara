@@ -92,9 +92,9 @@
 	<modules>
 		<module>commons</module>	
 		<module>framework</module>
+		<module>maven-guara-plugin</module>
 		<!--
 		<module>app</module>		
-		<module>maven-guara-plugin</module>
 		-->
   	</modules>
 	<properties>
