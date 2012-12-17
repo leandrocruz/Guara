@@ -46,7 +46,8 @@ public class PipelineManagerImpl
         {
             return map;
         }
-        URL url = Thread.currentThread().getContextClassLoader().getResource(configurationFileName);
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        URL url = cl.getResource(configurationFileName);
         logger.debug("Loading pipeline data from: " + url);
         try
         {
