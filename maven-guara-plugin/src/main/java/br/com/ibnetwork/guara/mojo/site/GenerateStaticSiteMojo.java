@@ -15,6 +15,7 @@ import org.apache.maven.model.Resource;
 
 import br.com.ibnetwork.guara.mojo.MojoSupport;
 import br.com.ibnetwork.xingu.utils.MD5Utils;
+import br.com.ibnetwork.xingu.utils.StringUtils;
 import br.com.ibnetwork.xingu.utils.classloader.TryChildClassLoader;
 import br.com.ibnetwork.xingu.utils.io.CopyDirectory;
 import br.com.ibnetwork.xingu.utils.io.FileUtils;
@@ -31,17 +32,49 @@ public class GenerateStaticSiteMojo
 	extends MojoSupport
 {
 	/**
+	 * @parameter expression="${pulga}
+	 */
+	public static String pulga = "pulga-static.xml";
+
+	/**
 	 * @parameter expression="${path}
 	 */
 	public static String path = "";
+
+	/**
+	 * @parameter expression="${index}
+	 */
+	public static String index = "/index.html";
+
+	/**
+	 * @parameter expression="${resources}
+	 */
+	public static String resources = "/resources";
+
+	/**
+	 * @parameter expression="${jsResources}
+	 */
+	public static String jsResources = "/resources/js";
+
+	/**
+	 * @parameter expression="${webapp}
+	 */
+	public static String webapp = "src/main/webapp";
+
+	/**
+	 * @parameter expression="${output}
+	 */
+	public static String output = "";
+
 	
 	@Override
 	protected void go()
 		throws Exception
 	{
 		File src = project.getBasedir();
-		File dst = FileUtils.createTempDir("fortius-");
+		File dst = createOutputDirectory();
 
+		log.info("Application path is: " + path);
 		log.info("Building from: " + src);
 		log.info("To: " + dst);
 
@@ -57,6 +90,29 @@ public class GenerateStaticSiteMojo
 		String index = renderIndex();
 		writeIndex(dst, index);
 
+	}
+
+	private File createOutputDirectory()
+		throws Exception
+	{
+		File dst;
+		if(!StringUtils.isEmpty(output))
+		{
+			dst = new File(output);
+			if(dst.exists())
+			{
+				org.apache.commons.io.FileUtils.cleanDirectory(dst);
+			}
+			else
+			{
+				dst.mkdirs();
+			}
+		}
+		else
+		{
+			dst = FileUtils.createTempDir("fortius-");
+		}
+		return dst;
 	}
 
 	private void writeNameToHashedName(Map<String, String> nameToHashedName)
@@ -105,7 +161,7 @@ public class GenerateStaticSiteMojo
 			}
 			else
 			{
-				log.warn("Missing file for artifact '" + artifact.getArtifactId() + "'");
+				//log.warn("Missing file for artifact '" + artifact.getArtifactId() + "'");
 			}
 		}
 
@@ -116,7 +172,7 @@ public class GenerateStaticSiteMojo
 		throws Exception
 	{
 		String toReplace = "return {};";
-		File file = new File(build, path + "/resources/js/gl.js");
+		File file = new File(build, path + jsResources + "/gl.js");
 		String txt = IOUtils.toString(new FileInputStream(file));
 		int idx = txt.indexOf(toReplace);
 		txt = txt.substring(0, idx) + map + txt.substring(idx + toReplace.length());
@@ -127,14 +183,14 @@ public class GenerateStaticSiteMojo
 	private void writeIndex(final File build, String contents)
 		throws Exception
 	{
-		File file = new File(build, path + "/index.html");
+		File file = new File(build, path + index);
 		IOUtils.write(contents, new FileOutputStream(file));
 		log.info("Result written to " + file);
 	}
 
 	private String remapJavascriptLocations(Map<String, String> nameToHashedName)
 	{
-		int len = (path + "/resources/js/").length() + 1;
+		int len = (jsResources).length() + 1;
 		StringBuffer sb = new StringBuffer();
 		sb.append("var nameToHashedName = {};\n");
 		Set<String> keys = nameToHashedName.keySet();
@@ -142,10 +198,10 @@ public class GenerateStaticSiteMojo
 		{
 			if (key.endsWith(".js"))
 			{
-				String path = nameToHashedName.get(key);
-				key = key.substring(len, key.length() - 3);
-				path = path.substring(len, path.length() - 3);
-				sb.append("\t\tnameToHashedName['").append(key).append("'] = '").append(path).append("';\n");
+				String hashedName = nameToHashedName.get(key);
+				String k = key.substring(len, key.length() - 3);
+				hashedName = hashedName.substring(len + path.length(), hashedName.length() - 3);
+				sb.append("\t\tnameToHashedName['").append(k).append("'] = '").append(hashedName).append("';\n");
 			}
 		}
 		sb.append("\t\treturn nameToHashedName;");
@@ -155,11 +211,13 @@ public class GenerateStaticSiteMojo
 	private Map<String, String> hashResourceFiles(File root, final File build)
 		throws Exception
 	{
+		final int len = build.getAbsolutePath().length() + path.length();
 		final Map<String, String> nameToHashedName = new HashMap<String, String>();
-		File resources = new File(root, "src/main/webapp/resources");
-		File dest = new File(build, path + "/resources");
-		new CopyDirectory().copyTree(resources, dest);
-		new TreeVisitor(dest, new FileVisitor()
+		File src = new File(root, webapp + resources);
+		File dst = new File(build, path + resources);
+		
+		new CopyDirectory().copyTree(src, dst);
+		new TreeVisitor(dst, new FileVisitor()
 		{
 
 			@Override
@@ -172,15 +230,29 @@ public class GenerateStaticSiteMojo
 					return;
 				}
 
-				log.debug("Visiting file: " + file);
 				InputStream is = new FileInputStream(file);
 				String contents = IOUtils.toString(is);
 				String hash = MD5Utils.md5Hash(contents);
-				String name = hash + "_" + file.getName();
-				String key = file.getAbsolutePath().substring(build.getAbsolutePath().length());
-				String path = key.substring(0, key.indexOf(file.getName())) + name;
-				nameToHashedName.put(key, path);
-				org.apache.commons.io.FileUtils.moveFile(file, new File(file.getParentFile(), name));
+				String hashedName = hashedName(file, hash);
+				String key = file.getAbsolutePath().substring(len);
+				String folder = key.substring(0, key.indexOf(file.getName()));
+				
+				/*
+				 * Add the 'path' so that we don't have to know it on development mode 
+				 */
+				String value = path + folder + hashedName;
+				log.debug("Adding " + key + " = " + value);
+				nameToHashedName.put(key, value);
+
+				org.apache.commons.io.FileUtils.moveFile(file, new File(file.getParentFile(), hashedName));
+			}
+
+			private String hashedName(File file, String hash)
+			{
+				String name = file.getName();
+				int idx = name.lastIndexOf(".");
+				String hashedName = name.substring(0, idx) + "_" + hash + name.substring(idx);
+				return hashedName;
 			}
 
 		}).visit();
@@ -202,7 +274,6 @@ public class GenerateStaticSiteMojo
 	private String renderIndex()
 		throws Exception
 	{
-		String pulga = "pulga-static.xml";
 		ClassLoader cl = classLoaderFromProjectResources();
 		String result = new RunGuara().execute(pulga, cl);
 		return result;
