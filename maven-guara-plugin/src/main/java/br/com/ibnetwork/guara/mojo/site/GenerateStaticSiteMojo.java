@@ -91,7 +91,7 @@ public class GenerateStaticSiteMojo
 		log.info("---------------------------------------------------------------");
 
 		/* Hash Resources */
-		Map<String, String> dict = hashResourceFiles(src, dst);
+		Map<String, String> dict = buildDictionary(src, dst);
 		writeDictionary(dict);
 		
 		/* Write gl.js */
@@ -193,11 +193,18 @@ public class GenerateStaticSiteMojo
 	private void writeGuaraJavascriptLoader(File dst, Map<String, String> dict)
 		throws Exception
 	{
-		String txt = dictionaryToString(dict);
-		String toReplace = "return {};";
 		File file = new File(dst, path + jsResources + "/gl.js");
 		String template = IOUtils.toString(new FileInputStream(file));
-		int idx = template.indexOf(toReplace);
+
+		String txt = dictionaryToString(dict);
+
+		String thePath = "var _path = null;";
+		String pathComputed = "var _path = '" + path + "';";
+		int idx = template.indexOf(thePath);
+		template = template.substring(0, idx) + pathComputed + template.substring(idx + thePath.length());
+		
+		String toReplace = "return {};";
+		idx = template.indexOf(toReplace);
 		template = template.substring(0, idx) + txt + template.substring(idx + toReplace.length());
 		IOUtils.write(template, new FileOutputStream(file));
 	}
@@ -214,7 +221,7 @@ public class GenerateStaticSiteMojo
 			{
 				String hashedName = dict.get(key);
 				String k = key.substring(len, key.length() - 3);
-				hashedName = hashedName.substring(len + path.length(), hashedName.length() - 3);
+				hashedName = hashedName.substring(len, hashedName.length() - 3);
 				sb.append("\t\tdictionary['").append(k).append("'] = '").append(hashedName).append("';\n");
 			}
 		}
@@ -222,7 +229,7 @@ public class GenerateStaticSiteMojo
 		return sb.toString();
 	}
 
-	private Map<String, String> hashResourceFiles(File root, final File build)
+	private Map<String, String> buildDictionary(File root, final File build)
 		throws Exception
 	{
 		final int len = build.getAbsolutePath().length() + path.length();
@@ -250,11 +257,7 @@ public class GenerateStaticSiteMojo
 				String hashedName = hashedName(file, hash);
 				String key = file.getAbsolutePath().substring(len);
 				String folder = key.substring(0, key.indexOf(file.getName()));
-				
-				/*
-				 * Add the 'path' so that we don't have to know it on development mode 
-				 */
-				String value = path + folder + hashedName;
+				String value = folder + hashedName;
 				log.debug("Adding " + key + " = " + value);
 				dict.put(key, value);
 

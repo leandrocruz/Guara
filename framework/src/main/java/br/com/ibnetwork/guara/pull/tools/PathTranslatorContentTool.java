@@ -63,11 +63,11 @@ public class PathTranslatorContentTool
 
 	public String getURI(String resource)
 	{
-		String s = map.get(resource);
-		if(s == null)
+		String value = map.get(resource);
+		if(value == null)
 		{
-			return path + resource;
+			value = resource;
 		}
-		return s;
+		return path + value;
 	}
 }
