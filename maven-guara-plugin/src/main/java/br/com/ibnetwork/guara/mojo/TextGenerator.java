@@ -18,7 +18,7 @@ import br.com.ibnetwork.xingu.container.ContainerUtils;
 import br.com.ibnetwork.xingu.factory.Factory;
 
 public abstract class TextGenerator
-	extends MojoSupport
+	extends OldMojoSupport
 {
 	private Generator generator;
 	

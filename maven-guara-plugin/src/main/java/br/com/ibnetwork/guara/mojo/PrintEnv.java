@@ -11,7 +11,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @phase initialize
  */
 public class PrintEnv
-    extends MojoSupport
+    extends OldMojoSupport
 {
 
 //    /**
