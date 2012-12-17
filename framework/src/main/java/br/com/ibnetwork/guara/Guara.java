@@ -128,8 +128,6 @@ public class Guara
         }
         catch (Exception e)
         {
-            log.error("Error creating container. System is unusable",e);
-            e.printStackTrace();
             throw new ServletException("Error creating container. System is unusable",e);
         }
     }
