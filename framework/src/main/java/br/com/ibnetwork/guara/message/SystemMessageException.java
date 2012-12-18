@@ -1,9 +1,7 @@
 package br.com.ibnetwork.guara.message;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 public class SystemMessageException 
-	extends NestableRuntimeException
+	extends RuntimeException
 {
     public SystemMessageException(String message)
     {

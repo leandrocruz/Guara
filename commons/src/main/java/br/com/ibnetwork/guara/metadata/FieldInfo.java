@@ -13,7 +13,7 @@ import java.util.Locale;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.collections.list.UnmodifiableList;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import br.com.ibnetwork.guara.annotation.ColumnInfo;
 import br.com.ibnetwork.guara.annotation.Event;

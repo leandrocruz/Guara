@@ -2,8 +2,8 @@ package br.com.ibnetwork.guara.metadata;
 
 import java.io.File;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.model.Resource;
 import org.apache.maven.project.MavenProject;
 

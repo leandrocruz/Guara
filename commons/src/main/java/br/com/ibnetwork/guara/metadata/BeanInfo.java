@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import br.com.ibnetwork.guara.bean.BeanUtils;
 import xingu.store.PersistentBean;

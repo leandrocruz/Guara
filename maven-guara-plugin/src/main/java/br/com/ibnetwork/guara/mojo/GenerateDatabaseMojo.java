@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import br.com.ibnetwork.guara.metadata.Metadata;
 import br.com.ibnetwork.guara.metadata.handler.TableReplacer;

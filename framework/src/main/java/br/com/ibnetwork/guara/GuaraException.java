@@ -1,12 +1,7 @@
 package br.com.ibnetwork.guara;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
-/**
- * @author <a href="mailto:leandro@ibnetwork.com.br">leandro</a>
- */
 public class GuaraException
-	extends NestableRuntimeException
+	extends RuntimeException
 {
 
     public GuaraException(String message)

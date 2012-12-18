@@ -1,9 +1,7 @@
 package br.com.ibnetwork.guara.rundata;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 public class RunDataException 
-	extends NestableRuntimeException 
+	extends RuntimeException 
 {
 	public RunDataException(String message, Throwable t) 
 	{

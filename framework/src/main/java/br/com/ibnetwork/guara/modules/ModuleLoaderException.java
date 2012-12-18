@@ -1,12 +1,7 @@
 package br.com.ibnetwork.guara.modules;
 
-import org.apache.commons.lang.exception.NestableException;
-
-/**
- * @author <a href="mailto:leandro@ibnetwork.com.br">leandro</a>
- */
 public class ModuleLoaderException
-	extends NestableException
+	extends RuntimeException
 {
 
     public ModuleLoaderException(String message)

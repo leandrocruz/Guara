@@ -1,6 +1,6 @@
 package br.com.ibnetwork.guara.pipeline.impl;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import br.com.ibnetwork.guara.pipeline.Pipeline;
 import br.com.ibnetwork.guara.pipeline.PipelineException;

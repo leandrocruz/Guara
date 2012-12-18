@@ -17,9 +17,6 @@ import br.com.ibnetwork.guara.modules.ModuleLoaderException;
 import br.com.ibnetwork.xingu.container.Inject;
 import br.com.ibnetwork.xingu.factory.Factory;
 
-/**
- * @author <a href="mailto:leandro@ibnetwork.com.br">leandro</a>
- */
 public class ModuleLoaderImpl
 	implements ModuleLoader, Configurable
 {
