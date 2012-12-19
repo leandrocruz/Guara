@@ -77,8 +77,9 @@ public class GenerateStaticSiteMojo
 		throws Exception
 	{
 		File src = project.getBasedir();
-		File dst = createOutputDirectory();
-
+		File out = createOutputDirectory();
+		File target = new File(out, path);
+		
 		log.info("Application path is: " + path);
 		log.info("Pulga is: " + pulga);
 		log.info("Index is: " + index);
@@ -87,18 +88,21 @@ public class GenerateStaticSiteMojo
 		log.info("WebApp is: " + webapp);
 		log.info("---------------------------------------------------------------");
 		log.info("Building from: " + src);
-		log.info("To: " + dst);
+		log.info("To: " + target);
 		log.info("---------------------------------------------------------------");
 
 		/* Hash Resources */
-		Map<String, String> dict = buildDictionary(src, dst);
+		
+		Map<String, String> dict = buildDictionary(src, target);
 		writeDictionary(dict);
 		
+		turnOffDevMode(target, dict);
+		
 		/* Write gl.js */
-		writeGuaraJavascriptLoader(dst, dict);
+		writeGuaraJavascriptLoader(target, dict);
 
 		/* Write index.html */
-		writeIndex(dst);
+		writeIndex(target);
 	}
 
 	private File createOutputDirectory()
@@ -124,6 +128,16 @@ public class GenerateStaticSiteMojo
 		return dst;
 	}
 
+	private void turnOffDevMode(File target, Map<String, String> dict)
+		throws Exception
+	{
+		String fortiusjs = dict.get("/resources/js/fortius.js");
+		File file = new File(target, fortiusjs);
+		String src = FileUtils.toString(file);
+		String result = StringUtils.replaceOn("devMode: true", src, "devMode: false");
+		FileUtils.toFile(result, file);
+	}
+
 	private void writeDictionary(Map<String, String> dict)
 		throws Exception
 	{
@@ -137,9 +151,10 @@ public class GenerateStaticSiteMojo
 			sb.append(key).append(" = ").append(value).append("\n");
 		}
 
-		String target = project.getBuild().getOutputDirectory();
-		File file = new File(target, dictionary);
-		IOUtils.write(sb, new FileOutputStream(file));
+		String dir = project.getBuild().getOutputDirectory();
+		File file = new File(dir, dictionary);
+		String contents = sb.toString();
+		FileUtils.toFile(contents, file);
 	}
 
 	private ClassLoader classLoaderFromProjectResources()
@@ -179,21 +194,21 @@ public class GenerateStaticSiteMojo
 		return cl;
 	}
 
-	private void writeIndex(File dst)
+	private void writeIndex(File target)
 		throws Exception
 	{
 		ClassLoader cl = classLoaderFromProjectResources();
 		String txt = new RunGuara().execute(pulga, cl);
 
-		File file = new File(dst, path + index);
+		File file = new File(target, index);
 		IOUtils.write(txt, new FileOutputStream(file));
 		log.info("Result written to " + file);
 	}
 
-	private void writeGuaraJavascriptLoader(File dst, Map<String, String> dict)
+	private void writeGuaraJavascriptLoader(File target, Map<String, String> dict)
 		throws Exception
 	{
-		File file = new File(dst, path + jsResources + "/gl.js");
+		File file = new File(target, jsResources + "/gl.js");
 		String template = FileUtils.toString(file);
 		String txt = dictionaryToString(dict);
 		String result = StringUtils.replaceOn("return {};", template, txt);
@@ -220,13 +235,13 @@ public class GenerateStaticSiteMojo
 		return sb.toString();
 	}
 
-	private Map<String, String> buildDictionary(File root, final File build)
+	private Map<String, String> buildDictionary(File root, final File target)
 		throws Exception
 	{
-		final int len = build.getAbsolutePath().length() + path.length();
+		final int len = target.getAbsolutePath().length();
 		final Map<String, String> dict = new HashMap<String, String>();
 		File src = new File(root, webapp + resources);
-		File dst = new File(build, path + resources);
+		File dst = new File(target, resources);
 		
 		new CopyDirectory().copyTree(src, dst);
 		new TreeVisitor(dst, new FileVisitor()
