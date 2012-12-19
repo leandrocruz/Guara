@@ -274,7 +274,7 @@ public class GenerateStaticSiteMojo
 			{
 				String name = file.getName();
 				int idx = name.lastIndexOf(".");
-				String hashedName = name.substring(0, idx) + "_" + hash + name.substring(idx);
+				String hashedName = name.substring(0, idx) + "_" + hash + ".cache." + name.substring(idx + 1);
 				return hashedName;
 			}
 
