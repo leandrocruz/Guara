@@ -194,19 +194,10 @@ public class GenerateStaticSiteMojo
 		throws Exception
 	{
 		File file = new File(dst, path + jsResources + "/gl.js");
-		String template = IOUtils.toString(new FileInputStream(file));
-
+		String template = FileUtils.toString(file);
 		String txt = dictionaryToString(dict);
-
-		String thePath = "var _path = null;";
-		String pathComputed = "var _path = '" + path + "';";
-		int idx = template.indexOf(thePath);
-		template = template.substring(0, idx) + pathComputed + template.substring(idx + thePath.length());
-		
-		String toReplace = "return {};";
-		idx = template.indexOf(toReplace);
-		template = template.substring(0, idx) + txt + template.substring(idx + toReplace.length());
-		IOUtils.write(template, new FileOutputStream(file));
+		String result = StringUtils.replaceOn("return {};", template, txt);
+		FileUtils.toFile(result, file);
 	}
 
 	private String dictionaryToString(Map<String, String> dict)
