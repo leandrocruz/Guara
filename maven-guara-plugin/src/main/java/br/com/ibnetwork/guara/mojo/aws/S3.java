@@ -2,15 +2,16 @@ package br.com.ibnetwork.guara.mojo.aws;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.Writer;
 
-import javax.activation.MimetypesFileTypeMap;
-
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-import br.com.ibnetwork.xingu.utils.MD5Utils;
 import br.com.ibnetwork.xingu.utils.io.FileVisitor;
 import br.com.ibnetwork.xingu.utils.io.TreeVisitor;
+import br.com.ibnetwork.xingu.utils.io.zip.ZipUtils;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.internal.Mimetypes;
@@ -26,15 +27,21 @@ public class S3
 	implements ProgressListener
 {
 	private final AmazonS3 s3;
+	
+	private final boolean compress;
 
-	public S3(AmazonS3 s3)
+	private File journal;
+	
+	public S3(AmazonS3 s3, boolean compress)
 	{
 		this.s3 = s3;
+		this.compress = compress;
 	}
 
 	public void upload(final File root, final String bucketName)
 		throws Exception
 	{
+		journal = new File(root, "journal.txt");
 		
 		new TreeVisitor(root, new FileVisitor()
 		{
@@ -48,11 +55,23 @@ public class S3
 					String parent = file.getAbsolutePath();
 					int len = root.getAbsolutePath().length();
 					String key = parent.substring(len + 1);
+					if(compress)
+					{
+						compress(file);
+					}
 					upload(bucketName, key, file);
 				}
 			}
-		}).visit();
 
+		}).visit();
+	}
+
+	private void compress(File file)
+		throws Exception
+	{
+		File gz = ZipUtils.gzip(file);
+		file.delete();
+		FileUtils.moveFile(gz, file);
 	}
 
 	private ObjectMetadata metaFor(File file)
@@ -76,6 +95,11 @@ public class S3
 		{
 			meta.setCacheControl("no-cache");
 		}
+
+		if(compress)
+		{
+			meta.setContentEncoding("gzip");
+		}
 		
 		return meta;
 	}
@@ -90,6 +114,15 @@ public class S3
 		System.out.print("Uploading '" + file.getAbsolutePath() + "' to '"+ key + "' ");
 		PutObjectResult result = s3.putObject(put);
 		IOUtils.closeQuietly(is);
+	}
+
+	private void log(File file, String key, ObjectMetadata meta)
+		throws Exception
+	{
+		Writer writer = new FileWriter(journal, true);
+		String msg = meta.getContentMD5();
+		IOUtils.write(msg, writer);
+		writer.close();
 	}
 
 	@Override

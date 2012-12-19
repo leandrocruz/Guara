@@ -34,6 +34,11 @@ public class UploadToS3Mojo
 	 */
 	public static String credentials = "";
 	
+	/**
+	 * @parameter expression="${compress}
+	 */
+	public static boolean compress = false;
+	
 	@Override
 	protected void go()
 		throws Exception
@@ -59,6 +64,6 @@ public class UploadToS3Mojo
 			throw new Exception("Root Directory '" + root + "' is empty");
 		}
 		
-		new S3(s3).upload(root, bucket);
+		new S3(s3, compress).upload(root, bucket);
 	}
 }
