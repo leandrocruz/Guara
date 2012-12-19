@@ -25,7 +25,7 @@ import br.com.ibnetwork.xingu.utils.io.TreeVisitor;
 /**
  * @goal static
  * @requiresProject true
- * @requiresDirectInvocation true
+ * @requiresDirectInvocation false
  * @requiresDependencyResolution compile
  */
 public class GenerateStaticSiteMojo
