@@ -2,6 +2,11 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+	<parent>
+		<groupId>kix</groupId>
+		<artifactId>kix-java</artifactId>
+		<version>1.0</version>
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.ibnetwork.guara</groupId>
 	<artifactId>guara</artifactId>
@@ -38,18 +43,6 @@
    </distributionManagement>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.0</version> 
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.3</version>
@@ -73,31 +66,10 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<build>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 	<modules>
 		<module>commons</module>	
 		<module>framework</module>
 		<module>maven-guara-plugin</module>
-		<!--
-		<module>app</module>		
-		-->
   	</modules>
 	<properties>
         <xingu.version>1.4.26-SNAPSHOT</xingu.version>
