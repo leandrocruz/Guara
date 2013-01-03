@@ -9,6 +9,11 @@
 	<artifactId>maven-guara-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>Maven Guara Plugin</name>
+	<properties>
+		<maven.version>3.0.4</maven.version>
+		<aether.version>1.13.1</aether.version>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>br.com.ibnetwork.guara</groupId>
@@ -20,16 +25,6 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-			<version>2.0</version>
-		</dependency>		
 		<dependency>
 			<groupId>xingu</groupId>
 			<artifactId>template-freemarker</artifactId>
@@ -45,5 +40,32 @@
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.3.26</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-embedder</artifactId>
+			<version>${maven.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>${maven.version}</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-api</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-util</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>com.jcabi</groupId>
+			<artifactId>jcabi-aether</artifactId>
+			<version>0.7.5</version>
+		</dependency>		
 	</dependencies>
 </project>

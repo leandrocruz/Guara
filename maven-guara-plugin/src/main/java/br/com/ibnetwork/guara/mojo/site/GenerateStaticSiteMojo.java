@@ -4,14 +4,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
+import org.apache.maven.project.MavenProject;
+import org.sonatype.aether.artifact.Artifact;
+import org.sonatype.aether.resolution.DependencyResolutionException;
+import org.sonatype.aether.util.artifact.DefaultArtifact;
 
 import br.com.ibnetwork.guara.mojo.MojoSupport;
 import br.com.ibnetwork.xingu.utils.MD5Utils;
@@ -21,6 +26,8 @@ import br.com.ibnetwork.xingu.utils.io.CopyDirectory;
 import br.com.ibnetwork.xingu.utils.io.FileUtils;
 import br.com.ibnetwork.xingu.utils.io.FileVisitor;
 import br.com.ibnetwork.xingu.utils.io.TreeVisitor;
+
+import com.jcabi.aether.Aether;
 
 /**
  * @goal static
@@ -67,10 +74,14 @@ public class GenerateStaticSiteMojo
 	public static String webapp = "src/main/webapp";
 
 	/**
+	 * @parameter expression="${exclusions}
+	 */
+	public static List<String> exclusions;
+
+	/**
 	 * @parameter expression="${output}
 	 */
 	public static String output = "";
-
 	
 	@Override
 	protected void go()
@@ -168,7 +179,6 @@ public class GenerateStaticSiteMojo
 		String target = project.getBuild().getOutputDirectory();
 		cl.add(new File(target + "/"));
 		
-		@SuppressWarnings("unchecked")
 		List<Resource> resources = project.getResources();
 		for (Resource resource : resources)
 		{
@@ -176,22 +186,42 @@ public class GenerateStaticSiteMojo
 			cl.add(file);
 		}
 		
-		@SuppressWarnings("unchecked")
-		Set<Artifact> dependencies = project.getDependencyArtifacts();
-		for (Artifact artifact : dependencies)
+		Collection<Artifact> dependencies = loadProjectDependencies(project);
+		for (Artifact dep : dependencies)
 		{
-			File file = artifact.getFile();
-			if(file != null)
-			{
-				cl.add(file);
-			}
-			else
-			{
-				//log.warn("Missing file for artifact '" + artifact.getArtifactId() + "'");
-			}
+			File file = dep.getFile();
+			cl.add(file);
 		}
 
 		return cl;
+	}
+
+	private Collection<Artifact> loadProjectDependencies(MavenProject project)
+		throws DependencyResolutionException
+	{
+		String id = project.getArtifact().toString();
+		DefaultArtifact main = new DefaultArtifact(id);
+		String home = System.getProperty("user.home");
+		Aether aether = new Aether(project, home + "/.m2/repository");
+		Collection<Artifact> dependencies = aether.resolve(main, "runtime");
+		Iterator<Artifact> it = dependencies.iterator();
+		while (it.hasNext())
+		{
+			Artifact artifact = it.next();
+			String name = artifact.getGroupId() + ":" + artifact.getArtifactId();
+			boolean skip = exclusions.contains(name);
+			if(skip)
+			{
+				it.remove();
+				log.info("Ignoring '" + artifact.getFile() + "'");
+			}
+			else
+			{
+				log.info("Adding '" + artifact.getFile() + "'");
+			}
+		}
+		
+		return dependencies;
 	}
 
 	private void writeIndex(File target)

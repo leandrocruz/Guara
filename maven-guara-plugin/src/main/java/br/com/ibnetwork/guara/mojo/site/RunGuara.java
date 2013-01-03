@@ -19,7 +19,7 @@ public class RunGuara
 	{
 		String location = cl.getResource(pulga).getFile();
 		Object guara = cl.loadClass("br.com.ibnetwork.guara.Guara").newInstance();
-		
+
 		/* Guara.init() */
 		ServletConfig config = mock(ServletConfig.class);
 		ServletContext context = mock(ServletContext.class);
