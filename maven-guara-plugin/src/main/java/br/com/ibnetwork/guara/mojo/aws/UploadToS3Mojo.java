@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import br.com.ibnetwork.guara.mojo.MojoSupport;
 
@@ -28,6 +29,11 @@ public class UploadToS3Mojo
 	 * @parameter expression="${bucket}
 	 */
 	public static String bucket = "";
+
+	/**
+	 * @parameter expression="${endpoint}
+	 */
+	public static String endpoint = "";
 
 	/**
 	 * @parameter expression="${credentials}
@@ -62,6 +68,11 @@ public class UploadToS3Mojo
 		if(!root.exists())
 		{
 			throw new Exception("Root Directory '" + root + "' is empty");
+		}
+
+		if(StringUtils.isNotEmpty(endpoint))
+		{
+			s3.setEndpoint(endpoint);
 		}
 		
 		new S3(s3, compress).upload(root, bucket);
