@@ -2,9 +2,7 @@ package br.com.ibnetwork.guara.mojo.aws;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.Writer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -30,8 +28,6 @@ public class S3
 	
 	private final boolean compress;
 
-	private File journal;
-	
 	public S3(AmazonS3 s3, boolean compress)
 	{
 		this.s3 = s3;
@@ -41,8 +37,6 @@ public class S3
 	public void upload(final File root, final String bucketName)
 		throws Exception
 	{
-		journal = new File(root, "journal.txt");
-		
 		new TreeVisitor(root, new FileVisitor()
 		{
 			@Override
@@ -116,19 +110,10 @@ public class S3
 		IOUtils.closeQuietly(is);
 	}
 
-	private void log(File file, String key, ObjectMetadata meta)
-		throws Exception
-	{
-		Writer writer = new FileWriter(journal, true);
-		String msg = meta.getContentMD5();
-		IOUtils.write(msg, writer);
-		writer.close();
-	}
-
 	@Override
-	public void progressChanged(ProgressEvent progressEvent)
+	public void progressChanged(ProgressEvent evt)
 	{
-		int code = progressEvent.getEventCode();
+		int code = evt.getEventCode();
 		switch (code)
 		{
 			case ProgressEvent.COMPLETED_EVENT_CODE:
