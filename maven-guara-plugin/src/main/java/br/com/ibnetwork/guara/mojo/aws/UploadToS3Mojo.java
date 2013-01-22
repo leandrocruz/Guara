@@ -26,34 +26,31 @@ public class UploadToS3Mojo
 	public static String output = "";
 
 	/**
-	 * @parameter expression="${bucket}
-	 */
-	public static String bucket = "";
-
-	/**
-	 * @parameter expression="${endpoint}
-	 */
-	public static String endpoint = "";
-
-	/**
-	 * @parameter expression="${credentials}
-	 */
-	public static String credentials = "";
-	
-	/**
 	 * @parameter expression="${compress}
 	 */
 	public static boolean compress = false;
+	
+	/**
+	 * @parameter expression="${s3}
+	 */
+	public S3Config s3;
+
 	
 	@Override
 	protected void go()
 		throws Exception
 	{
+		String credentials = s3.getCredentials();
+		String bucket = s3.getBucket();
+		String endpoint = s3.getEndpoint();
+		
 		log.info("---------------------------------------------------------------");
 		log.info("Root: " + output);
 		log.info("Credentials: " + credentials);
 		log.info("Buket: " + bucket);
+		log.info("Endpoint: " + endpoint);
 		log.info("---------------------------------------------------------------");
+		
 		
 		File file = new File(credentials);
 		if(!file.exists())
@@ -61,7 +58,7 @@ public class UploadToS3Mojo
 			throw new Exception("Credentials file '" + credentials + "' missing");
 		}
 		InputStream is = new FileInputStream(file);
-		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(is));
+		AmazonS3 amazonS3 = new AmazonS3Client(new PropertiesCredentials(is));
 		IOUtils.closeQuietly(is);
 		
 		File root = new File(output);
@@ -72,9 +69,9 @@ public class UploadToS3Mojo
 
 		if(StringUtils.isNotEmpty(endpoint))
 		{
-			s3.setEndpoint(endpoint);
+			amazonS3.setEndpoint(endpoint);
 		}
 		
-		new S3(s3, compress).upload(root, bucket);
+		new S3(amazonS3, compress).upload(root, bucket);
 	}
 }

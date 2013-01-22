@@ -13,7 +13,12 @@
 		<maven.version>3.0.4</maven.version>
 		<aether.version>1.13.1</aether.version>
 	</properties>
-	
+	<repositories>
+		<repository>
+			<id>jgit-repository</id>
+			<url>http://download.eclipse.org/jgit/maven</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>br.com.ibnetwork.guara</groupId>
@@ -66,6 +71,11 @@
 			<groupId>com.jcabi</groupId>
 			<artifactId>jcabi-aether</artifactId>
 			<version>0.7.5</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>2.2.0.201212191850-r</version>
+		</dependency>
 	</dependencies>
 </project>

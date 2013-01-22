@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Resource;
 import org.apache.maven.project.MavenProject;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.RepositoryCache;
+import org.eclipse.jgit.util.FS;
 import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.resolution.DependencyResolutionException;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
@@ -83,6 +89,11 @@ public class GenerateStaticSiteMojo
 	 */
 	public static String output = "";
 	
+	/**
+	 * @parameter expression="${comet}
+	 */
+	public CometConfig comet;
+	
 	@Override
 	protected void go()
 		throws Exception
@@ -107,7 +118,7 @@ public class GenerateStaticSiteMojo
 		Map<String, String> dict = buildDictionary(src, target);
 		writeDictionary(dict);
 		
-		turnOffDevMode(target, dict);
+		replaceStrings(target, dict);
 		
 		/* Write gl.js */
 		writeGuaraJavascriptLoader(target, dict);
@@ -139,14 +150,25 @@ public class GenerateStaticSiteMojo
 		return dst;
 	}
 
-	private void turnOffDevMode(File target, Map<String, String> dict)
+	private void replaceStrings(File target, Map<String, String> dict)
 		throws Exception
 	{
 		String fortiusjs = dict.get("/resources/js/fortius.js");
 		File file = new File(target, fortiusjs);
 		String src = FileUtils.toString(file);
-		String result = StringUtils.replaceOn("devMode: true", src, "devMode: false");
-		FileUtils.toFile(result, file);
+		
+		File root = project.getParent().getBasedir();
+		File gitDir = new File(root, ".git");
+        
+		Repository repo = RepositoryCache.open(RepositoryCache.FileKey.lenient(gitDir,FS.DETECTED), true);
+		String branch = repo.getBranch();
+		DateFormat df = new SimpleDateFormat("hh:mm dd/MM/yyyy");
+		String version = project.getVersion() + " (branch:" +branch + " data:" + df.format(new Date()) + ")";
+		src = StringUtils.replaceOn("@@VERSION@@", src, version);
+
+		String address = comet.getHost() + ":" + comet.getPort();
+		src = StringUtils.replaceOn("@@HOST@@", src, address);
+		FileUtils.toFile(src, file);
 	}
 
 	private void writeDictionary(Map<String, String> dict)
