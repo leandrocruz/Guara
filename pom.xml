@@ -72,6 +72,6 @@
 		<module>maven-guara-plugin</module>
   	</modules>
 	<properties>
-        <xingu.version>1.4.33-SNAPSHOT</xingu.version>
+        <xingu.version>1.4.34-SNAPSHOT</xingu.version>
 	</properties>
 </project>
