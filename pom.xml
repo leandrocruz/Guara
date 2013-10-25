@@ -11,7 +11,7 @@
 	<groupId>br.com.ibnetwork.guara</groupId>
 	<artifactId>guara</artifactId>
 	<packaging>pom</packaging>
-	<version>1.32</version>
+	<version>1.33-SNAPSHOT</version>
 	<name>Guara</name>
 	<url>http://guara-framework.sf.net</url>
 	<description>Guara Web Application Framework</description>
@@ -72,6 +72,6 @@
 		<module>maven-guara-plugin</module>
   	</modules>
 	<properties>
-        <xingu.version>1.4.38</xingu.version>
+        <xingu.version>1.4.39-SNAPSHOT</xingu.version>
 	</properties>
 </project>
