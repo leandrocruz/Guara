@@ -12,7 +12,7 @@
 	<artifactId>guara</artifactId>
 	<packaging>pom</packaging>
 	<version>1.33-SNAPSHOT</version>
-	<name>Guara</name>
+	<name>Guara Web Framework</name>
 	<url>http://guara-framework.sf.net</url>
 	<description>Guara Web Application Framework</description>
 	<licenses>
