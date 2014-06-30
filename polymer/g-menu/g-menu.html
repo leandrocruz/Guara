@@ -4,22 +4,19 @@
 	<template>
 		<link rel="stylesheet" href="g-menu.css">
 		<div class="menu">
-			<ul on-click={{selectItem}}>
+			<ul>
 				<template repeat="{{item in items}}">
-  					<li><a href="{{item.href}}">{{item.text}}</a></li>
+  					<li><a on-click={{selectItem}} href="{{item.href}}">{{item.text}}</a></li>
 				</template>				
 			</ul>
 		</div>
 	</template>
 	<script>
     	Polymer('g-menu', {
+    		items: [],
     		ready: function() {
-	    		this.items = [
-					{href: "#xx", text: "Configurações"},
-					{href: "#yy", text: "Agendamento"}
-				];
     		},
-    		
+
     		selectItem: function(evt) {
     			console.log("Selecting", evt.target);
     		}
