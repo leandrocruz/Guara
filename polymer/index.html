@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="bower/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="guara.css">
+
+	<script src="bower/platform/platform.js"></script>
+	
+	<link rel="import" href="g-layout/g-layout.html">
+	<link rel="import" href="g-mini-layout/g-mini-layout.html">
+	
+</head>
+<body>
+	<g-layout>
+		<div class="header">Header</div>
+		<div class="screen">
+			<!-- 
+			<g-mini-layout></g-mini-layout>
+			 -->
+			<g-menu>
+				<li><a href="#">Configurações</a></li>
+				<li><a href="#">Agendamento</a></li>
+				<li><a href="#">Resultados</a></li>
+				<li><a href="#">Financeiro</a></li>
+			</g-menu>
+		</div>
+		<div class="footer">Footer</div>
+	</g-layout>
+	<script>
+		window.addEventListener('polymer-ready', function(e) {
+			console.log("Polymer Ready");
+		});
+	</script>
+</body>
+</html>

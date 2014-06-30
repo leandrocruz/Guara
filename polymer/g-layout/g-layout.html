@@ -1,0 +1,29 @@
+<link rel="import" href="../bower/polymer/polymer.html">
+<polymer-element name="g-layout">
+	<template>
+		<link rel="stylesheet" href="g-layout.css">
+		<div class="table">
+			<div class="row header">
+				<content select=".header"></content>
+			</div>
+	
+			<div class="row screen">
+				<content select=".screen"></content>
+			</div>
+	
+			<div class="row footer">
+				<content select=".footer"></content>
+			</div>
+		</div>
+		
+	</template>
+	<script>
+    	Polymer('g-layout', {
+			created: function() {}
+		});
+	</script>	
+</polymer-element>
+
+
+
+

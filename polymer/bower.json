@@ -1,0 +1,24 @@
+{
+  "name": "guara",
+  "version": "1.0",
+  "authors": [
+    "Leandro Cruz <leandro.saad@gmail.com>"
+  ],
+  "main": "main.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "paper-elements": "Polymer/paper-elements#~0.3.3",
+    "bootstrap": "~3.2.0"
+  }
+}

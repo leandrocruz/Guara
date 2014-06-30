@@ -1,0 +1,28 @@
+<link rel="import" href="../bower/polymer/polymer.html">
+<link rel="import" href="../g-menu/g-menu.html">
+
+<polymer-element name="g-mini-layout">
+	<template>
+		<link rel="stylesheet" href="g-mini-layout.css">
+		
+		<div class="mini">
+			<h3 class="title"><a href="#">{{title}}</a></h3>
+			<g-menu>
+				<content></content>
+			</g-menu>
+			<div>
+				CONTEÚDO
+			</div>
+		</div>
+	</template>
+	<script>
+    	Polymer('g-mini-layout', {
+			created: function() {},
+    		title: "SAMPLE"
+		});
+	</script>	
+</polymer-element>
+
+
+
+
