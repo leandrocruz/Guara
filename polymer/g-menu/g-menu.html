@@ -1,15 +1,28 @@
 <link rel="import" href="../bower/polymer/polymer.html">
 
-<polymer-element name="g-menu">
+<polymer-element name="g-menu" attributes="items">
 	<template>
 		<link rel="stylesheet" href="g-menu.css">
 		<div class="menu">
-			<ul>
-				<content></content>
+			<ul on-click={{selectItem}}>
+				<template repeat="{{item in items}}">
+  					<li><a href="{{item.href}}">{{item.text}}</a></li>
+				</template>				
 			</ul>
 		</div>
 	</template>
 	<script>
-    	Polymer('g-menu');
+    	Polymer('g-menu', {
+    		ready: function() {
+	    		this.items = [
+					{href: "#xx", text: "Configurações"},
+					{href: "#yy", text: "Agendamento"}
+				];
+    		},
+    		
+    		selectItem: function(evt) {
+    			console.log("Selecting", evt.target);
+    		}
+    	});
 	</script>
 </polymer-element>
