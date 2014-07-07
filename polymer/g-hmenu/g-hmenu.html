@@ -1,0 +1,22 @@
+<polymer-element name="g-hmenu" attributes="items">
+	<template>
+		<link rel="stylesheet" href="g-hmenu.css">
+		<ul class="nav nav-pills">
+			<template repeat="{{item, i in items}}">
+ 				<li class="{{item.class}}">
+					<a on-click={{onSelectItem}} href="{{item.href}}" data-index="{{i}}">{{item.text}}</a>
+ 				</li>
+			</template>				
+		</ul>
+	</template>
+	<script>
+    	Polymer('g-hmenu', {
+    		created: function() {
+				this.items = [];
+			},
+    		
+    		onSelectItem: function(event, detail, sender) {
+    		}
+    	});
+	</script>
+</polymer-element>

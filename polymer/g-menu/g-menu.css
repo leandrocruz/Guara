@@ -1,20 +1,12 @@
-.menu {
-}
-
 ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	
+
 	background-clip: padding-box;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	border-radius: 6px;
-		
-	_float: left;
-	width: 250px;
-	line-height: 16px;
-	margin-right: 20px;
 }
 
 li {
@@ -27,7 +19,12 @@ li:last-child {
 	border-bottom: 0;
 }
 
-li:hover {
-	padding-left: 35px;
-	border-left: 10px solid blue;
+li.active {
+	font-weight: bold;
 }
+
+/*
+li.active a {
+	text-decoration: underline;
+}
+*/
