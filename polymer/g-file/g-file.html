@@ -1,0 +1,37 @@
+<polymer-element name="g-file" attributes="name class title accept">
+	<template>
+		<link rel="stylesheet" href="g-file.css">
+		<a on-click="{{onSelectFile}}" class="btn btn-default {{class}}">{{title}}</a>		
+		<div class="file-input-wrapper">
+			<input id="file" type="file" name="{{name}}" class="{{class}}" title="{{title}}" accept="{{accept}}" data-filename-placement="inside">
+		</div>
+	</template>
+	<script>
+    	Polymer('g-file', {
+    		created: function() {
+			},
+			
+			ready: function() {
+			},
+			
+			attached: function () {
+			},
+
+			domReady: function() {
+
+			},
+
+			detached: function() {
+			},
+
+    		ready: function() {
+    		},
+    		
+    		onSelectFile: function() {
+    			var f = this.$.file;
+    			$(f).trigger('click');
+    		}
+
+    	});
+	</script>
+</polymer-element>
