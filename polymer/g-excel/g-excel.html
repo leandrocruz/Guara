@@ -6,7 +6,12 @@
 	<script>
     	Polymer('g-excel', {
 			parser: null,
+            data: null,
 			
+            getData: function() {
+                return this.data;
+            },
+
     		getParser: function() {
     			if(this.parser == null)
     			{
@@ -31,7 +36,9 @@
  					var row = array[i];
  					handler.handleRow(sheet, row, i);
  				}
-    		},
+    		
+                this.data = array;
+            },
     		
     		clear: function() {
     			this.$.table.clear();
