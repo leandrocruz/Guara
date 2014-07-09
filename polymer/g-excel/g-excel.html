@@ -1,7 +1,7 @@
 <polymer-element name="g-excel" attributes="file">
 	<template>
 		<link rel="stylesheet" href="g-excel.css">
-		<g-table id="data_table" columns="['NUMERO', 'BBJUR']"></g-table>
+		<g-table id="table"></g-table>
 	</template>
 	<script>
     	Polymer('g-excel', {
@@ -23,21 +23,40 @@
    				}
 
 				var parser = this.getParser();
-   				var data   = parser.toPlainObject(sheet);
+   				var array  = parser.toArray(sheet);
 
- 				for(var i = 0; i < data.length; i++)
+   				handler.handleHeader(sheet, array[0]);
+ 				for(var i = 1; i < array.length; i++)
  				{
- 					var row = data[i];
+ 					var row = array[i];
  					handler.handleRow(sheet, row, i);
  				}
     		},
     		
+    		clear: function() {
+    			this.$.table.clear();
+    		},
+    		
     		fileChanged: function(oldVal, newVal) {
+    			
+    			this.clear();
     			var $this = this;
+
     			this.getParser().sheetByIndex(this.file, 0, function(sheet){
     				$this.parseSheet(sheet, {
+    					
     					handleRow: function(sheet, row, i) {
-    						$this.$.data_table.appendRow(row);
+    						$this.$.table.appendRow(row);
+    					},
+    					
+    					handleHeader: function(sheet, header) {
+    						var columns = [];
+    						
+    						$.each(header, function(key, value) {
+    							columns.push(key);
+    						});
+    						
+    						$this.$.table.columns = columns;
     					}
     				});
     			});

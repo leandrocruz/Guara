@@ -1,4 +1,4 @@
-<polymer-element name="g-file" attributes="title class accept">
+<polymer-element name="g-file" attributes="title class accept isDirectory">
 	<template>
 		<link rel="stylesheet" href="g-file.css">
 		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
@@ -9,6 +9,8 @@
 	<script>
     	Polymer('g-file', {
 
+    		isDirectory: false,
+    		
     		getInput: function() {
     			return $(this.$.file);
     		},
@@ -42,13 +44,18 @@
     		},
     		
     		onFileSelected: function() {
-    			var file  = this.getFile();
-    			var size  = new Number(file.size/1024).toFixed(2);
-    			var label = file.name + " - " + size + " KB";
-    			$(this.$.button).text(label);
+    			
+				var label = this.title;
+				var file  = this.getFile();
+				if(file)
+				{
+					var size = new Number(file.size / 1024).toFixed(2);
+					label = file.name + " - " + size + " KB";
+				}
 
-    			this.fire('file-selected', {file: file});
-    		}
-    	});
+				$(this.$.button).text(label);
+				this.fire('file-selected', {file : file});
+			}
+		});
 	</script>
 </polymer-element>

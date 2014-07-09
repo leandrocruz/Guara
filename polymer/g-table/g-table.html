@@ -1,14 +1,20 @@
-<polymer-element name="g-table" attributes="columns rows">
+<polymer-element name="g-table" attributes="columns rows actions">
 	<template>
 		<link rel="stylesheet" href="g-table.css">
-		<table id="table">
-			<thead></thead>
+		<table id="table" class="table table-hover">
+			<thead>
+				<tr>
+					<template repeat="{{ column, j in columns }}">
+						<th>{{ column }}</th>
+					</template>
+				</tr>
+			</thead>
 			<tfoot></tfoot>
 			<tbody>
-				<template repeat="{{row, i in rows}}">
+				<template repeat="{{ row, i in rows }}">
 					<tr>
-						<template repeat="{{column, j in columns}}">
-							<td>{{row[column]}}</td>
+						<template repeat="{{ column, j in columns }}">
+							<td>{{ row[column] }}</td>
 						</template>
 					</tr>
 				</template>			
@@ -18,9 +24,14 @@
 	<script>
     	Polymer('g-table', {
 
-    		columns: [],
+    		columns: [], /* The Header */
+
     		rows:[],
-    		
+
+    		clear: function() {
+    			this.rows = [];
+    		},
+
     		_oldAppendRow: function(row) {
     			var html = '<tr>\n';
     			$.each(row, function(key, value) {
@@ -30,9 +41,8 @@
     			
     			$(this.$.table).append(html);
     		},
-    	
+
     		appendRow: function(row) {
-    			console.log(row);
     			this.rows.push(row);
     		}
     	});
