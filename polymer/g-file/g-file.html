@@ -3,8 +3,22 @@
 		<link rel="stylesheet" href="g-file.css">
 		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
 			{{title}}
-		</a>		
-		<input id="file" on-change="{{ onFileSelected }} " type="file" class="hidden" title="{{title}}" accept="{{accept}}">
+		</a>
+		<template if="{{ isDirectory }}">
+			<input 	id="file"
+					type="file"
+					class="hidden"
+					on-change="{{ onFileSelected }}" title="{{title}}" accept="{{accept}}" 
+					webkitdirectory directory />
+		</template>
+		<template if="{{ !isDirectory }}">
+			<input 	id="file"
+					type="file"
+					class="hidden"
+					on-change="{{ onFileSelected }}" title="{{title}}" accept="{{accept}}" />
+		</template>
+
+		
 	</template>
 	<script>
     	Polymer('g-file', {
