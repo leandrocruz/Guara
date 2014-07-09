@@ -1,4 +1,4 @@
-<polymer-element name="g-file" attributes="name class title accept">
+<polymer-element name="g-file" attributes="title class accept">
 	<template>
 		<link rel="stylesheet" href="g-file.css">
 		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
@@ -46,6 +46,8 @@
     			var size  = new Number(file.size/1024).toFixed(2);
     			var label = file.name + " - " + size + " KB";
     			$(this.$.button).text(label);
+
+    			this.fire('file-selected', {file: file});
     		}
     	});
 	</script>
