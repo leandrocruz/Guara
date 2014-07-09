@@ -1,37 +1,52 @@
 <polymer-element name="g-file" attributes="name class title accept">
 	<template>
 		<link rel="stylesheet" href="g-file.css">
-		<a on-click="{{onSelectFile}}" class="btn btn-default {{class}}">{{title}}</a>		
-		<div class="file-input-wrapper">
-			<input id="file" type="file" name="{{name}}" class="{{class}}" title="{{title}}" accept="{{accept}}" data-filename-placement="inside">
-		</div>
+		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
+			{{title}}
+		</a>		
+		<input id="file" on-change="{{ onFileSelected }} " type="file" class="hidden" title="{{title}}" accept="{{accept}}">
 	</template>
 	<script>
     	Polymer('g-file', {
-    		created: function() {
-			},
-			
-			ready: function() {
-			},
-			
-			attached: function () {
-			},
 
-			domReady: function() {
+    		getInput: function() {
+    			return $(this.$.file);
+    		},
 
-			},
-
-			detached: function() {
-			},
-
-    		ready: function() {
+    		getFile: function() {
+    			var input = this.getInput();
+    			return input.prop('files')[0];
     		},
     		
-    		onSelectFile: function() {
-    			var f = this.$.file;
-    			$(f).trigger('click');
-    		}
+    		readFile: function(whenReady) {
+    			var file   = this.getFile();
+    			var reader = new FileReader();
+    			reader.onloadend = function(e) {
+    				var base64  = btoa(e.target.result);
+    				var encoded = encodeURIComponent(base64);
+    				whenReady(file, encoded);
+				};
+    			reader.readAsBinaryString(file);
+    		},
+    		
+    		getFileName: function(name) {
+    			var idx = name.lastIndexOf('\\');
+    			return name.substring(idx + 1, name.length);	
+    		},
 
+    		/* 
+    		 * Events 
+    		*/
+    		triggerFileSelect: function() {
+    			this.getInput().trigger('click');
+    		},
+    		
+    		onFileSelected: function() {
+    			var file  = this.getFile();
+    			var size  = new Number(file.size/1024).toFixed(2);
+    			var label = file.name + " - " + size + " KB";
+    			$(this.$.button).text(label);
+    		}
     	});
 	</script>
 </polymer-element>
