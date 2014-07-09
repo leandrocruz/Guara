@@ -29,9 +29,9 @@
     			return $(this.$.file);
     		},
 
-    		getFile: function() {
+    		getFiles: function() {
     			var input = this.getInput();
-    			return input.prop('files')[0];
+    			return input.prop('files');
     		},
     		
     		readFile: function(whenReady) {
@@ -60,15 +60,23 @@
     		onFileSelected: function() {
     			
 				var label = this.title;
-				var file  = this.getFile();
-				if(file)
+				var files  = this.getFiles();
+				if(files.length > 0)
 				{
-					var size = new Number(file.size / 1024).toFixed(2);
-					label = file.name + " - " + size + " KB";
+					if(files.length == 1)
+					{
+						var file = files[0];
+						var size = new Number(file.size / 1024).toFixed(2);
+						label = file.name + " - " + size + " KB";
+					}
+					else
+					{
+						label = files.length + " arquivo(s)";
+					}
 				}
 
 				$(this.$.button).text(label);
-				this.fire('file-selected', {file : file});
+				this.fire('file-selected', {files : files});
 			}
 		});
 	</script>
