@@ -1,0 +1,23 @@
+<polymer-element name="g-table">
+	<template>
+		<link rel="stylesheet" href="g-table.css">
+		<table id="table">
+			<thead></thead>
+			<tfoot></tfoot>
+			<tbody></tbody>
+		</table>
+	</template>
+	<script>
+    	Polymer('g-table', {
+    		appendRow: function(row) {
+    			var html = '<tr>\n';
+    			$.each(row, function(key, value) {
+					html += '\t<td>' + value + '</td>\n';
+				});
+    			html += '</tr>\n';
+    			
+    			$(this.$.table).append(html);
+    		}
+    	});
+	</script>
+</polymer-element>

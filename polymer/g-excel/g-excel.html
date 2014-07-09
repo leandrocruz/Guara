@@ -1,0 +1,47 @@
+<polymer-element name="g-excel" attributes="file">
+	<template>
+		<link rel="stylesheet" href="g-excel.css">
+		<g-table id="data_table"></g-table>
+	</template>
+	<script>
+    	Polymer('g-excel', {
+			parser: null,
+			
+    		getParser: function() {
+    			if(this.parser == null)
+    			{
+					this.parser = require('gl!guara/excel');
+    			}
+    			return this.parser;
+    		},
+    		
+    		parseSheet: function(sheet, handler) {
+   				
+    			if(!sheet)
+   				{
+   					throw "No sheet";
+   				}
+
+				var parser = this.getParser();
+   				var data   = parser.toPlainObject(sheet);
+
+ 				for(var i = 0; i < data.length; i++)
+ 				{
+ 					var row = data[i];
+ 					handler.handleRow(sheet, row, i);
+ 				}
+    		},
+    		
+    		fileChanged: function(oldVal, newVal) {
+    			var $this = this;
+    			this.getParser().sheetByIndex(this.file, 0, function(sheet){
+    				$this.parseSheet(sheet, {
+    					handleRow: function(sheet, row, i) {
+    						$this.$.data_table.appendRow(row);
+    					}
+    				});
+    			});
+    		}
+    	});
+	</script>
+</polymer-element>

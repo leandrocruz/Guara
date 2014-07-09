@@ -1,0 +1,9 @@
+@import "../guara.css";
+
+
+td {
+	padding: 6px;
+	margin: 0;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
