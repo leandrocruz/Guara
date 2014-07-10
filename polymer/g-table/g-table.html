@@ -1,25 +1,28 @@
-<polymer-element name="g-table" attributes="columns rows actions">
+<polymer-element name="g-table" attributes="title columns rows actions">
 	<template>
 		<link rel="stylesheet" href="g-table.css">
-		<table id="table" class="table table-hover">
-			<thead>
-				<tr>
-					<template repeat="{{ column, j in columns }}">
-						<th>{{ column }}</th>
-					</template>
-				</tr>
-			</thead>
-			<tfoot></tfoot>
-			<tbody>
-				<template repeat="{{ row, i in rows }}">
+		<div class="{{ class }}">
+			<h3 id="title">{{ title }}</h3>
+			<table id="table" class="table table-hover">
+				<thead>
 					<tr>
 						<template repeat="{{ column, j in columns }}">
-							<td>{{ row[column] }}</td>
+							<th>{{ column }}</th>
 						</template>
 					</tr>
-				</template>			
-			</tbody>
-		</table>
+				</thead>
+				<tfoot></tfoot>
+				<tbody>
+					<template repeat="{{ row, i in rows }}">
+						<tr>
+							<template repeat="{{ column, j in columns }}">
+								<td>{{ row[column] }}</td>
+							</template>
+						</tr>
+					</template>			
+				</tbody>
+			</table>
+		</div>
 	</template>
 	<script>
     	Polymer('g-table', {
@@ -28,8 +31,11 @@
 
     		rows:[],
 
+    		class: "hide",
+
     		clear: function() {
     			this.rows = [];
+    			this.class = "hide";
     		},
 
     		_oldAppendRow: function(row) {
@@ -44,6 +50,7 @@
 
     		appendRow: function(row) {
     			this.rows.push(row);
+    			this.class = "show rounded";
     		}
     	});
 	</script>

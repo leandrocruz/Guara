@@ -49,6 +49,8 @@
     			this.clear();
     			var $this = this;
 
+                this.$.table.title = this.file.name;
+                
     			this.getParser().sheetByIndex(this.file, 0, function(sheet){
     				$this.parseSheet(sheet, {
     					
