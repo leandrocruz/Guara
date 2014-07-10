@@ -1,15 +1,46 @@
-<polymer-element name="g-excel" attributes="file">
+<polymer-element name="g-excel">
 	<template>
 		<link rel="stylesheet" href="g-excel.css">
 		<g-table id="table"></g-table>
 	</template>
 	<script>
     	Polymer('g-excel', {
-			parser: null,
-            data: null,
-			
-            getData: function() {
-                return this.data;
+
+    		parser: null,
+            
+            ready: function() {
+            
+            	this.tableRender = {
+            		
+            		table: this.$.table,
+
+            		render: function(file, array) {
+           				
+            			this.table.title = file.name;
+           				this.handleHeader(array[0]);
+         				for(var i = 1; i < array.length; i++)
+         				{
+         					var row = array[i];
+         					this.handleRow(row, i);
+         				}
+            		
+                        this.data = array;
+        			},
+        			
+    				handleHeader: function(header) {
+    					var columns = [];
+    						
+    					$.each(header, function(key, value) {
+    						columns.push(key);
+    					});
+    						
+    					this.table.columns = columns;
+    				},
+
+    				handleRow: function(row, i) {
+    					this.table.appendRow(row);
+    				}
+            	}
             },
 
     		getParser: function() {
@@ -20,54 +51,21 @@
     			return this.parser;
     		},
     		
-    		parseSheet: function(sheet, handler) {
-   				
-    			if(!sheet)
-   				{
-   					throw "No sheet";
-   				}
-
-				var parser = this.getParser();
-   				var array  = parser.toArray(sheet);
-
-   				handler.handleHeader(sheet, array[0]);
- 				for(var i = 1; i < array.length; i++)
- 				{
- 					var row = array[i];
- 					handler.handleRow(sheet, row, i);
- 				}
-    		
-                this.data = array;
-            },
-    		
     		clear: function() {
     			this.$.table.clear();
     		},
     		
-    		fileChanged: function(oldVal, newVal) {
-    			
-    			this.clear();
-    			var $this = this;
+    		parse: function(file, sheetNumber, whenDone) {
+				
+    			var parser = this.getParser();
+    			var $this  = this;
 
-                this.$.table.title = this.file.name;
-                
-    			this.getParser().sheetByIndex(this.file, 0, function(sheet){
-    				$this.parseSheet(sheet, {
-    					
-    					handleRow: function(sheet, row, i) {
-    						$this.$.table.appendRow(row);
-    					},
-    					
-    					handleHeader: function(sheet, header) {
-    						var columns = [];
-    						
-    						$.each(header, function(key, value) {
-    							columns.push(key);
-    						});
-    						
-    						$this.$.table.columns = columns;
-    					}
-    				});
+    			parser.sheetByIndex(file, sheetNumber, function(sheet) {
+    				//reading is async. Here we have the sheet.
+    				var array = parser.toArray(sheet);
+    				console.log("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
+    				$this.tableRender.render(file, array);
+    				whenDone(array);
     			});
     		}
     	});
