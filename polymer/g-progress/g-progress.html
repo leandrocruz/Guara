@@ -2,13 +2,12 @@
 	<template>
 		<link rel="stylesheet" href="g-progress.css">
 		<div class="progress">
-  			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent }}%;">
+  			<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ percent }}" style="width: {{ percent }}%;">
   				{{ title }}
   			</div>
 		</div>		
 	</template>
 	<script>
-    	Polymer('g-progress', {
-    	});
+    	Polymer('g-progress', {});
 	</script>
 </polymer-element>
