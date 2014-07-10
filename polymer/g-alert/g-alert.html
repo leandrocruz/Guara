@@ -1,0 +1,46 @@
+<polymer-element name="g-alert" attributes="type">
+	<template>
+		<link rel="stylesheet" href="g-alert.css">
+		<div id="alert" class="alert alert-{{ type }} {{ state }}">
+			<button on-click="{{ closeAlert }}" type="button" class="close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<content></content>
+		</div>		
+	</template>
+	<script>
+    	Polymer('g-alert', {
+
+    		type: "success",
+    		state: "hide",
+    		
+			attached: function () {
+				var content = this.innerHTML;
+				content = $.trim(content);
+				if(content != "")
+				{
+					this.state = "show";
+				}
+			},
+    		
+			clear: function() {
+				this.state     = "hide";
+				this.type      = "success";
+				this.innerHTML = "";
+			},
+			
+			set: function(html, type) {
+				this.innerHTML = html;
+				if(type)
+				{
+					this.type = type;
+				}
+				this.state = "show";
+			},
+			
+    		closeAlert: function(event, detail, sender) {
+    			this.clear();
+    		}
+    	});
+	</script>
+</polymer-element>
