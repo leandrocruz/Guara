@@ -1,13 +1,15 @@
-<polymer-element name="g-progress" attributes="percent title">
+<polymer-element name="g-progress" attributes="percent title height">
 	<template>
 		<link rel="stylesheet" href="g-progress.css">
-		<div class="progress">
-  			<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ percent }}" style="width: {{ percent }}%;">
+		<div class="progress" style="height: {{ height }}px;">
+  			<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ percent }}" style="line-height: {{ height }}px; width: {{ percent }}%;">
   				{{ title }}
   			</div>
 		</div>		
 	</template>
 	<script>
-    	Polymer('g-progress', {});
+    	Polymer('g-progress', {
+    	    height: 20
+    	});
 	</script>
 </polymer-element>
