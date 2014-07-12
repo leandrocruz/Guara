@@ -29,13 +29,22 @@
     			return $(this.$.file);
     		},
 
-    		getFiles: function() {
+    		getFiles: function(pos) {
     			var input = this.getInput();
-    			return input.prop('files');
+    			var files = input.prop('files');
+    			if(pos !== undefined)
+    			{
+    				return files[pos];	
+    			}
+    			return files;
     		},
     		
-    		readFile: function(whenReady) {
-    			var file   = this.getFile();
+    		readFile: function(pos, whenReady) {
+    			var file   = this.getFiles(pos);
+                this.encode(file, whenReady);
+    		},
+    		
+    		encode: function(file, whenReady) {
     			var reader = new FileReader();
     			reader.onloadend = function(e) {
     				var base64  = btoa(e.target.result);
