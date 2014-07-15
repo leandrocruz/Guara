@@ -43,30 +43,22 @@
             	}
             },
 
-    		getParser: function() {
-    			if(this.parser == null)
-    			{
-					this.parser = require('gl!guara/excel');
-    			}
-    			return this.parser;
-    		},
-    		
-    		clear: function() {
+			clear: function() {
     			this.$.table.clear();
     		},
     		
     		parse: function(file, sheetNumber, whenDone) {
 				
-    			var parser = this.getParser();
-    			var $this  = this;
-
-    			parser.sheetByIndex(file, sheetNumber, function(sheet) {
-    				//reading is async. Here we have the sheet.
-    				var array = parser.toArray(sheet);
-    				console.log("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
-    				$this.tableRender.render(file, array);
-    				whenDone(array);
-    			});
+    			var $this = this;
+				require(["gl!guara/excel"], function (parser) {
+					parser.sheetByIndex(file, sheetNumber, function(sheet) {
+	    				//reading is async. Here we have the sheet.
+	    				var array = parser.toArray(sheet);
+	    				console.log("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
+	    				$this.tableRender.render(file, array);
+	    				whenDone(array);
+	    			});
+				});
     		}
     	});
 	</script>
