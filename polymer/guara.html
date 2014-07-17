@@ -1,3 +1,10 @@
+<script>
+	window.$g = {msg: "Guara is not loaded yet!"};
+	require(['gl!guara/guara'], function (guara) {
+		window.$g = guara;
+	});
+</script>
+
 <link rel="import" href="g-alert/g-alert.html">
 <link rel="import" href="g-layout/g-layout.html">
 <link rel="import" href="g-mini-layout/g-mini-layout.html">
