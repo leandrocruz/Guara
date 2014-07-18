@@ -1,8 +1,8 @@
-<polymer-element name="g-button-dropdown" attributes="label options clazz" >
+<polymer-element name="g-button-dropdown" attributes="label options type" >
 	<template>
 		<link rel="stylesheet" href="g-button-dropdown.css">
 		<div id="container" class="btn-group">
-			<button on-click="{{ toggleOpen }}" type="button" class="btn btn-{{ clazz }} dropdown-toggle">
+			<button on-click="{{ toggleOpen }}" type="button" class="btn btn-{{ type }} dropdown-toggle">
 				{{ label }} <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
@@ -20,7 +20,7 @@
 	<script>
     	Polymer('g-button-dropdown', {
     		
-    		clazz   : "default",
+    		type   : "default",
     		options : [],
     		
 			toggleOpen: function(event, detail, sender) {
