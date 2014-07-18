@@ -1,0 +1,43 @@
+<polymer-element name="g-button-dropdown" attributes="label options clazz" >
+	<template>
+		<link rel="stylesheet" href="g-button-dropdown.css">
+		<div id="container" class="btn-group">
+			<button on-click="{{ toggleOpen }}" type="button" class="btn btn-{{ clazz }} dropdown-toggle">
+				{{ label }} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<template repeat="{{ op, i in options }}">
+					<template if="{{ op.label }}">
+						<li><a on-click="{{ optionChanged }}" data-idx="{{ i }}" href="#">{{ op.label }}</a></li>
+					</template>
+					<template if="{{ !op.label }}">
+						<li class="divider"></li>
+					</template>
+				</template>
+			</ul>
+		</div>		
+	</template>
+	<script>
+    	Polymer('g-button-dropdown', {
+    		
+    		clazz   : "default",
+    		options : [],
+    		
+			toggleOpen: function(event, detail, sender) {
+				$(this.$.container).toggleClass("open");
+			},
+			
+			optionChanged: function(event, detail, sender) {
+				event.preventDefault();
+				$(this.$.container).toggleClass("open");
+				var idx = $(sender).data('idx');
+				var op  = this.options[idx];
+				if(op.onClick)
+				{
+					op.onClick();
+				}
+				this.fire('option-changed', {option: op});
+			}
+    	});
+	</script>
+</polymer-element>
