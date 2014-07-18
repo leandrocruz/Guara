@@ -1,0 +1,14 @@
+<polymer-element name="g-date" attributes="date format">
+	<template>
+		<link rel="stylesheet" href="g-date.css">
+		<span>{{ result }}</span>
+	</template>
+	<script>
+    	Polymer('g-date', {
+			get result() /* A getter. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/get */ {
+				var format = this.format ? this.format : "DD/MM/YYYY hh:mm:ss";
+				return moment(new Date(this.date)).format(format);
+			}
+    	});
+	</script>
+</polymer-element>
