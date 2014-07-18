@@ -6,7 +6,7 @@
 	<script>
     	Polymer('g-date', {
 			get result() /* A getter. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/get */ {
-				var format = this.format ? this.format : "DD/MM/YYYY hh:mm:ss";
+				var format = this.format ? this.format : "DD/MM/YYYY HH:mm:ss";
 				if(this.date)
 				{
 					return moment(new Date(this.date)).format(format);
