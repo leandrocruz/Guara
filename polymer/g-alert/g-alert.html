@@ -1,7 +1,7 @@
-<polymer-element name="g-alert" attributes="type">
+<polymer-element name="g-alert" attributes="type cols">
 	<template>
 		<link rel="stylesheet" href="g-alert.css">
-		<div id="alert" class="alert alert-{{ type }} {{ state }}">
+		<div id="alert" class="alert alert-{{ type }} {{ state }} {{ cols }}">
 			<button on-click="{{ closeAlert }}" type="button" class="close">
 				<span aria-hidden="true">&times;</span>
 			</button>
