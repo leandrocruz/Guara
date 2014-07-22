@@ -16,6 +16,7 @@
 
             		render: function(file, array) {
            				
+            			this.table.clear();
             			this.table.title = file.name;
            				this.handleHeader(array[0]);
          				for(var i = 1; i < array.length; i++)
@@ -48,7 +49,6 @@
     		},
     		
     		parse: function(file, sheetNumber, whenDone) {
-				
     			var $this = this;
 				require(["gl!guara/excel"], function (parser) {
 					parser.sheetByIndex(file, sheetNumber, function(sheet) {
