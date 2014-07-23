@@ -1,0 +1,59 @@
+<polymer-element name="g-dropdown" attributes="label options type">
+	<template>
+		<link rel="stylesheet" href="g-dropdown.css">
+		<div id="container" class="dropdown">
+			<button on-click="{{ toggleOpen }}" class="btn btn-{{ type }}" type="button" id="dropdownMenu" _style="width: 400px;">
+				{{ label }} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu" _aria-labelledby="dropdownMenu">
+				<template repeat="{{ op, i in options }}">
+					<template if="{{ i > 0 && (!op.label || op.header) }}">
+						<li role="presentation" class="divider"></li>
+					</template>
+					<template if="{{ op.header }}">
+						<li role="presentation" class="dropdown-header">{{ op.label }}</li>
+					</template>
+					<template if="{{ op.label && !op.header}}">
+						<li role="presentation">
+							<a on-click="{{ optionChanged }}" role="menuitem" data-idx="{{ i }}" tabindex="-1" href="#">
+								{{ op.label }}
+							</a>
+						</li>
+					</template>
+				</template>
+			</ul>
+		</div>
+	</template>
+	<script>
+    	Polymer('g-dropdown', {
+    		
+    		type   : "default",
+    		options : [],
+    		
+			toggleOpen: function(event, detail, sender) {
+				$(this.$.container).toggleClass("open");
+			},
+			
+			optionsChanged: function(oldVal, newVal) {
+				//console.log("Options changed: ", oldVal, newVal);
+			},
+			
+			optionChanged: function(event, detail, sender) {
+				event.preventDefault();
+				$(this.$.container).toggleClass("open");
+				var idx = $(sender).data('idx');
+				var op  = this.options[idx];
+				if(op.onClick)
+				{
+					op.onClick();
+				}
+				else if(op.href)
+				{
+					window.location = op.href;
+				}
+				
+				this.fire('option-changed', {option: op});
+			}
+    	});
+	</script>
+</polymer-element>
