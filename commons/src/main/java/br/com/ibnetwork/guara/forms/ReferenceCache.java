@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.ibnetwork.xingu.factory.Factory;
+import br.com.ibnetwork.xingu.utils.ObjectUtils;
 
 public class ReferenceCache
 {
@@ -14,7 +15,7 @@ public class ReferenceCache
 	    ReferenceLoader loader = cache.get(loaderClass);
 		if(loader == null)
 		{
-			Object obj = factory.create(loaderClass);
+			Object obj = factory.create(ObjectUtils.loadClass(loaderClass));
 			if(obj instanceof ReferenceLoader)
 			{
 				loader = (ReferenceLoader) obj; 

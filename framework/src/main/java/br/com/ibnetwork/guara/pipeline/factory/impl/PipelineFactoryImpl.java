@@ -13,6 +13,7 @@ import br.com.ibnetwork.guara.pipeline.factory.PipelineFactory;
 import br.com.ibnetwork.guara.pipeline.impl.PipelineImpl;
 import br.com.ibnetwork.xingu.container.Inject;
 import br.com.ibnetwork.xingu.factory.Factory;
+import br.com.ibnetwork.xingu.utils.ObjectUtils;
 
 
 public class PipelineFactoryImpl
@@ -60,7 +61,7 @@ public class PipelineFactoryImpl
         String name = conf.getAttribute("name");
         String className = conf.getAttribute("className");
         logger.debug("Creating valve["+name+"]");
-        Valve valve = (Valve) factory.create(className,conf);
+        Valve valve = (Valve) factory.create(ObjectUtils.loadClass(className),conf);
         valve.setPipeline(pipeline);
         valve.setName(name);
         return valve;

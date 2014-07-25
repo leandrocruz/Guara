@@ -4,6 +4,7 @@ import org.apache.avalon.framework.configuration.Configuration;
 import org.apache.avalon.framework.configuration.ConfigurationException;
 
 import br.com.ibnetwork.xingu.factory.Factory;
+import br.com.ibnetwork.xingu.utils.ObjectUtils;
 import br.com.ibnetwork.guara.pull.ApplicationTool;
 import br.com.ibnetwork.guara.pull.ApplicationToolHandler;
 import br.com.ibnetwork.guara.pull.PullManager;
@@ -60,7 +61,7 @@ public class ApplicationToolHandlerImpl
         Object obj;
         if(instance == null)
         {
-            obj = factory.create(className, conf);
+            obj = factory.create(ObjectUtils.loadClass(className), conf);
         }
         else
         {

@@ -1,6 +1,10 @@
 package br.com.ibnetwork.guara;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -12,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,13 +122,13 @@ public class Guara
         {
         	Environment env = new EnvironmentImpl();
         	env.put("${app.root}", getRealPath(StringUtils.SLASH));
-            container = ContainerUtils.getContainer(fileName);
-            engine = container.lookup(TemplateEngine.class);
-            onErrorTemplate = engine.getOnErrorTemplate();
-            PipelineManager pipelineManager = container.lookup(PipelineManager.class);
-            pipelineMap = pipelineManager.getPipelineMap();
-            defaultPipeline = (Pipeline) pipelineMap.get(Pipeline.DEFAULT_PIPELINE_NAME);
-            runDataPool = (RunDataPool) container.lookup(RunDataPool.class);
+        	container                 = getContainer(fileName);
+            engine                    = container.lookup(TemplateEngine.class);
+            onErrorTemplate           = engine.getOnErrorTemplate();
+            PipelineManager pipelines = container.lookup(PipelineManager.class);
+            pipelineMap               = pipelines.getPipelineMap();
+            defaultPipeline           = (Pipeline) pipelineMap.get(Pipeline.DEFAULT_PIPELINE_NAME);
+            runDataPool               = (RunDataPool) container.lookup(RunDataPool.class);
             context.setAttribute(CONTEXT_KEY,this);
         }
         catch (Exception e)
@@ -131,6 +136,17 @@ public class Guara
             throw new ServletException("Error creating container. System is unusable",e);
         }
     }
+
+	private Container getContainer(String fileName)
+		throws FileNotFoundException, Exception
+	{
+		File        file   = new File(fileName);
+		InputStream is     = new FileInputStream(file);
+		Container   result = ContainerUtils.getContainer(is);
+		IOUtils.closeQuietly(is);
+		
+		return result;
+	}
 
     public void destroy()
     {
