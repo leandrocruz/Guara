@@ -1,4 +1,4 @@
-<polymer-element name="g-file" attributes="title class accept isDirectory">
+<polymer-element name="g-file" attributes="title class accept isDirectory onChange">
 	<template>
 		<link rel="stylesheet" href="g-file.css">
 		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
@@ -86,6 +86,12 @@
 
 				$(this.$.button).text(label);
 				this.fire('file-selected', {files : files});
+				
+				var handler = this.onChange; 
+				if(handler)
+				{
+					handler.fn.apply(handler.ctx, [files]);
+				}
 			}
 		});
 	</script>
