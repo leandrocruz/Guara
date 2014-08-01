@@ -24,7 +24,7 @@
 							<template repeat="{{ column, j in columns }}">
 								<template if="{{ column.name == '_actions' }}">
 									<td>
-										<g-dropdown label="Ações" options="{{ row.actions }}" type="primary"></g-dropdown>
+										<g-dropdown label="Ações" options="{{ row._actions }}" type="primary"></g-dropdown>
 									</td>
 								</template>
 
