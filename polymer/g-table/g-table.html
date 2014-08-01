@@ -24,7 +24,14 @@
 							<template repeat="{{ column, j in columns }}">
 								<template if="{{ column.name == '_actions' }}">
 									<td>
-										<g-dropdown label="Ações" options="{{ row._actions }}" type="primary"></g-dropdown>
+										<template if="{{ row._actions.type == 'dropdown' }}">
+											<g-dropdown label="Ações" options="{{ row._actions.options }}" type="primary"></g-dropdown>
+										</template>
+										<template if="{{ row._actions.type == 'button' }}">
+											<template repeat="{{ option in  row._actions.options }}">
+												<g-button label="{{ option.label }}" type="{{ option.type }}" href="{{ option.href }}"></g-button>
+											</template>
+										</template>
 									</td>
 								</template>
 
