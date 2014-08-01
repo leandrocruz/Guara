@@ -7,7 +7,13 @@
 				<thead>
 					<tr>
 						<template repeat="{{ column, j in columns }}">
-							<th>{{ column }}</th>
+							<template if="{{ column.length }}">
+								<th style="width: {{ column.length }};">{{ column.title }}</th>
+							</template>
+							<template if="{{ !column.length }}">
+								<th>{{ column.title }}</th>
+							</template>
+							
 						</template>
 					</tr>
 				</thead>
@@ -16,7 +22,15 @@
 					<template repeat="{{ row, i in rows }}">
 						<tr>
 							<template repeat="{{ column, j in columns }}">
-								<td>{{ row[column] }}</td>
+								<template if="{{ column.name == '_actions' }}">
+									<td>
+										<g-dropdown label="Ações" options="{{ row.actions }}" type="primary"></g-dropdown>
+									</td>
+								</template>
+
+								<template if="{{ column.name != '_actions' }}">
+									<td>{{ row[column.name] }}</td>
+								</template>
 							</template>
 						</tr>
 					</template>			

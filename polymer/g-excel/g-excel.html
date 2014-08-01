@@ -34,7 +34,8 @@
     					var columns = [];
     						
     					$.each(header, function(key, value) {
-    						columns.push(key);
+    						var column = {name: key, title: key};
+    						columns.push(column);
     					});
     						
     					this.table.columns = columns;

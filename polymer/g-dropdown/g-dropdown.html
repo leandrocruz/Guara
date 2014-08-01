@@ -45,7 +45,7 @@
 				var op  = this.options[idx];
 				if(op.onClick)
 				{
-					op.onClick();
+					op.onClick(event, detail, sender);
 				}
 				else if(op.href)
 				{
