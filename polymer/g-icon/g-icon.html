@@ -1,0 +1,31 @@
+<polymer-element name="g-icon" attributes="name class state color">
+	<template>
+		<link rel="stylesheet" href="g-icon.css">
+		<span style="color: {{ color }}" class="glyphicon glyphicon-{{ name }} {{ class }} {{ state }}"></span>
+	</template>
+	<script>
+    	Polymer('g-icon', {
+
+    		name  : "plus",
+    		state : "hide",
+    		color : "#000",
+    		
+			hide: function() {
+				this.state = "hide";
+				this.color = "#000";
+			},
+
+			show : function(name, color) {
+				if(name)
+				{
+					this.name = name;
+				}
+				if(color)
+				{
+					this.color = color;
+				}
+				this.state = "show";
+			},
+		});
+	</script>
+</polymer-element>
