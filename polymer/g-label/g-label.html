@@ -1,15 +1,15 @@
-<polymer-element name="g-label" attributes="type cols">
+<polymer-element name="g-label" attributes="type">
 	<template>
 		<link rel="stylesheet" href="g-label.css">
 		
-		<span id="label" class="label label-{{ type }} {{ state }}">{{ title }}</span>
+		<span id="label" class="label label-{{ type }} {{ state }}"><content></content></span>
 
 	</template>
 	<script>
     	Polymer('g-label', {
 
     		type: "warning",
-    		state: "hide",
+    		state: "show",
     		
 			attached: function () {
 				var content = this.innerHTML;
