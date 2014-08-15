@@ -4,3 +4,7 @@ h3 {
 	text-decoration: underline;
 	margin: 25px 0px 25px 10px;
 }
+
+td.error {
+	background: url("/img/cell_comment.png") no-repeat top left;
+}

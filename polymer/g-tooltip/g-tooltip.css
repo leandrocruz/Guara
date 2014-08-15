@@ -1,0 +1,11 @@
+@import "../guara.css";
+
+.handler {
+	width: 15px;
+	height: 15px;
+	background: url("/img/cell_comment.png") no-repeat top left;
+	position: relative;
+	top: 0;
+	left: 0;
+	float: left;
+}

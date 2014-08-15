@@ -3,7 +3,7 @@
 		<link rel="stylesheet" href="g-table.css">
 		<div class="{{ class }}">
 			<h3 id="title">{{ title }}</h3>
-			<table id="table" class="table table-hover">
+			<table id="table" class="table table-hover" on-click="{{ whenClicked }}" on-mouseover="{{ whenMouseOver }}" on-mouseout="{{ whenMouseOut }}">
 				<thead>
 					<tr>
 						<template repeat="{{ column, j in columns }}">
@@ -20,7 +20,7 @@
 				<tfoot></tfoot>
 				<tbody>
 					<template repeat="{{ row, i in rows }}">
-						<tr>
+						<tr class="{{ row.error ? 'danger' : 'noerror'}}">
 							<template repeat="{{ column, j in columns }}">
 								<template if="{{ column.name == '_actions' }}">
 									<td>
@@ -36,7 +36,11 @@
 								</template>
 
 								<template if="{{ column.name != '_actions' }}">
-									<td>{{ row[column.name] }}</td>
+									<td on-click="{{ }}" class="{{ row.data[column.name].error ? 'error' : '' }}">
+										<g-cell text="{{ row.data[column.name].value }}"
+												error="{{ row.data[column.name].error }}"
+												errorMessage="{{ row.data[column.name].errorMessage }}"></g-cell>
+									</td>
 								</template>
 							</template>
 						</tr>
@@ -59,36 +63,83 @@
     			this.class = "hide";
     		},
 
-    		_oldAppendRow: function(row) {
-    			var html = '<tr>\n';
-    			$.each(row, function(key, value) {
-					html += '\t<td>' + value + '</td>\n';
-				});
-    			html += '</tr>\n';
-    			
-    			$(this.$.table).append(html);
-    		},
+    		appendRow: function(raw) {
+				
+    			var rowData = {};
 
-    		appendRow: function(row) {
-    			this.rows.push(row);
+    			$.each(raw, function(name, value){
+    				rowData[name] = {
+						value  : value,
+						error  : false,
+					};
+				});
+    			
+    			this.rows.push({
+					data  : rowData,
+					error : false,
+				});
+
     			this.class = "show rounded";
     		},
     		
     		mark: function(rowNumber, columnName, marker) {
     			//console.log("Marking", rowNumber, columnName);
+    			var $this = this;
     			$.each(this.rows, function(i, row){
     				if(i == rowNumber)
     				{
-    					console.log(row);
-    					$.each(row, function(name, value){
+    					row.error = true;
+    					$.each(row.data, function(name, value) {
     						if(columnName == name)
     						{
-    							row[name] = "XXX";
+    							//var cell = $this.$.table.getElementById(i + '_' + name);
+   								marker(row.data[name]);
     						}
     					});
     				}
     			}); 
+    		},
+    		
+    		getCell: function(evt) {
+    			var nodeName = evt.target.nodeName;
+    			if("G-CELL" == nodeName)
+    			{
+    				return evt.target;
+    			}
+    			if("TD" == nodeName)
+    			{
+    				var cell = evt.target.querySelector('g-cell');
+    				if(cell)
+    				{
+    					return cell;
+    				}
+    			}
+				return null;
+    		},
+    		
+    		whenMouseOver: function(evt, detail, sender) {
+    			var cell = this.getCell(evt);
+    			if(cell)
+    			{
+	    			cell.onMouseOver(evt, detail, sender);
+    			}
+    		},
+
+    		whenMouseOut: function(evt, detail, sender) {
+    			var cell = this.getCell(evt);
+    			if(cell)
+    			{
+	    			cell.onMouseOut(evt, detail, sender);
+    			}
+    		},
+
+    		whenClicked: function(evt, detail, sender) {
     			
+    			var cell = this.getCell(evt);
+    			if(cell)
+    			{
+					cell.onClick(evt, detail, sender);    			
+    			}
     		}
     	});
 	</script>

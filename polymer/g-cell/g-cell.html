@@ -1,0 +1,27 @@
+<polymer-element name="g-cell" attributes="text error errorMessage">
+	<template>
+		<link rel="stylesheet" href="g-cell.css">
+		<div class="{{ error ? 'error' : '' }}">{{ text ? text : ''}}</div>
+	</template>
+	<script>
+    	Polymer('g-cell', {
+    		onClick: function(evt, detail, sender) {
+    			//console.log(this.error, this.errorMessage);
+    		},
+
+			onMouseOver: function(evt, detail, sender) {
+				if(this.error)
+				{
+					console.log("OVER", this.errorMessage);
+				}
+			},
+			
+			onMouseOut: function(evt, detail, sender) {
+				if(this.error)
+				{
+					console.log("OUT", this.errorMessage);
+				}
+			}
+    	});
+	</script>
+</polymer-element>

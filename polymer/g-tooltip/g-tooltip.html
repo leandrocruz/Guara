@@ -1,0 +1,13 @@
+<polymer-element name="g-tooltip" attributes="title">
+	<template>
+		<link rel="stylesheet" href="g-tooltip.css">
+		<div on-click="{{ showTitle }}" class="handler"></div>
+	</template>
+	<script>
+    	Polymer('g-tooltip', {
+    		showTitle: function(evt, detail, sender) {
+    			console.log(this.title);
+    		}
+    	});
+	</script>
+</polymer-element>
