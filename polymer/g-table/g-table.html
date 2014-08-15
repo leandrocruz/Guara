@@ -72,6 +72,23 @@
     		appendRow: function(row) {
     			this.rows.push(row);
     			this.class = "show rounded";
+    		},
+    		
+    		mark: function(rowNumber, columnName, marker) {
+    			//console.log("Marking", rowNumber, columnName);
+    			$.each(this.rows, function(i, row){
+    				if(i == rowNumber)
+    				{
+    					console.log(row);
+    					$.each(row, function(name, value){
+    						if(columnName == name)
+    						{
+    							row[name] = "XXX";
+    						}
+    					});
+    				}
+    			}); 
+    			
     		}
     	});
 	</script>
