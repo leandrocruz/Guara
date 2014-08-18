@@ -23,6 +23,10 @@
 
     		isDirectory: false,
     		
+    		disable: function() {
+    			this.$.button.setAttribute('disabled', 'true');
+    		},
+    		
     		getInput: function() {
     			return $(this.$.file);
     		},
