@@ -1,12 +1,29 @@
-<polymer-element name="g-tooltip" attributes="title">
+<polymer-element name="g-tooltip" attributes="content placement display">
 	<template>
 		<link rel="stylesheet" href="g-tooltip.css">
-		<div on-click="{{ showTitle }}" class="handler"></div>
+		<div class="tooltip fade {{ placement }} {{ display }}" role="tooltip" id="tooltip">
+			<div class="tooltip-arrow"></div>
+			<div class="tooltip-inner">{{ content }}</div>
+		</div>
 	</template>
 	<script>
     	Polymer('g-tooltip', {
-    		showTitle: function(evt, detail, sender) {
-    			console.log(this.title);
+    		attached: function () { 
+	   			switch(this.placement) 
+	   			{
+	   		    case 'top':
+	   		        $(this.$.tooltip).css('margin-top','-38px');
+	   		        break;
+	   		    case 'right':
+	   		    	
+	   		        break;
+	   		    case 'bottom':
+	   		    	
+	   		        break;
+	   		    case 'left':
+	   		    	
+	   		        break;
+	   			}
     		}
     	});
 	</script>
