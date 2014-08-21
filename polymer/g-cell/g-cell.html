@@ -1,10 +1,17 @@
 <polymer-element name="g-cell" attributes="text error errorMessage">
 	<template>
 		<link rel="stylesheet" href="g-cell.css">
-		<div class="{{ error ? 'error' : '' }}">{{ text ? text : ''}}</div>
+		<template if="{{ errorMessage }}">
+			<g-tooltip id="tooltip" content="{{ errorMessage }}" placement="top" display="out"></g-tooltip>
+		</template>
+		<div id="cell" class="{{ error ? 'error' : '' }}">{{ text ? text : ''}}</div>
 	</template>
 	<script>
     	Polymer('g-cell', {
+    		attached: function () { 
+    			
+    		},
+    		
     		onClick: function(evt, detail, sender) {
     			//console.log(this.error, this.errorMessage);
     		},
@@ -13,6 +20,7 @@
 				if(this.error)
 				{
 					console.log("OVER", this.errorMessage);
+					$(this.$.tooltip).prop('display','in');
 				}
 			},
 			
@@ -20,6 +28,7 @@
 				if(this.error)
 				{
 					console.log("OUT", this.errorMessage);
+					$(this.$.tooltip).prop('display','out');
 				}
 			}
     	});
