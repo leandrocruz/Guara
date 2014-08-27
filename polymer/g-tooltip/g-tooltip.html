@@ -1,4 +1,4 @@
-<polymer-element name="g-tooltip" attributes="content placement display">
+<polymer-element name="g-tooltip" attributes="content placement display container">
 	<template>
 		<link rel="stylesheet" href="g-tooltip.css">
 		<div class="tooltip fade {{ placement }} {{ display }}" role="tooltip" id="tooltip">
@@ -8,22 +8,29 @@
 	</template>
 	<script>
     	Polymer('g-tooltip', {
-    		attached: function () { 
-	   			switch(this.placement) 
-	   			{
-	   		    case 'top':
-	   		        $(this.$.tooltip).css('margin-top','-38px');
-	   		        break;
-	   		    case 'right':
-	   		    	
-	   		        break;
-	   		    case 'bottom':
-	   		    	
-	   		        break;
-	   		    case 'left':
-	   		    	
-	   		        break;
-	   			}
+    		domReady: function () { 
+    			if(this.container)
+    			{
+    				switch(this.placement) 
+    	   			{
+    	   		    case 'top':
+    	   		    	var margin = -10-this.container.height()+'px';
+    	   		        $(this.$.tooltip).css('margin-top', margin);
+    	   		        break;
+    	   		    case 'right':
+    	   		    	var margin = this.container.width()+'px';
+    	   		        $(this.$.tooltip).css('margin-left', margin);
+    	   		        break;
+    	   		    case 'bottom':
+    	   		    	var margin = this.container.height()+'px';
+    	   		        $(this.$.tooltip).css('margin-top', margin);
+    	   		        break;
+    	   		    case 'left':
+    	   		    	var margin = 10-this.container.width()+'px';
+    	   		        $(this.$.tooltip).css('margin-left', margin);
+    	   		        break;
+    	   			}	
+    			}
     		}
     	});
 	</script>

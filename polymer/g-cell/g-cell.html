@@ -8,8 +8,9 @@
 	</template>
 	<script>
     	Polymer('g-cell', {
-    		attached: function () { 
-    			
+    		
+    		domReady: function () { 
+    			$(this.$.tooltip).prop('container',$(this.$.cell));
     		},
     		
     		onClick: function(evt, detail, sender) {
@@ -21,6 +22,7 @@
 				{
 					console.log("OVER", this.errorMessage);
 					$(this.$.tooltip).prop('display','in');
+					$(this.$.tooltip).removeClass('hide');
 				}
 			},
 			
@@ -29,6 +31,7 @@
 				{
 					console.log("OUT", this.errorMessage);
 					$(this.$.tooltip).prop('display','out');
+					$(this.$.tooltip).addClass('hide');
 				}
 			}
     	});
