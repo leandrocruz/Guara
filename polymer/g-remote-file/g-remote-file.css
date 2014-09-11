@@ -1,0 +1,21 @@
+@import "../guara.css";
+
+.hidden {
+	overflow: hidden; 
+	position: relative; 
+	cursor: pointer; 
+	z-index: 1; 
+}
+
+.hidden input[type=file],
+.hidden input[type=file]:focus,
+.hidden input[type=file]:hover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	z-index: 99;
+	outline: 0;
+}
