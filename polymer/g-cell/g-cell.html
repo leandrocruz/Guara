@@ -2,16 +2,16 @@
 	<template>
 		<link rel="stylesheet" href="g-cell.css">
 		<template if="{{ errorMessage }}">
-			<g-tooltip id="tooltip" content="{{ errorMessage }}" placement="top" display="out"></g-tooltip>
+			<g-tooltip label='{{ errorMessage }}' position="top">
+				<div id="cell" class="{{ error ? 'error' : '' }}">{{ text ? text : ''}}</div>
+	        </g-tooltip>
 		</template>
-		<div id="cell" class="{{ error ? 'error' : '' }}">{{ text ? text : ''}}</div>
+		<template if="{{ !errorMessage }}">
+				<div id="cell" class="{{ error ? 'error' : '' }}">{{ text ? text : ''}}</div>
+		</template>
 	</template>
 	<script>
     	Polymer('g-cell', {
-    		
-    		domReady: function () { 
-    			$(this.$.tooltip).prop('container',$(this.$.cell));
-    		},
     		
     		onClick: function(evt, detail, sender) {
     			//console.log(this.error, this.errorMessage);
@@ -21,8 +21,6 @@
 				if(this.error)
 				{
 					console.log("OVER", this.errorMessage);
-					$(this.$.tooltip).prop('display','in');
-					$(this.$.tooltip).removeClass('hide');
 				}
 			},
 			
@@ -30,8 +28,6 @@
 				if(this.error)
 				{
 					console.log("OUT", this.errorMessage);
-					$(this.$.tooltip).prop('display','out');
-					$(this.$.tooltip).addClass('hide');
 				}
 			}
     	});
