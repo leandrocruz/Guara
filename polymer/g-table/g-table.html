@@ -1,8 +1,16 @@
-<polymer-element name="g-table" attributes="title columns rows actions">
+<polymer-element name="g-table" attributes="title columns rows actions page pageSize">
 	<template>
 		<link rel="stylesheet" href="g-table.css">
+		<div id="loading" class="hidden">
+			Carregando...
+		</div>
 		<div class="{{ class }}">
-			<h3 id="title">{{ title }}</h3>
+			<h3 id="title">{{ title }} ({{ rows.length }})</h3>
+			<div id="paginator" class="btn-group">
+				<button type="button" class="btn btn-default" id="toPrevious" href="#" on-click="{{ previousPage }}" >&lt;</button>
+				<button type="button" class="btn btn-default">Resultados: {{ (page * pageSize) + 1 }} - {{ rows.length < (page + 1) * pageSize ? rows.length : (page + 1) * pageSize }} / página: {{ page + 1 }}</button>
+				<button type="button" class="btn btn-default" id="toNext" on-click="{{ nextPage }}">&gt;</button>	
+			</div>			
 			<table id="table" class="table table-hover" on-click="{{ whenClicked }}" on-mouseover="{{ whenMouseOver }}" on-mouseout="{{ whenMouseOut }}">
 				<thead>
 					<tr>
@@ -13,13 +21,12 @@
 							<template if="{{ !column.length }}">
 								<th>{{ column.title }}</th>
 							</template>
-							
 						</template>
 					</tr>
 				</thead>
 				<tfoot></tfoot>
 				<tbody>
-					<template repeat="{{ row, i in rows }}">
+					<template repeat="{{ row, i in buffer }}">
 						<tr class="{{ row.error ? 'danger' : 'noerror'}}">
 							<template repeat="{{ column, j in columns }}">
 								<template if="{{ column.name == '_actions' }}">
@@ -36,7 +43,7 @@
 								</template>
 
 								<template if="{{ column.name != '_actions' }}">
-									<td on-click="{{ }}" class="{{ row.data[column.name].error ? 'error' : '' }}">
+									<td class="{{ row.data[column.name].error ? 'error' : '' }}">
 										<g-cell text="{{ row.data[column.name].value }}"
 												error="{{ row.data[column.name].error }}"
 												errorMessage="{{ row.data[column.name].errorMessage }}"></g-cell>
@@ -52,19 +59,64 @@
 	<script>
     	Polymer('g-table', {
 
-    		columns: [], /* The Header */
+    		page     : 0,      /* Pagination */
+    		pageSize : 25,
+    		buffer   : [],
 
-    		rows:[],
-
-    		class: "hide",
+    		columns  : [],     /* The Header */
+    		rows     : [],
+    		class    : "hide",
 
     		clear: function() {
-    			this.rows = [];
-    			this.class = "hide";
+    			this.rows   = [];
+    			this.buffer = [];
+    			this.class  = "hide";
+    		},
+    		
+    		show: function() {
+    			this.buffer = [];
+    			var last  = this.rows.length;
+    			var start = this.page * this.pageSize;
+    			var end   = ((this.page + 1) * this.pageSize) - 1;
+    			end = last < end ? last : end;
+    			for(var i = start; i <= end ; i++)
+    			{
+    				var entry = this.rows[i];
+    				this.buffer.push(entry);
+    			}
+    			
+    			this.$.toNext.className     = this.isPageValid(this.page + 1) ? "btn btn-default" : "hide";
+    			this.$.toPrevious.className = this.isPageValid(this.page - 1) ? "btn btn-default" : "hide";
+
+    			this.class = "show rounded";
+    		},
+
+    		isPageValid: function(n) {
+				if(n < 0)
+				{
+					return false;
+				}
+    			var len = this.rows.length;
+				return len > (n * this.pageSize);
+    		},
+
+    		previousPage: function(evt, detail, sender) {
+    			evt.preventDefault();
+    			if(this.page > 0)
+    			{
+    				this.page--;
+    				this.show();
+    			}
+    		},
+    		
+    		nextPage: function(evt, detail, sender) {
+    			evt.preventDefault();
+    			this.page++;
+    			this.show();
     		},
 
     		appendRow: function(raw) {
-				
+
     			var rowData = {};
 
     			$.each(raw, function(name, value){
@@ -73,13 +125,13 @@
 						error  : false,
 					};
 				});
-    			
-    			this.rows.push({
-					data  : rowData,
-					error : false,
-				});
 
-    			this.class = "show rounded";
+    			var entry = {
+    				data  : rowData,
+    				error : false,
+    			};
+
+    			this.rows.push(entry);
     		},
     		
     		mark: function(rowNumber, columnName, marker) {
