@@ -5,10 +5,10 @@
 			Carregando...
 		</div>
 		<div class="{{ class }}">
-			<h3 id="title">{{ title }} ({{ rows.length }})</h3>
+			<h3 id="title">{{ title }}</h3>
 			<div id="paginator" class="btn-group">
 				<button type="button" class="btn btn-default" id="toPrevious" href="#" on-click="{{ previousPage }}" >&lt;</button>
-				<button type="button" class="btn btn-default">Resultados: {{ (page * pageSize) + 1 }} - {{ rows.length < (page + 1) * pageSize ? rows.length : (page + 1) * pageSize }} / página: {{ page + 1 }}</button>
+				<button type="button" class="btn btn-default">Resultados: {{ (page * pageSize) + 1 }} - {{ rows.length < (page + 1) * pageSize ? rows.length : (page + 1) * pageSize }} / total: {{ rows.length }} / página: {{ page + 1 }}</button>
 				<button type="button" class="btn btn-default" id="toNext" on-click="{{ nextPage }}">&gt;</button>	
 			</div>			
 			<table id="table" class="table table-hover" on-click="{{ whenClicked }}" on-mouseover="{{ whenMouseOver }}" on-mouseout="{{ whenMouseOut }}">
@@ -68,6 +68,7 @@
     		class    : "hide",
 
     		clear: function() {
+    			this.page   = 0;
     			this.rows   = [];
     			this.buffer = [];
     			this.class  = "hide";
