@@ -53,6 +53,11 @@
 		}
 		
 		FieldEntry.prototype.value = function() {
+			var tag = this.el.prop('tagName');
+			if(tag.startsWith("G-"))
+			{
+				return this.el[0].getFormValue();
+			}
 			return this.el.val();
 		}
 
@@ -98,6 +103,12 @@
     			return this.shadowRoot.querySelector(selector);
     		},
     		
+    		valueOf: function(id) {
+    			var entry = this.entries[id];
+    			var value = entry ? entry.value() : null;
+    			return value;
+    		},
+    		
     		fieldById: function(id) {
 				var result = null;
     			$.each(this.fields, function(idx, field){
@@ -131,7 +142,7 @@
     		isValid: function() {
 				var valid   = true;
 				$.each(this.entries, function(idx, entry){
-        			var status = entry.isValid();
+					var status = entry.isValid();
         			valid = valid && status.isValid;
         			entry.highlight(status);
     			});
