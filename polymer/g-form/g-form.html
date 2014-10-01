@@ -1,4 +1,4 @@
-<polymer-element name="g-form" attributes="fields">
+<polymer-element name="g-form" attributes="fields onSubmit">
 	<template>
 		<link rel="stylesheet" href="g-form.css">
 		<form id="form" class="form-horizontal" role="form">
@@ -19,6 +19,12 @@
 							<div class="col-md-2">
 								<p class="form-control-static">{{ field.placeholder }}</p>
 							</div>
+						</template>
+						<template if="{{ field.type == 'hidden' }}">
+							<input	id="{{ field.id }}"
+									name="{{ field.name }}"
+									type="{{ field.type }}"
+									value="{{ field.value }}" />									
 						</template>
 						<template if="{{ field.type == 'text' || field.type == 'password' }}">
 							<input 	on-keyup="{{ onKeyUp }}" 
@@ -84,8 +90,9 @@
 	
     	Polymer('g-form', {
     		
-    		fields  : [],
-    		entries : {}, /* entry by field id */
+    		fields   : [],
+    		entries  : {},   /* entry by field id */
+    		onSubmit : null,
     		
     		attached: function() {
     			var $this = this;
@@ -156,6 +163,14 @@
     				result[name] = entry.value();
     			});
     			return result;
+    		},
+    		
+    		submit: function(ctx, field, evt, detail, sender) {
+    			if(this.onSubmit)
+    			{
+    				evt.preventDefault();
+	    			this.onSubmit.apply(ctx, [this, field, evt, detail, sender]);
+    			}
     		}
     	});
 	</script>
