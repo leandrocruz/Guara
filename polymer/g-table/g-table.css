@@ -13,3 +13,11 @@ h3 {
 td.error {
 	background: url("/img/cell_comment.png") no-repeat top left;
 }
+
+tr.selected {
+	background-color: #ddd;
+}
+
+tr.selected:hover > td {
+	background-color: #ccc !important;
+}

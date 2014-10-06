@@ -27,17 +27,20 @@
 				<tfoot></tfoot>
 				<tbody>
 					<template repeat="{{ row, i in buffer }}">
-						<tr class="{{ row.error ? 'danger' : 'noerror'}}">
+						<tr class="{{ row.error ? 'danger' : 'noerror'}}" data-idx="{{ i }}">
 							<template repeat="{{ column, j in columns }}">
 								<template if="{{ column.name == '_actions' }}">
 									<td>
-										<template if="{{ row._actions.type == 'dropdown' }}">
-											<g-dropdown label="Ações" options="{{ row._actions.options }}" type="primary"></g-dropdown>
+										<template if="{{ column.type == 'dropdown' }}">
+											<g-dropdown label="Ações" options="{{ column.options }}" type="primary"></g-dropdown>
 										</template>
-										<template if="{{ row._actions.type == 'button' }}">
-											<template repeat="{{ option in  row._actions.options }}">
+										<template if="{{ column.type == 'button' }}">
+											<template repeat="{{ option in  column.options }}">
 												<g-button label="{{ option.label }}" type="{{ option.type }}" href="{{ option.href }}"></g-button>
 											</template>
+										</template>
+										<template if="{{ column.type == 'checkbox' }}">
+											<input name="{{ column.input_name }}" type="checkbox" value="{{ row.data[column.name].value }}" on-click="{{ onItemSelected }}" data-idx="{{ i }}"/>
 										</template>
 									</td>
 								</template>
@@ -193,6 +196,32 @@
     			{
 					cell.onClick(evt, detail, sender);    			
     			}
+    		},
+    		
+    		onItemSelected: function(evt, detail, sender) {
+    			var wanted = sender.getAttribute('data-idx');
+    			var rows = this.shadowRoot.querySelectorAll('tr');
+    			$.each(rows, function(idx, row){
+    				var dataIdx = row.getAttribute('data-idx')
+    				if(dataIdx == wanted)
+    				{
+    					$(row).toggleClass("selected");
+    				}
+    			});
+    		},
+    		
+    		getSelected: function() {
+    			
+    			var result = [];
+    			var items = this.shadowRoot.querySelectorAll('input[type="checkbox"]');
+				$.each(items, function(idx, item){
+					if(item.checked)
+					{
+						result.push(item);
+					}
+				});
+
+				return result;
     		}
     	});
 	</script>
