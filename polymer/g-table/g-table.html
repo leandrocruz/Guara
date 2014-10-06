@@ -1,9 +1,10 @@
-<polymer-element name="g-table" attributes="title columns rows actions page pageSize">
+<polymer-element name="g-table" attributes="title columns rows actions page pageSize lineCount">
 	<template>
 		<link rel="stylesheet" href="g-table.css">
 		<div id="loading" class="hidden">
 			Carregando...
 		</div>
+
 		<div class="{{ class }}">
 			<h3 id="title">{{ title }}</h3>
 			<div id="paginator" class="btn-group">
@@ -14,6 +15,9 @@
 			<table id="table" class="table table-hover" on-click="{{ whenClicked }}" on-mouseover="{{ whenMouseOver }}" on-mouseout="{{ whenMouseOut }}">
 				<thead>
 					<tr>
+						<template if="{{ lineCount != 'false' }}">
+							<th>#</th>
+						</template>
 						<template repeat="{{ column, j in columns }}">
 							<template if="{{ column.length }}">
 								<th style="width: {{ column.length }};">{{ column.title }}</th>
@@ -27,7 +31,12 @@
 				<tfoot></tfoot>
 				<tbody>
 					<template repeat="{{ row, i in buffer }}">
-						<tr class="{{ row.error ? 'danger' : 'noerror'}}" data-idx="{{ i }}">
+
+						<tr class="{{ (row.error ? 'danger' : 'noerror') && (row.selected ? 'selected' : '') }}" >
+							<template if="{{ lineCount != 'false' }}">
+								<td>{{ row.index + 1}}</td>
+							</template>
+
 							<template repeat="{{ column, j in columns }}">
 								<template if="{{ column.name == '_actions' }}">
 									<td>
@@ -40,7 +49,21 @@
 											</template>
 										</template>
 										<template if="{{ column.type == 'checkbox' }}">
-											<input name="{{ column.input_name }}" type="checkbox" value="{{ row.data[column.name].value }}" on-click="{{ onItemSelected }}" data-idx="{{ i }}"/>
+											<template if="{{ row.selected }}">
+												<input 	name="{{ column.input_name }}"
+														type="checkbox"
+														value="{{ row.data[column.name].value }}"
+														on-click="{{ onItemSelected }}"
+														data-idx="{{ row.index }}" 
+														checked />
+											</template>
+											<template if="{{ !row.selected }}">
+												<input 	name="{{ column.input_name }}"
+														type="checkbox"
+														value="{{ row.data[column.name].value }}"
+														on-click="{{ onItemSelected }}"
+														data-idx="{{ row.index }}" />
+											</template>
 										</template>
 									</td>
 								</template>
@@ -130,8 +153,11 @@
 					};
 				});
 
+    			var index = this.rows.length;
+    			
     			var entry = {
-    				data  : rowData,
+					index : index,
+					data  : rowData,
     				error : false,
     			};
 
@@ -199,28 +225,36 @@
     		},
     		
     		onItemSelected: function(evt, detail, sender) {
-    			var wanted = sender.getAttribute('data-idx');
-    			var rows = this.shadowRoot.querySelectorAll('tr');
-    			$.each(rows, function(idx, row){
-    				var dataIdx = row.getAttribute('data-idx')
-    				if(dataIdx == wanted)
+    			var idx = sender.getAttribute('data-idx');
+    			var row = this.rowByIndex(idx);
+    			if(row)
+    			{
+    				row.selected = !row.selected;
+    			}
+    		},
+    		
+    		rowByIndex: function(index) {
+    			for (var i = 0; i < this.rows.length; i++)
+    			{
+    				var row = this.rows[i];
+    				if(row.index == index)
     				{
-    					$(row).toggleClass("selected");
+    					return row;
     				}
-    			});
+    			}
     		},
     		
     		getSelected: function() {
     			
     			var result = [];
-    			var items = this.shadowRoot.querySelectorAll('input[type="checkbox"]');
-				$.each(items, function(idx, item){
-					if(item.checked)
-					{
-						result.push(item);
-					}
-				});
-
+    			
+    			$.each(this.rows, function(i, row){
+    				if(row.selected)
+    				{
+    					result.push(row);
+    				}
+    			});
+	
 				return result;
     		}
     	});
