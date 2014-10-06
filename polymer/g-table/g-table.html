@@ -1,4 +1,4 @@
-<polymer-element name="g-table" attributes="title columns rows actions page pageSize lineCount">
+<polymer-element name="g-table" attributes="title columns rows actions page pageSize lineCount enableRowSelection">
 	<template>
 		<link rel="stylesheet" href="g-table.css">
 		<div id="loading" class="hidden">
@@ -11,13 +11,22 @@
 				<button type="button" class="btn btn-default" id="toPrevious" href="#" on-click="{{ previousPage }}" >&lt;</button>
 				<button type="button" class="btn btn-default">Resultados: {{ (page * pageSize) + 1 }} - {{ rows.length < (page + 1) * pageSize ? rows.length : (page + 1) * pageSize }} / total: {{ rows.length }} / página: {{ page + 1 }}</button>
 				<button type="button" class="btn btn-default" id="toNext" on-click="{{ nextPage }}">&gt;</button>	
-			</div>			
+			</div>
+
 			<table id="table" class="table table-hover" on-click="{{ whenClicked }}" on-mouseover="{{ whenMouseOver }}" on-mouseout="{{ whenMouseOut }}">
 				<thead>
 					<tr>
-						<template if="{{ lineCount != 'false' }}">
+
+						<template if="{{ lineCount }}">
 							<th>#</th>
 						</template>
+						
+						<template if="{{ enableRowSelection }}">
+							<th>
+							<span class="glyphicon glyphicon-pushpin" style="font-size:80%;"></span>
+							</th>
+						</template>
+						
 						<template repeat="{{ column, j in columns }}">
 							<template if="{{ column.length }}">
 								<th style="width: {{ column.length }};">{{ column.title }}</th>
@@ -26,6 +35,7 @@
 								<th>{{ column.title }}</th>
 							</template>
 						</template>
+
 					</tr>
 				</thead>
 				<tfoot></tfoot>
@@ -33,8 +43,25 @@
 					<template repeat="{{ row, i in buffer }}">
 
 						<tr class="{{ (row.error ? 'danger' : 'noerror') && (row.selected ? 'selected' : '') }}" >
-							<template if="{{ lineCount != 'false' }}">
+
+							<template if="{{ lineCount }}">
 								<td>{{ row.index + 1}}</td>
+							</template>
+							
+							<template if="{{ enableRowSelection }}">
+								<td>
+									<template if="{{ row.selected }}">
+										<input 	type="checkbox"
+												on-click="{{ onItemSelected }}"
+												data-idx="{{ row.index }}" 
+												checked />
+									</template>
+									<template if="{{ !row.selected }}">
+										<input 	type="checkbox"
+												on-click="{{ onItemSelected }}"
+												data-idx="{{ row.index }}" />
+									</template>
+								</td>
 							</template>
 
 							<template repeat="{{ column, j in columns }}">
@@ -46,23 +73,6 @@
 										<template if="{{ column.type == 'button' }}">
 											<template repeat="{{ option in  column.options }}">
 												<g-button label="{{ option.label }}" type="{{ option.type }}" href="{{ option.href }}"></g-button>
-											</template>
-										</template>
-										<template if="{{ column.type == 'checkbox' }}">
-											<template if="{{ row.selected }}">
-												<input 	name="{{ column.input_name }}"
-														type="checkbox"
-														value="{{ row.data[column.name].value }}"
-														on-click="{{ onItemSelected }}"
-														data-idx="{{ row.index }}" 
-														checked />
-											</template>
-											<template if="{{ !row.selected }}">
-												<input 	name="{{ column.input_name }}"
-														type="checkbox"
-														value="{{ row.data[column.name].value }}"
-														on-click="{{ onItemSelected }}"
-														data-idx="{{ row.index }}" />
 											</template>
 										</template>
 									</td>
@@ -85,13 +95,15 @@
 	<script>
     	Polymer('g-table', {
 
-    		page     : 0,      /* Pagination */
-    		pageSize : 25,
-    		buffer   : [],
+    		page               : 0,     /* Pagination */
+    		pageSize           : 25,
+    		buffer             : [],
+    		enableRowSelection : false,
+    		lineCount          : false,
 
-    		columns  : [],     /* The Header */
-    		rows     : [],
-    		class    : "hide",
+    		columns : [],     /* The Header */
+    		rows    : [],
+    		class   : "hide",
 
     		clear: function() {
     			this.page   = 0;
