@@ -51,15 +51,25 @@
 							<template if="{{ enableRowSelection }}">
 								<td>
 									<template if="{{ row.selected }}">
-										<input 	type="checkbox"
-												on-click="{{ onItemSelected }}"
-												data-idx="{{ row.index }}" 
-												checked />
+										<template if="{{ row.disabled }}">
+											<span class="glyphicon glyphicon-{{ row.disabled }}"></span>
+										</template>
+										<template if="{{ !row.disabled }}">
+											<input 	type="checkbox"
+													on-click="{{ onItemSelected }}"
+													data-idx="{{ row.index }}" 
+													checked />
+										</template>
 									</template>
 									<template if="{{ !row.selected }}">
-										<input 	type="checkbox"
-												on-click="{{ onItemSelected }}"
-												data-idx="{{ row.index }}" />
+										<template if="{{ row.disabled }}">
+											<span class="glyphicon glyphicon-{{ row.disabled }}"></span>
+										</template>
+										<template if="{{ !row.disabled }}">
+											<input 	type="checkbox"
+													on-click="{{ onItemSelected }}"
+													data-idx="{{ row.index }}" />
+										</template>
 									</template>
 								</td>
 							</template>
@@ -170,7 +180,7 @@
     			var entry = {
 					index : index,
 					data  : rowData,
-    				error : false,
+    				error : false
     			};
 
     			this.rows.push(entry);
