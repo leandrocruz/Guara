@@ -1,0 +1,177 @@
+<polymer-element name="g-form" attributes="fields onSubmit">
+	<template>
+		<link rel="stylesheet" href="g-form.css">
+		<form id="form" class="form-horizontal" role="form">
+			<template repeat="{{ field, i in fields }}">
+				<div class="form-group">
+					
+					<!-- Label -->
+					<template if="{{ field.label }}">
+						<label for="{{ field.id }}" class="col-md-2 control-label">{{ field.label }}</label>
+					</template>
+					<template if="{{ !field.label }}">
+						<label for="{{ field.id }}" class="col-md-2 control-label"></label>
+					</template>
+					
+					<!-- Input -->
+					<div class="col-md-3">
+						<template if="{{ field.type == 'spacer' }}">
+							<div class="col-md-2">
+								<p class="form-control-static">{{ field.placeholder }}</p>
+							</div>
+						</template>
+						<template if="{{ field.type == 'hidden' }}">
+							<input	id="{{ field.id }}"
+									name="{{ field.name }}"
+									type="{{ field.type }}"
+									value="{{ field.value }}" />									
+						</template>
+						<template if="{{ field.type == 'text' || field.type == 'password' }}">
+							<input 	on-keyup="{{ onKeyUp }}" 
+									id="{{ field.id }}"
+									name="{{ field.name }}"
+									type="{{ field.type }}"
+									class="form-control"
+									placeholder="{{ field.placeholder }}"
+									tabindex="{{ tab }}" />
+						</template>
+						<template if="{{ field.type == 'select' }}">
+							<g-dropdown id="{{ field.id }}" label="{{ field.placeholder }}" options="{{ field.options }}"></g-dropdown>
+						</template>
+						<template if="{{ field.type == 'button' }}">
+							<button	on-click="{{ buttonClicked }}" 
+									id="{{ field.id }}"
+									name="{{ field.name }}"
+									type="submit"
+									class="form-control btn-primary"
+									tabindex="{{ tab }}">{{ field.placeholder }}</button>
+						</template>
+					</div>
+				</div>
+			</template>
+		</form>
+	</template>
+	<script>
+		function FieldEntry(field, el) {
+			this.field   = field;
+			this.el      = el;
+			this.errors  = [];
+		}
+		
+		FieldEntry.prototype.value = function() {
+			var tag = this.el.prop('tagName');
+			if(tag.startsWith("G-"))
+			{
+				return this.el[0].getFormValue();
+			}
+			return this.el.val();
+		}
+
+		FieldEntry.prototype.isValid = function() {
+			var validators = this.field.validators;
+			var value      = this.value();
+			var result     = $g.validator.validateValue(value, validators);
+			return result;
+		};
+		
+		FieldEntry.prototype.highlight = function(status) {
+			var group = this.el.closest(".form-group");
+			if(status.isValid)
+			{
+				group.removeClass("has-error");
+			}
+			else
+			{
+				var issues = status.issues;
+				group.addClass("has-error");
+			}
+		};
+		
+	
+    	Polymer('g-form', {
+    		
+    		fields   : [],
+    		entries  : {},   /* entry by field id */
+    		onSubmit : null,
+    		
+    		attached: function() {
+    			var $this = this;
+				$.each(this.fields, function(idx, field){
+    				if(field.id)
+    				{
+						var el    = $this.select('#' + field.id);
+    					var entry = new FieldEntry(field, $(el));
+						$this.entries[field.id] = entry;
+    				}
+    			});
+    		},
+    		
+    		select: function(selector) {
+    			return this.shadowRoot.querySelector(selector);
+    		},
+    		
+    		valueOf: function(id) {
+    			var entry = this.entries[id];
+    			var value = entry ? entry.value() : null;
+    			return value;
+    		},
+    		
+    		fieldById: function(id) {
+				var result = null;
+    			$.each(this.fields, function(idx, field){
+    				if(field.id == id)
+    				{
+    					result = field;
+    					return;
+    				}
+    			});
+				return result;
+    		},
+    		
+    		buttonClicked: function(evt, detail, sender) {
+    			var field = this.fieldById(sender.id);
+    			if(field && field.onClick)
+    			{
+    				field.onClick(this, field, evt, detail, sender);
+    			}
+    			else
+    			{
+    				evt.preventDefault();
+    			}
+    		},
+
+    		onKeyUp: function(evt, detail, sender) {
+    			var entry  = this.entries[sender.id];
+    			var status = entry.isValid();
+    			entry.highlight(status);
+    		},
+    		
+    		isValid: function() {
+				var valid   = true;
+				$.each(this.entries, function(idx, entry){
+					var status = entry.isValid();
+        			valid = valid && status.isValid;
+        			entry.highlight(status);
+    			});
+    			return valid;
+    		},
+    		
+    		toBean: function() {
+				var result = {};
+    			$.each(this.entries, function(idx, entry){
+					var name = entry.field.id;
+    				result[name] = entry.value();
+    			});
+    			return result;
+    		},
+    		
+    		submit: function(ctx, field, evt, detail, sender) {
+    			if(this.onSubmit)
+    			{
+    				evt.preventDefault();
+	    			this.onSubmit.apply(ctx, [this, field, evt, detail, sender]);
+    			}
+    		}
+    	});
+	</script>
+</polymer-element>

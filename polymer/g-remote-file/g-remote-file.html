@@ -1,0 +1,59 @@
+<polymer-element name="g-remote-file" attributes="title class source">
+	<template>
+		<link rel="stylesheet" href="g-remote-file.css">
+		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
+			{{title}}
+		</a>
+	</template>
+	<script>
+    	Polymer('g-remote-file', {
+    		
+    		disable: function() {
+    			this.$.button.setAttribute('disabled', 'true');
+    		},
+    		
+    		getFiles: function(){
+    			return this.files;
+    		},
+ 
+    		onFileSelected: function(){
+    			if(this.files.length > 0)
+    			{
+    				$(this.$.button).html(this.files.length + " arquivo(s)");
+    			} 
+    			else 
+    			{
+    				$(this.$.button).html('Buscar no '+this.source);	
+    			}
+    			
+    			this.fire('remoteFileSelected', {files: this.files});
+    			
+    		},
+
+    		triggerFileSelect: function() {
+    			var $this = this;
+    			if(this.source == 'dropbox')
+    			{
+        			dropboxOptions = {
+      				    success: function(files) {
+      						$this.files = files;   						     						
+      						$this.onFileSelected();
+      				    },
+      	
+      				    cancel: function() {
+      				    	$this.files = [];
+      				    	$this.onFileSelected();
+      				    },
+      				    
+      				    linkType    : "direct", // or "preview"
+      				    multiselect : true,
+      				    extensions  : ['.pdf'],
+      				};
+        			
+    				Dropbox.choose(dropboxOptions);
+    			}			
+    			
+    		},
+		});
+	</script>
+</polymer-element>

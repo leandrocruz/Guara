@@ -5,6 +5,19 @@ h3 {
 	margin: 25px 0px 25px 10px;
 }
 
+#paginator {
+	float: right;
+	margin: 25px 15px;
+}
+
 td.error {
 	background: url("/img/cell_comment.png") no-repeat top left;
+}
+
+tr.selected {
+	background-color: #ddd;
+}
+
+tr.selected:hover > td {
+	background-color: #ccc !important;
 }

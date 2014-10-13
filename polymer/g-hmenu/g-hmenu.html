@@ -1,10 +1,10 @@
 <polymer-element name="g-hmenu" attributes="items">
 	<template>
 		<link rel="stylesheet" href="g-hmenu.css">
-		<ul class="nav nav-pills">
+		<ul id="menu" class="nav nav-pills">
 			<template repeat="{{item, i in items}}">
  				<li class="{{item.class}}">
-					<a on-click={{onSelectItem}} href="{{item.href}}" data-index="{{i}}">{{item.text}}</a>
+					<a href="{{item.href}}" data-index="{{i}}">{{item.text}}</a>
  				</li>
 			</template>				
 		</ul>
@@ -15,8 +15,15 @@
 				this.items = [];
 			},
     		
-    		onSelectItem: function(event, detail, sender) {
-    		}
+    		hide: function() {
+    			var menu = $(this.$.menu);
+    			menu.addClass('hide');
+    		},
+
+    		show: function() {
+    			var menu = $(this.$.menu);
+    			menu.removeClass('hide');
+    		},
     	});
 	</script>
 </polymer-element>

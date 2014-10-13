@@ -1,4 +1,4 @@
-<polymer-element name="g-dropdown" attributes="label options type">
+<polymer-element name="g-dropdown" attributes="label options type noOptionAllowed">
 	<template>
 		<link rel="stylesheet" href="g-dropdown.css">
 		<div id="container" class="dropdown">
@@ -6,6 +6,13 @@
 				{{ label }} <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu" _aria-labelledby="dropdownMenu">
+				<template if="{{ noOptionAllowed }}">
+					<li role="presentation">
+						<a on-click="{{ optionChanged }}" role="menuitem" data-idx="reset" tabindex="-1" href="#">
+							--
+						</a>
+					</li>
+				</template>
 				<template repeat="{{ op, i in options }}">
 					<template if="{{ i > 0 && (!op.label || op.header) }}">
 						<li role="presentation" class="divider"></li>
@@ -27,8 +34,18 @@
 	<script>
     	Polymer('g-dropdown', {
     		
-    		type   : "default",
-    		options : [],
+    		noOptionAllowed : true,
+    		originalLabel   : null,
+    		type            : "default",
+    		options         : [],
+    		currentValue    : null,
+    		
+    		ready: function() {
+    			if(!this.originalLabel)
+    			{
+	    			this.originalLabel = this.label;
+    			}
+    		},
     		
 			toggleOpen: function(event, detail, sender) {
 				$(this.$.container).toggleClass("open");
@@ -38,18 +55,37 @@
 				//console.log("Options changed: ", oldVal, newVal);
 			},
 			
+			getFormValue: function() {
+				return this.currentValue;	
+			},
+
 			optionChanged: function(event, detail, sender) {
 				event.preventDefault();
 				$(this.$.container).toggleClass("open");
 				var idx = $(sender).data('idx');
-				var op  = this.options[idx];
-				if(op.onClick)
+				var op  = null;
+				if("reset" == idx)
 				{
-					op.onClick(event, detail, sender);
+					this.label = this.originalLabel;
+					this.currentValue = null;
 				}
-				else if(op.href)
+				else
 				{
-					window.location = op.href;
+					op = this.options[idx];
+					this.label = op.label;
+					if(op.value)
+					{
+						this.currentValue = op.value;
+					}
+
+					if(op.onClick)
+					{
+						op.onClick(event, detail, sender);
+					}
+					else if(op.href)
+					{
+						window.location = op.href;
+					}
 				}
 				
 				this.fire('option-changed', {option: op});

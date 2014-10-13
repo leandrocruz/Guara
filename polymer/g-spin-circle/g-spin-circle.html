@@ -1,0 +1,33 @@
+<!-- 
+	See:
+		- http://codepen.io/Mohsen-Khakbiz/pen/uygmH
+		- https://365webresources.com/10-best-pure-css-loading-spinners-front-end-developers/
+ -->
+<polymer-element name="g-spin-circle" attributes="">
+	<template>
+		<link rel="stylesheet" href="g-spin-circle.css">
+			<div id="overlay" 	class="hide"></div>
+			<div id="container" class="hide">
+				<div class="preloader">
+					<span class="animated"></span>
+				</div>
+				<div id="message">
+					<content></content>
+				</div>
+			</div>
+		</polymer-overlay>
+	</template>
+	<script>
+    	Polymer({
+    		start: function() {
+    			$(this.$.container).removeClass('hide');
+    			$(this.$.overlay).removeClass('hide');
+    		},
+    		
+    		stop: function() {
+    			$(this.$.overlay).addClass('hide');
+    			$(this.$.container).addClass('hide');
+    		}
+    	});
+	</script>
+</polymer-element>

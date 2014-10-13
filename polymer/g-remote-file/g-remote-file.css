@@ -1,12 +1,5 @@
 @import "../guara.css";
 
-
-.sample a {
-	color: #666;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
 .hidden {
 	overflow: hidden; 
 	position: relative; 

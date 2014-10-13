@@ -1,9 +1,27 @@
-<polymer-element name="g-file" attributes="title class accept isDirectory onChange">
+<polymer-element name="g-file" attributes="title class accept isDirectory onChange sample">
 	<template>
 		<link rel="stylesheet" href="g-file.css">
-		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
-			{{title}}
-		</a>
+
+		<template if="{{ sample }}">
+			<div class="input-group sample">
+				<span class="input-group-addon">
+					<a href="{{ sample }}">
+						<span class="glyphicon glyphicon-download">
+					</a>
+					</span>
+				</span>
+				<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
+					{{title}}
+				</a>
+			</div>
+		</template>
+
+		<template if="{{ !sample }}">
+			<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
+				{{title}}
+			</a>
+		</template>
+
 		<template if="{{ isDirectory }}">
 			<input 	id="file"
 					type="file"
