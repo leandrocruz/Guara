@@ -3,8 +3,46 @@
 	require(['gl!guara/guara'], function (guara) {
 		window.$g = guara;
 	});
+
+	
+	function FieldEntry(field, el) {
+		this.field   = field;
+		this.el      = el;
+		this.errors  = [];
+	}
+	
+	FieldEntry.prototype.value = function() {
+		var tag = this.el.prop('tagName');
+		if(tag.startsWith("G-"))
+		{
+			return this.el[0].getFormValue();
+		}
+		return this.el.val();
+	}
+
+	FieldEntry.prototype.isValid = function() {
+		var validators = this.field.validators;
+		var value      = this.value();
+		var result     = $g.validator.validateValue(value, validators);
+		return result;
+	};
+	
+	FieldEntry.prototype.highlight = function(status) {
+		var group = this.el.closest(".form-group");
+		if(status.isValid)
+		{
+			group.removeClass("has-error");
+		}
+		else
+		{
+			var issues = status.issues;
+			group.addClass("has-error");
+		}
+	};
+	
 </script>
 
+<link rel="import" href="g-base/g-base.html">
 <link rel="import" href="g-icon/g-icon.html">
 <link rel="import" href="g-spin-circle/g-spin-circle.html">
 <link rel="import" href="g-tooltip/g-tooltip.html">
@@ -23,4 +61,6 @@
 <link rel="import" href="g-excel/g-excel.html">
 <link rel="import" href="g-dropdown/g-dropdown.html">
 <link rel="import" href="g-button-dropdown/g-button-dropdown.html">
+<link rel="import" href="g-input/g-input.html">
+<link rel="import" href="g-input/g-input-sample.html">
 <link rel="import" href="g-form/g-form.html">

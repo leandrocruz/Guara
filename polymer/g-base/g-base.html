@@ -1,0 +1,24 @@
+<polymer-element name="g-base">
+	<script>
+    	Polymer({
+    		
+    		byId: function(id) {
+    			return this.shadowRoot.getElementById(id);
+    		},
+
+    		select: function(selector) {
+    			return this.shadowRoot.querySelector(selector);
+    		},
+
+			pushIt: function(signal, fn) {
+				var $this = this;
+				var args  = Array.prototype.slice.call(arguments);
+				args.splice(1,1); //remove 'fn'
+				$g.push.send(signal, function(data) {
+					args[0] = data;
+					fn.apply($this, args);
+				});
+			},
+		});
+	</script>
+</polymer-element>

@@ -1,0 +1,100 @@
+<polymer-element name="g-input" extends="g-base" attributes="orientation form field onChange">
+	<template>
+		<link rel="stylesheet" href="g-input.css">
+		<div class="form-{{ orientation }}"> <!-- if this element is not present here, external css rules will not take effect -->
+			<div class="form-group">
+				
+				<!-- Label -->
+				<template if="{{ field.label }}">
+					<label for="{{ field.id }}" class="col-md-2 control-label">{{ field.label }}</label>
+				</template>
+				<template if="{{ !field.label }}">
+					<label for="{{ field.id }}" class="col-md-2 control-label"></label>
+				</template>
+	
+				<!-- Input -->
+				<div class="col-md-{{ field.size }}">
+					<template if="{{ field.type == 'spacer' }}">
+						<div class="col-md-2">
+							<p class="form-control-static">{{ field.placeholder }}</p>
+						</div>
+					</template>
+					<template if="{{ field.type == 'hidden' }}">
+						<input	id="{{ field.id }}"
+								name="{{ field.name }}"
+								type="{{ field.type }}"
+								value="{{ field.value }}" />									
+					</template>
+					<template if="{{ field.type == 'text' || field.type == 'password' }}">
+						<input 	on-keyup="{{ onKeyUp }}" 
+								id="{{ field.id }}"
+								name="{{ field.name }}"
+								type="{{ field.type }}"
+								class="form-control"
+								placeholder="{{ field.placeholder }}"
+								tabindex="{{ tab }}" />
+					</template>
+					<template if="{{ field.type == 'select' }}">
+						<g-dropdown id="{{ field.id }}" label="{{ field.placeholder }}" options="{{ field.options }}"></g-dropdown>
+					</template>
+					<template if="{{ field.type == 'button' }}">
+						<button	on-click="{{ buttonClicked }}" 
+								id="{{ field.id }}"
+								name="{{ field.name }}"
+								type="submit"
+								class="form-control btn-primary"
+								tabindex="{{ tab }}">{{ field.placeholder }}</button>
+					</template>
+				</div>	<!-- Input End -->
+			</div>		<!-- Group End -->
+		</div>			<!-- Fake Form End -->
+	</template>
+	<script>
+    	Polymer({
+	
+			orientation : 'horizontal',
+			size        : 4,
+			form        : null,
+			entry       : null,
+
+			attached: function() {
+				var el = this.select('#' + this.field.id);
+  				this.entry = new FieldEntry(this.field, $(el));
+			},
+
+			value: function() {
+				return this.entry.value();
+			},
+    		
+			status: function() {
+    			var status = this.entry.isValid();
+    			return status;
+			},
+
+			highlight: function() {
+    			var status = this.status();
+    			this.entry.highlight(status);
+			},
+			
+    		onKeyUp: function(evt, detail, sender) {
+				this.highlight();
+				var handler = this.onChange; 
+				if(handler)
+				{
+					handler.fn.apply(handler.ctx, [this]);
+				}
+    		},
+    		
+    		buttonClicked: function(evt, detail, sender) {
+    			if(this.field.onClick)
+    			{
+    				this.field.onClick(this.form, this.field, evt, detail, sender);
+    			}
+    			else
+    			{
+    				evt.preventDefault();
+    			}
+    		},
+    	});
+	</script>
+</polymer-element>
