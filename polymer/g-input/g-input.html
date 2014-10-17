@@ -55,25 +55,24 @@
 			orientation : 'horizontal',
 			size        : 4,
 			form        : null,
-			entry       : null,
 
 			attached: function() {
 				var el = this.select('#' + this.field.id);
-  				this.entry = new FieldEntry(this.field, $(el));
+  				this.field.entry = new FieldEntry(this.field, $(el));
 			},
 
 			value: function() {
-				return this.entry.value();
+				return this.field.entry.value();
 			},
     		
 			status: function() {
-    			var status = this.entry.isValid();
+    			var status = this.field.entry.isValid();
     			return status;
 			},
 
 			highlight: function() {
     			var status = this.status();
-    			this.entry.highlight(status);
+    			this.field.entry.highlight(status);
 			},
 			
     		onKeyUp: function(evt, detail, sender) {
