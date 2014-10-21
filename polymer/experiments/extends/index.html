@@ -1,0 +1,56 @@
+<script src="/bower/platform/platform.js"></script>
+<link rel="import" href="/bower/polymer/polymer.html">
+
+<polymer-element name="base-object" flag>
+	<template>
+		Base Object
+		<div id="static">static</div>
+		<template if="{{ flag }}">
+			<div id="flaged">flaged</div>
+		</template>
+	</template>
+	<script>
+		Polymer({
+			created: function() {
+				console.log('base', this);
+			},
+
+			byId: function(id) {
+    			return this.shadowRoot.getElementById(id);
+    		},
+
+			select: function(selector) {
+    			return this.shadowRoot.querySelector(selector);
+    		},
+			
+			m: function() {
+				return 'I am m()';
+			},
+		});
+	</script>
+</polymer-element>
+
+<polymer-element name="sub-object" extends="base-object">
+	<template>
+		Sub Object
+		<hr>
+		<shadow></shadow>
+	</template>
+	<script>
+		Polymer({
+			attached: function() {
+				console.log('sub', this);
+				this.super();
+			}
+		});
+	</script>
+</polymer-element>
+
+
+<base-object></base-object>
+<sub-object></sub-object>
+
+<script>
+	//document.querySelector('sub-object').m();
+</script>
+

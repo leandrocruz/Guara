@@ -1,0 +1,15 @@
+<polymer-element name="my-sample" attributes="param">
+	<template>
+		param is: {{ param }}
+		<br/>
+		<input id="in"/>
+		<button on-click="{{ setValue }}">Set</button>
+	</template>
+	<script>
+	    	Polymer({
+	    		setValue: function(evt, detail, sender) {
+	    			this.param = this.$.in.value;
+	    		}
+	    	});
+	</script>
+</polymer-element>

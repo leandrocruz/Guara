@@ -1,0 +1,14 @@
+<polymer-element name="my-input" attributes="input">
+	<template>
+		<my-sample param="{{ input.name }}"></my-sample>
+	</template>
+	<script>
+		Polymer({
+			onInputChanged: function(v, w) {
+				console.log('Input Changed to:', w);
+			}
+		});
+
+	</script>
+</polymer-element>
+
