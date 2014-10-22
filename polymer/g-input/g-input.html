@@ -53,16 +53,7 @@
 				</template>
 				<template if="{{ field.button }}">
 					<div class="col-sm-1">
-						<template if="{{ field.button.disabled }}">
-							<button class="form-control btn-{{ field.button.type }}" disabled>
-								{{ field.button.label }}
-							</button>
-						</template>
-						<template if="{{ !field.button.disabled }}">
-							<button class="form-control btn-{{ field.button.type }}" on-click="{{ fieldButtonHandler }}">
-								{{ field.button.label }}
-							</button>
-						</template>
+						<g-button label="{{ field.button.label }}" type="{{ field.button.type }}" disabled="{{ field.button.disabled }}" onClick="{{ field.button.onClick }}"></g-button>
 					</div>
 				</template>
 			</div>		<!-- Group End -->
@@ -117,11 +108,6 @@
     				evt.preventDefault();
     			}
     		},
-
-
-    		fieldButtonHandler: function(evt) {
-    			this.field.button.onClick(evt);
-    		}
     	});
 	</script>
 </polymer-element>

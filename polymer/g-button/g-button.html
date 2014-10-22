@@ -15,12 +15,10 @@
     		type     : 'default',
     		disabled : false,
     		
-			handleOnClick: function(event, detail, sender) {
-				console.log('handleOnClick()', event);
-				event.preventDefault();
+			handleOnClick: function(evt, detail, sender) {
 				if(this.onClick)
 				{
-					$g.utils.apply(this.onClick, [event, detail, sender]);
+					$g.utils.apply(this.onClick, [evt, detail, sender]);
 				}
 			}
     	});
