@@ -1,0 +1,23 @@
+<polymer-element name="g-boolean-icon" extends="g-icon">
+	<template>
+		<link rel="stylesheet" href="g-icon.css">
+		<span style="color: {{ color }}" class="glyphicon glyphicon-{{ name }} {{ class }} {{ state }}"></span>
+	</template>
+	<script>
+    	Polymer({
+
+			states: {
+				ok  : {color: '#5cb85c', name: 'ok-circle'},
+    			err : {color: '#d9534f', name: 'remove-circle'}
+			},
+			
+    		toState: function(state) {
+				var name = state ? 'ok' : 'err';
+				var st   = this.states[name];
+				this.name  = st.name;
+				this.color = st.color;
+				this.show();
+    		}
+		});
+	</script>
+</polymer-element>

@@ -4,12 +4,12 @@
 		<span style="color: {{ color }}" class="glyphicon glyphicon-{{ name }} {{ class }} {{ state }}"></span>
 	</template>
 	<script>
-    	Polymer('g-icon', {
+    	Polymer({
 
     		name  : "plus",
     		state : "hide",
     		color : "#000",
-    		
+
 			hide: function() {
 				this.state = "hide";
 				this.color = "#000";
