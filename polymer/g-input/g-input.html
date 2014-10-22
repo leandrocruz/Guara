@@ -1,4 +1,4 @@
-<polymer-element name="g-input" extends="g-base" attributes="orientation form field onChange">
+<polymer-element name="g-input" extends="g-base" attributes="orientation cols form field onChange">
 	<template>
 		<link rel="stylesheet" href="g-input.css">
 		<div class="form-{{ orientation }}"> <!-- if this element is not present here, external css rules will not take effect -->
@@ -13,7 +13,7 @@
 				</template>
 	
 				<!-- Input -->
-				<div class="col-md-{{ field.size }}">
+				<div class="col-md-{{ cols }}">
 					<template if="{{ field.type == 'spacer' }}">
 						<div class="col-md-2">
 							<p class="form-control-static">{{ field.placeholder }}</p>
@@ -46,19 +46,46 @@
 								tabindex="{{ tab }}">{{ field.placeholder }}</button>
 					</template>
 				</div>	<!-- Input End -->
+				<template if="{{ field.icon }}">
+					<div class="col-sm-1 control-label">
+						<g-boolean-icon class="pull-left" id="icon"></g-boolean-icon>
+					</div>
+				</template>
+				<template if="{{ field.button }}">
+					<div class="col-sm-1">
+						<template if="{{ field.button.disabled }}">
+							<button class="form-control btn-{{ field.button.type }}" disabled>
+								{{ field.button.label }}
+							</button>
+						</template>
+						<template if="{{ !field.button.disabled }}">
+							<button class="form-control btn-{{ field.button.type }}" on-click="{{ fieldButtonHandler }}">
+								{{ field.button.label }}
+							</button>
+						</template>
+					</div>
+				</template>
 			</div>		<!-- Group End -->
 		</div>			<!-- Fake Form End -->
 	</template>
 	<script>
-    	Polymer({
-	
+
+		Polymer({
+				
 			orientation : 'horizontal',
 			size        : 4,
 			form        : null,
-
+			_this : null,
+			
 			attached: function() {
 				var el = this.select('#' + this.field.id);
   				this.field.entry = new FieldEntry(this.field, $(el));
+
+				if(this.field.icon)
+				{
+					var icon = this.byId('icon');
+					this.field.icon = icon;
+				}
 			},
 
 			value: function() {
@@ -77,11 +104,7 @@
 			
     		onKeyUp: function(evt, detail, sender) {
 				this.highlight();
-				var handler = this.onChange; 
-				if(handler)
-				{
-					handler.fn.apply(handler.ctx, [this]);
-				}
+				$g.utils.apply(this.onChange, [this]);
     		},
     		
     		buttonClicked: function(evt, detail, sender) {
@@ -94,6 +117,11 @@
     				evt.preventDefault();
     			}
     		},
+
+
+    		fieldButtonHandler: function(evt) {
+    			this.field.button.onClick(evt);
+    		}
     	});
 	</script>
 </polymer-element>
