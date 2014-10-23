@@ -22,6 +22,7 @@
     "js-xls": "0.7.1",
     "bootstrap": "~3.2.0",
     "platform": "Polymer/platform#~0.4.2",
-    "requirejs-bower": "~2.1.14"
+    "requirejs-bower": "~2.1.14",
+    "js-xlsx": "~0.7.11"
   }
 }

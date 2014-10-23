@@ -1,4 +1,5 @@
 <script src="../../js-xls/xls.js"></script>
+<script src="../../js-xlsx/xlsx.js"></script>
 
 <polymer-element name="g-excel" attributes="pageSize">
 	<template>
@@ -6,75 +7,8 @@
 		<g-table id="table" pageSize="{{ pageSize }}"></g-table>
 	</template>
 	<script>
-    	Polymer('g-excel', {
-
-    		parser: null,
-            
-            ready: function() {
-            
-            	this.tableRender = {
-            		
-            		table: this.$.table,
-
-            		render: function(file, array) {
-           				
-            			this.table.clear();
-            			this.table.title = file.name;
-           				this.handleHeader(array[0]);
-           				for(var i = 1; i < array.length; i++)
-         				{
-         					var row = array[i];
-         					this.handleRow(row, i);
-         				}
-            		
-                        this.data = array;
-                        this.table.show();
-        			},
-        			
-    				handleHeader: function(header) {
-    					var columns = [];
-    						
-    					$.each(header, function(key, value) {
-    						var column = {name: key, title: key};
-    						columns.push(column);
-    					});
-    						
-    					this.table.columns = columns;
-    				},
-
-    				handleRow: function(row, i) {
-						this.table.appendRow(row);
-    				}
-            	}
-            },
-
-			clear: function() {
-    			this.$.table.clear();
-    		},
-    		
-    		parse: function(file, sheetNumber, whenDone) {
-    			var $this = this;
-				require(["gl!guara/excel"], function (parser) {
-					parser.sheetByIndex(file, sheetNumber, function(sheet) {
-						try
-						{
-							//reading is async. Here we have the sheet.
-		    				var array = parser.toArray(sheet);
-		    				console.log("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
-		    				$this.tableRender.render(file, array);
-		    				whenDone.success(file, sheetNumber, array);
-						}
-						catch(e)
-						{
-							whenDone.error(file, sheetNumber, e);
-						}
-	    			});
-				});
-    		},
-    		
-    		mark: function(rowNumber, columnName, marker) {
-    			this.$.table.mark(rowNumber, columnName, marker);
-    		}
-    	});
+		require(['gl!bower/guara/g-excel/g-excel.js'], function (module) {
+			Polymer('g-excel', module);
+		});
 	</script>
 </polymer-element>
