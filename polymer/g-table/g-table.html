@@ -28,11 +28,13 @@
 						</template>
 						
 						<template repeat="{{ column, j in columns }}">
-							<template if="{{ column.length }}">
-								<th style="width: {{ column.length }};">{{ column.title }}</th>
-							</template>
-							<template if="{{ !column.length }}">
-								<th>{{ column.title }}</th>
+							<template if="{{ column.name | include }}">
+								<template if="{{ column.length }}">
+									<th style="width: {{ column.length }};">{{ column.title }}</th>
+								</template>
+								<template if="{{ !column.length }}">
+									<th>{{ column.title }}</th>
+								</template>
 							</template>
 						</template>
 
@@ -75,25 +77,27 @@
 							</template>
 
 							<template repeat="{{ column, j in columns }}">
-								<template if="{{ column.name == '_actions' }}">
-									<td>
-										<template if="{{ column.type == 'dropdown' }}">
-											<g-dropdown label="Ações" options="{{ column.options }}" type="primary"></g-dropdown>
-										</template>
-										<template if="{{ column.type == 'button' }}">
-											<template repeat="{{ option in  column.options }}">
-												<g-button label="{{ option.label }}" type="{{ option.type }}" href="{{ option.href }}"></g-button>
+								<template if="{{ column.name | include }}">
+									<template if="{{ column.name == '_actions' }}">
+										<td>
+											<template if="{{ column.type == 'dropdown' }}">
+												<g-dropdown label="Ações" options="{{ column.options }}" type="primary"></g-dropdown>
 											</template>
-										</template>
-									</td>
-								</template>
-
-								<template if="{{ column.name != '_actions' }}">
-									<td class="{{ row.data[column.name].error ? 'error' : '' }}">
-										<g-cell text="{{ row.data[column.name].value }}"
-												error="{{ row.data[column.name].error }}"
-												errorMessage="{{ row.data[column.name].errorMessage }}"></g-cell>
-									</td>
+											<template if="{{ column.type == 'button' }}">
+												<template repeat="{{ option in  column.options }}">
+													<g-button label="{{ option.label }}" type="{{ option.type }}" href="{{ option.href }}"></g-button>
+												</template>
+											</template>
+										</td>
+									</template>
+	
+									<template if="{{ column.name != '_actions' }}">
+										<td class="{{ row.data[column.name].error ? 'error' : '' }}">
+											<g-cell text="{{ row.data[column.name].value }}"
+													error="{{ row.data[column.name].error }}"
+													errorMessage="{{ row.data[column.name].errorMessage }}"></g-cell>
+										</td>
+									</template>
 								</template>
 							</template>
 						</tr>
@@ -115,6 +119,10 @@
     		rows    : [],
     		class   : "hide",
 
+    		include: function(value) { /* filter */
+    			return !value.startsWith('__');
+    		},
+    		
     		clear: function() {
     			this.page   = 0;
     			this.rows   = [];
