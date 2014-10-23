@@ -29,17 +29,26 @@
 	
 	FieldEntry.prototype.highlight = function(status) {
 		var group = this.el.closest(".form-group");
+		var target = null;
+		if(group && group.size() > 0)
+		{
+			target = group;
+		}
+		else
+		{
+			target = this.el;
+		}
 		if(status.isValid)
 		{
-			group.removeClass("has-error");
+			target.removeClass("has-error");
 		}
 		else
 		{
 			var issues = status.issues;
-			group.addClass("has-error");
+			target.addClass("has-error");
 		}
 	};
-	
+
 </script>
 
 <link rel="import" href="g-base/g-base.html">
@@ -64,5 +73,4 @@
 <link rel="import" href="g-button-dropdown/g-button-dropdown.html">
 <link rel="import" href="g-button/g-button.html">
 <link rel="import" href="g-input/g-input.html">
-<link rel="import" href="g-input/g-input-sample.html">
 <link rel="import" href="g-form/g-form.html">

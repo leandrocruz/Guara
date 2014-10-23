@@ -1,0 +1,34 @@
+<polymer-element name="g-form-input" extends="g-input" attributes="orientation cols">
+	<template>
+		<link rel="stylesheet" href="g-input.css">
+		<div class="form-{{ orientation }}"> <!-- if this element is not present here, external css rules will not take effect -->
+			<div class="form-group">
+				
+				<!-- Label -->
+				<label for="{{ field.id }}" class="col-md-2 control-label">{{ field.label ? field.label : "" }}</label>
+	
+				<!-- Input -->
+				<div class="col-md-{{ cols }}">
+					<template if="{{ field.type == 'spacer' }}">
+						<div class="col-md-2">
+							<p class="form-control-static">{{ field.placeholder }}</p>
+						</div>
+					</template>
+					<!-- 
+						I'd rather extend g-input and use <shadow></shadow>, 
+						but the 'this' reference points to this element, not the base element, when extended,
+						which is bad for shadowRoot queries  
+						<g-input id="input" form="{{ form }}" field="{{ field }}" onChange="{{ onChange }}"></g-input>
+					 -->
+					<shadow></shadow>
+				</div>	<!-- Input End -->
+			</div>		<!-- Group End -->
+		</div>			<!-- Fake Form End -->
+	</template>
+	<script>
+    	Polymer({
+			orientation : 'horizontal',
+			cols        : 4,
+    	});
+	</script>
+</polymer-element>

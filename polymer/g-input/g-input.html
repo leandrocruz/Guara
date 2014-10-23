@@ -1,96 +1,68 @@
-<polymer-element name="g-input" extends="g-base" attributes="orientation cols form field onChange">
+<polymer-element name="g-input" extends="g-base" attributes="form field onChange class">
 	<template>
 		<link rel="stylesheet" href="g-input.css">
-		<div class="form-{{ orientation }}"> <!-- if this element is not present here, external css rules will not take effect -->
-			<div class="form-group">
-				
-				<!-- Label -->
-				<template if="{{ field.label }}">
-					<label for="{{ field.id }}" class="col-md-2 control-label">{{ field.label }}</label>
-				</template>
-				<template if="{{ !field.label }}">
-					<label for="{{ field.id }}" class="col-md-2 control-label"></label>
-				</template>
-	
-				<!-- Input -->
-				<div class="col-md-{{ cols }}">
-					<template if="{{ field.type == 'spacer' }}">
-						<div class="col-md-2">
-							<p class="form-control-static">{{ field.placeholder }}</p>
-						</div>
-					</template>
-					<template if="{{ field.type == 'hidden' }}">
-						<input	id="{{ field.id }}"
-								name="{{ field.name }}"
-								type="{{ field.type }}"
-								value="{{ field.value }}" />									
-					</template>
-					<template if="{{ field.type == 'text' || field.type == 'password' }}">
-						<input 	on-keyup="{{ onKeyUp }}" 
-								id="{{ field.id }}"
-								name="{{ field.name }}"
-								type="{{ field.type }}"
-								class="form-control"
-								placeholder="{{ field.placeholder }}"
-								tabindex="{{ tab }}" />
-					</template>
-					<template if="{{ field.type == 'select' }}">
-						<g-dropdown id="{{ field.id }}" label="{{ field.placeholder }}" options="{{ field.options }}"></g-dropdown>
-					</template>
-					<template if="{{ field.type == 'button' }}">
-						<button	on-click="{{ buttonClicked }}" 
-								id="{{ field.id }}"
-								name="{{ field.name }}"
-								type="submit"
-								class="form-control btn-primary"
-								tabindex="{{ tab }}">{{ field.placeholder }}</button>
-					</template>
-				</div>	<!-- Input End -->
-				<template if="{{ field.icon }}">
-					<div class="col-sm-1 control-label">
-						<g-boolean-icon class="pull-left" id="icon"></g-boolean-icon>
-					</div>
-				</template>
-				<template if="{{ field.button }}">
-					<div class="col-sm-2">
-						<g-button label="{{ field.button.label }}" type="{{ field.button.type }}" disabled="{{ field.button.disabled }}" onClick="{{ field.button.onClick }}"></g-button>
-					</div>
-				</template>
-			</div>		<!-- Group End -->
-		</div>			<!-- Fake Form End -->
+		<div id="input">
+			<template if="{{ field.type == 'hidden' }}">
+				<input	name="{{ field.name }}"
+						type="{{ field.type }}"
+						value="{{ field.value }}" />									
+			</template>
+			<template if="{{ field.type == 'text' || field.type == 'password' }}">
+				<input 	on-keyup="{{ onKeyUp }}" 
+						name="{{ field.name }}"
+						type="{{ field.type }}"
+						class="{{ class }}"
+						placeholder="{{ field.placeholder }}"
+						tabindex="{{ tab }}" />
+			</template>
+			<template if="{{ field.type == 'select' }}">
+				<g-dropdown label="{{ field.placeholder }}" options="{{ field.options }}"></g-dropdown>
+			</template>
+			<template if="{{ field.type == 'button' }}">
+				<button	on-click="{{ buttonClicked }}" 
+						name="{{ field.name }}"
+						type="submit"
+						class="{{ class }} btn-primary"
+						tabindex="{{ tab }}">{{ field.placeholder }}</button>
+			</template>
+		</div>			
 	</template>
 	<script>
-
-		Polymer({
-				
-			orientation : 'horizontal',
-			size        : 4,
-			form        : null,
-			_this : null,
+    	Polymer({
 			
-			attached: function() {
-				var el = this.select('#' + this.field.id);
-  				this.field.entry = new FieldEntry(this.field, $(el));
-
-				if(this.field.icon)
+    		form  : null,
+    		class : 'form-control',
+    		
+    		attached: function() {
+    			var el = this.getElement('input') || this.getElement('g-dropdown');
+				if(!el)
 				{
-					var icon = this.byId('icon');
-					this.field.icon = icon;
+					throw 'Field: #' + this.field.id + ' not found';	
 				}
-			},
+  				this.field.entry = new FieldEntry(this.field, $(el));
+    		},
 
+    		getElement: function(name) {
+    			var input = this.$.input;
+    			return $(name, input)[0];
+    		},
+    		
+			entry: function() {
+				return this.field.entry;
+			},
+			
 			value: function() {
-				return this.field.entry.value();
+				return this.entry().value();
 			},
     		
 			status: function() {
-    			var status = this.field.entry.isValid();
+    			var status = this.entry().isValid();
     			return status;
 			},
 
 			highlight: function() {
     			var status = this.status();
-    			this.field.entry.highlight(status);
+    			this.entry().highlight(status);
 			},
 			
     		onKeyUp: function(evt, detail, sender) {

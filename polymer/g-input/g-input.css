@@ -1,1 +1,13 @@
 @import "../guara.css";
+
+.has-error {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #a94442;
+}
+
+.has-error:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #843534;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #843534;
+}
