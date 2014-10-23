@@ -10,7 +10,10 @@
 					</a>
 					</span>
 				</span>
-				<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
+				<a 	id="button" 
+					class="btn btn-default {{class}}"
+					style="width: 100%"
+					on-click="{{ triggerFileSelect }}">
 					{{title}}
 				</a>
 			</div>
@@ -40,6 +43,11 @@
     	Polymer('g-file', {
 
     		isDirectory: false,
+    		
+    		attached: function() {
+    			this.$.button.addEventListener('dragenter', this.onDragEnter, false);
+    			this.$.button.addEventListener('dragleave', this.onDragLeave, false);
+    		},
     		
     		disable: function() {
     			this.$.button.setAttribute('disabled', 'true');
@@ -112,7 +120,15 @@
 				{
 					handler.fn.apply(handler.ctx, [files]);
 				}
-			}
+			},
+			
+			onDragEnter: function(evt, detail, sender) {
+				console.log("DRAG ENTER");
+			},
+			
+			onDragLeave: function(evt, detail, sender) {
+				console.log("DRAG LEAVE");
+			},
 		});
 	</script>
 </polymer-element>
