@@ -2,10 +2,18 @@ define(function (require) {
 	
 	var $excel = require("gl!guara/excel");
 	
+	var _this = null;
+	
 	var module = {
 
 		parser: null,
+		
+		debug: false,
         
+		created: function() {
+			_this = this;
+		},
+		
         ready: function() {
         
         	this.tableRender = {
@@ -16,8 +24,8 @@ define(function (require) {
        				
         			this.table.clear();
         			this.table.title = file.name;
-       				this.handleHeader(array[0]);
-       				for(var i = 1; i < array.length; i++)
+        			this.handleHeader(array[0]);
+       				for(var i = 0; i < array.length; i++)
      				{
      					var row = array[i];
      					this.handleRow(row, i);
@@ -32,6 +40,10 @@ define(function (require) {
 						
 					$.each(header, function(key, value) {
 						var column = {name: key, title: key};
+						if(_this.debug)
+						{
+							console.log('Header: ', column);
+						}
 						columns.push(column);
 					});
 						
@@ -58,8 +70,15 @@ define(function (require) {
 					
 					try
 					{
-						var array = $excel.toArray(sheet);
-						console.log("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
+						var array = $excel.toJson(sheet);
+						if($this.debug)
+						{
+							$.each(array, function(idx, item){
+								console.log(item);
+							});
+							
+						}
+						$g.log.info("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
 						$this.tableRender.render(file, array);
 						whenDone.success(file, sheetNumber, array);
 					}
