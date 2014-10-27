@@ -1,4 +1,4 @@
-<polymer-element name="g-cell" attributes="text error errorMessage">
+<polymer-element name="g-cell" extends="g-base" attributes="text error errorMessage">
 	<template>
 		<link rel="stylesheet" href="g-cell.css">
 		<template if="{{ errorMessage }}">
@@ -13,6 +13,10 @@
 	<script>
     	Polymer('g-cell', {
     		
+    		attached: function() {
+				this.byId('cell').innerHTML = this.text;
+    		},
+
     		onClick: function(evt, detail, sender) {
     			//console.log(this.error, this.errorMessage);
     		},
