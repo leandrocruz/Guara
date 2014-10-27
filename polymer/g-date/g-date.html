@@ -1,8 +1,4 @@
-<!-- 
-	<script src="../../moment/moment.js"></script>
- -->
-
-<polymer-element name="g-date" attributes="date format">
+<polymer-element name="g-date" attributes="millis format">
 	<template>
 		<link rel="stylesheet" href="g-date.css">
 		<span>{{ result }}</span>
@@ -11,9 +7,9 @@
     	Polymer('g-date', {
 			get result() /* A getter. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/get */ {
 				var format = this.format ? this.format : "DD/MM/YYYY HH:mm:ss";
-				if(this.date)
+				if(this.millis)
 				{
-					return moment(new Date(this.date)).format(format);
+					return moment(parseInt(this.millis)).format(format);
 				}
 				else
 				{
