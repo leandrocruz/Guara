@@ -1,0 +1,34 @@
+<!-- 
+	See:
+		- https://github.com/tobiasahlin/SpinKit
+ -->
+<polymer-element name="g-spinner" attributes="type color">
+	<template>
+		<link rel="stylesheet" href="g-spinner.css">
+		<div id="container" class="hide">
+			<template if="{{ type == 'bars' }}">
+				<div class="spinner">
+					<div class="rect1" style="background-color: {{ color }};"></div>
+					<div class="rect2" style="background-color: {{ color }};"></div>
+					<div class="rect3" style="background-color: {{ color }};"></div>
+					<div class="rect4" style="background-color: {{ color }};"></div>
+					<div class="rect5" style="background-color: {{ color }};"></div>
+				</div>		
+			</template>
+		</div>
+	</template>
+	<script>
+    	Polymer({
+    		type: 'bars',
+    		color: '#333',
+
+    		start: function() {
+    			$(this.$.container).removeClass('hide');
+    		},
+    		
+    		stop: function() {
+    			$(this.$.container).addClass('hide');
+    		}
+    	});
+	</script>
+</polymer-element>
