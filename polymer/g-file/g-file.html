@@ -113,13 +113,8 @@
 				}
 
 				$(this.$.button).text(label);
-				this.fire('file-selected', {files : files});
-				
-				var handler = this.onChange; 
-				if(handler)
-				{
-					handler.fn.apply(handler.ctx, [files]);
-				}
+				$g.utils.apply(this.onChange, this.isDirectory ? [files] : files);
+				//this.fire('file-selected', {files : files});
 			},
 			
 			onDragEnter: function(evt, detail, sender) {

@@ -1,4 +1,4 @@
-<polymer-element name="g-remote-file" attributes="title class source">
+<polymer-element name="g-remote-file" attributes="title class onChange">
 	<template>
 		<link rel="stylesheet" href="g-remote-file.css">
 		<a id="button" on-click="{{ triggerFileSelect }}" class="btn btn-default {{class}}" style="width: 100%">
@@ -8,51 +8,44 @@
 	<script>
     	Polymer('g-remote-file', {
     		
+    		files: null,
+    		
     		disable: function() {
     			this.$.button.setAttribute('disabled', 'true');
     		},
-    		
-    		getFiles: function(){
-    			return this.files;
-    		},
  
-    		onFileSelected: function(){
-    			if(this.files.length > 0)
+    		onFileSelected: function(files) {
+    			var len = files ? files.length : 0;
+    			var btn = $(this.$.button);
+    			if(len > 0)
     			{
-    				$(this.$.button).html(this.files.length + " arquivo(s)");
+    				console.log('Selected files:', files.length);
+    				btn.html(len + " arquivo(s)");
     			} 
     			else 
     			{
-    				$(this.$.button).html('Buscar no '+this.source);	
+    				btn.html('Buscar no Dropbox');	
     			}
-    			
-    			this.fire('remoteFileSelected', {files: this.files});
-    			
+    			this.files = files;
+    			$g.utils.apply(this.onChange, [files]);
+				//this.fire('file-selected', {files: files});
     		},
 
     		triggerFileSelect: function() {
     			var $this = this;
-    			if(this.source == 'dropbox')
-    			{
-        			dropboxOptions = {
-      				    success: function(files) {
-      						$this.files = files;   						     						
-      						$this.onFileSelected();
-      				    },
-      	
-      				    cancel: function() {
-      				    	$this.files = [];
-      				    	$this.onFileSelected();
-      				    },
-      				    
-      				    linkType    : "direct", // or "preview"
-      				    multiselect : true,
-      				    extensions  : ['.pdf'],
-      				};
-        			
-    				Dropbox.choose(dropboxOptions);
-    			}			
-    			
+       			var options = {
+     				    linkType    : "direct", // or "preview"
+     				    multiselect : true,
+     				    extensions  : ['.pdf'],
+     				    success: function(files) {
+     						$this.onFileSelected(files);
+     				    },
+     				    cancel: function() {
+     				    	$this.onFileSelected();
+     				    },
+     				};
+       			
+   				Dropbox.choose(options);
     		},
 		});
 	</script>
