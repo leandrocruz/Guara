@@ -61,6 +61,10 @@
 
 			optionChanged: function(event, detail, sender) {
 				event.preventDefault();
+				/*
+				 * TODO: 	try to use target.templateInstance.model
+				 * See: 	https://www.polymer-project.org/docs/polymer/databinding.html
+				 */
 				$(this.$.container).toggleClass("open");
 				var idx = $(sender).data('idx');
 				var op  = null;

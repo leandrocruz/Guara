@@ -30,6 +30,10 @@
 			optionChanged: function(event, detail, sender) {
 				event.preventDefault();
 				$(this.$.container).toggleClass("open");
+				/*
+				 * TODO: 	try to use target.templateInstance.model
+				 * See: 	https://www.polymer-project.org/docs/polymer/databinding.html
+				 */
 				var idx = $(sender).data('idx');
 				var op  = this.options[idx];
 				if(op.onClick)
