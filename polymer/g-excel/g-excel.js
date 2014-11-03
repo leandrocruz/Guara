@@ -60,7 +60,7 @@ define(function (require) {
 			this.$.table.clear();
 		},
 		
-		parse: function(file, sheetNumber, whenDone) {
+		parse: function(file, sheetNumber, whenDone, sanitizer) {
 			var $this = this;
 			try
 			{
@@ -71,12 +71,11 @@ define(function (require) {
 					try
 					{
 						var array = $excel.toJson(sheet);
-						if($this.debug)
+						if(sanitizer)
 						{
 							$.each(array, function(idx, item){
-								console.log(item);
+								array[idx] = sanitizer(item);
 							});
-							
 						}
 						$g.log.info("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
 						$this.tableRender.render(file, array);
