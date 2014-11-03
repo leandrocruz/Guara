@@ -25,19 +25,12 @@
 			</a>
 		</template>
 
-		<template if="{{ isDirectory }}">
-			<input 	id="file"
-					type="file"
-					class="hidden"
-					on-change="{{ onFileSelected }}" title="{{title}}" accept="{{accept}}" 
-					webkitdirectory directory />
-		</template>
-		<template if="{{ !isDirectory }}">
-			<input 	id="file"
-					type="file"
-					class="hidden"
-					on-change="{{ onFileSelected }}" title="{{title}}" accept="{{accept}}" />
-		</template>
+		<input 	id="file"
+				type="file"
+				class="hidden"
+				on-change="{{ onFileSelected }}" title="{{title}}" accept="{{accept}}" 
+				webkitdirectory?={{ isDirectory }}
+				directory?={{ isDirectory }} />
 	</template>
 	<script>
     	Polymer('g-file', {
