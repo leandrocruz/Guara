@@ -17,9 +17,9 @@
     		onFileSelected: function(files) {
     			var len = files ? files.length : 0;
     			var btn = $(this.$.button);
+   				console.log('Selected files:', len);
     			if(len > 0)
     			{
-    				console.log('Selected files:', files.length);
     				btn.html(len + " arquivo(s)");
     			} 
     			else 
