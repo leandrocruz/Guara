@@ -20,11 +20,11 @@ define(function (require) {
         		
         		table: this.$.table,
 
-        		render: function(file, array) {
+        		render: function(file, schema, array) {
        				
         			this.table.clear();
-        			this.table.title = file.name;
-        			this.handleHeader(array[0]);
+        			this.table.title  = file.name;
+        			this.table.schema = schema;
        				for(var i = 0; i < array.length; i++)
      				{
      					var row = array[i];
@@ -33,34 +33,19 @@ define(function (require) {
         		
                     this.data = array;
                     this.table.show();
-    			},
-    			
-				handleHeader: function(header) {
-					var columns = [];
-						
-					$.each(header, function(key, value) {
-						var column = {name: key, title: key};
-						if(_this.debug)
-						{
-							console.log('Header: ', column);
-						}
-						columns.push(column);
-					});
-						
-					this.table.columns = columns;
-				},
+        		},
 
 				handleRow: function(row, i) {
 					this.table.appendRow(row);
 				}
-        	}
+        	};
         },
 
 		clear: function() {
 			this.$.table.clear();
 		},
 		
-		parse: function(file, sheetNumber, whenDone, sanitizer) {
+		parse: function(file, sheetNumber, whenDone, schema, sanitizer) {
 			var $this = this;
 			try
 			{
@@ -74,11 +59,11 @@ define(function (require) {
 						if(sanitizer)
 						{
 							$.each(array, function(idx, item){
-								array[idx] = sanitizer(item);
+								array[idx] = sanitizer(idx, item);
 							});
 						}
 						$g.log.info("Rendering sheet #" + sheetNumber + " with " + array.length + " rows");
-						$this.tableRender.render(file, array);
+						$this.tableRender.render(file, schema, array);
 						whenDone.success(file, sheetNumber, array);
 					}
 					catch(e)
@@ -93,8 +78,12 @@ define(function (require) {
 			}
 		},
 		
-		mark: function(rowNumber, columnName, marker) {
-			this.$.table.mark(rowNumber, columnName, marker);
+		unmark: function(rowNumber) {
+			return this.$.table.unmark(rowNumber);
+		},
+		
+		mark: function(rowNumber, columnName, issues) {
+			return this.$.table.mark(rowNumber, columnName, issues);
 		}
 	};
 	
