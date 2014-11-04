@@ -1,4 +1,4 @@
-<polymer-element name="g-table" attributes="title columns rows actions page pageSize lineCount enableRowSelection">
+<polymer-element name="g-table" extends="g-base" attributes="schema validate title rows actions page pageSize lineCount enableRowSelection">
 	<template>
 		<link rel="stylesheet" href="g-table.css">
 		<div id="loading" class="hidden">
@@ -44,7 +44,7 @@
 				<tbody>
 					<template repeat="{{ row, i in buffer }}">
 
-						<tr class="{{ (row.error ? 'danger' : 'noerror') && (row.selected ? 'selected' : '') }}" >
+						<tr class="{{ (row.error ? 'danger' : 'noerror') }}" >
 
 							<template if="{{ lineCount }}">
 								<td>{{ row.index + 1}}</td>
@@ -90,12 +90,11 @@
 											</template>
 										</td>
 									</template>
-	
-									<template if="{{ column.name != '_actions' }}">
-										<td class="{{ row.data[column.name].error ? 'error' : '' }}">
-											<g-cell text="{{ row.data[column.name].value }}"
-													error="{{ row.data[column.name].error }}"
-													errorMessage="{{ row.data[column.name].errorMessage }}"></g-cell>
+									<template if="{{ column.name != '_actions' }}" bind="{{ row.data[column.name] }}">
+										<td class="{{ error ? 'error' : '' }}">
+											<g-cell text="{{ value }}"
+													error="{{ error }}"
+													errorMessage="{{ errorMessage }}"></g-cell>
 										</td>
 									</template>
 								</template>
@@ -109,15 +108,19 @@
 	<script>
     	Polymer('g-table', {
 
-    		page               : 0,     /* Pagination */
+    		page               : 0,      /* Pagination */
     		pageSize           : 25,
-    		buffer             : [],
     		enableRowSelection : false,
     		lineCount          : false,
+    		validate           : true,
+    		class              : "hide",
 
-    		columns : [],     /* The Header */
-    		rows    : [],
-    		class   : "hide",
+    		created: function() {
+    			this.buffer  = [];
+    			this.rows    = [];
+    			this.columns = [];
+    			this.schema  = {};
+    		},
 
     		include: function(value) { /* filter */
     			return !value.startsWith('__');
@@ -172,46 +175,81 @@
     			this.show();
     		},
 
+    		toRowData: function(raw) {
+
+    			var $this    = this;
+    			var rowData  = {rowError: false};
+    			
+    			$.each(this.schema, function(name, validators) {
+    				
+    				var value = raw[name];
+    				var error = false;
+    				var msg   = '';
+
+    				if($this.validate && validators)
+    				{
+    					//console.log('Validating', name, value);
+    					var result = $g.validator.validateValue(value, validators);
+    					error = !result.isValid;
+    					if(error)
+    					{
+    						rowData.rowError = true;
+	    					msg = result.issues[0].message;
+    					}
+    				}
+    				
+    				rowData[name] = {
+   						value        : value,
+   						error        : error,
+   						errorMessage : msg
+   					};
+    			});
+    			
+    			return rowData;
+    		},
+    		
     		appendRow: function(raw) {
 
-    			var rowData = {};
+    			var index   = this.rows.length;
+    			var rowData = this.toRowData(raw);
 
-    			$.each(raw, function(name, value){
-    				rowData[name] = {
-						value  : value,
-						error  : false,
-					};
-				});
-
-    			var index = this.rows.length;
-    			
     			var entry = {
 					index : index,
 					data  : rowData,
-    				error : false
+    				error : rowData.rowError
     			};
 
+    			//console.log(entry);
     			this.rows.push(entry);
     		},
     		
-    		mark: function(rowNumber, columnName, marker) {
-    			//console.log("Marking", rowNumber, columnName);
-    			var $this = this;
-    			$.each(this.rows, function(i, row){
-    				if(i == rowNumber)
-    				{
-    					row.error = true;
-    					$.each(row.data, function(name, value) {
-    						if(columnName == name)
-    						{
-    							//var cell = $this.$.table.getElementById(i + '_' + name);
-   								marker(row.data[name], row);
-    						}
-    					});
-    				}
-    			}); 
+    		unmark: function(rowNumber) {
+    			var data = this.rows[rowNumber].data;
+    			$.each(data, function(name, cell) {
+    				cell.error = false;
+    				cell.errorMessage = null;
+    			});
+    		},
+
+    		mark: function(rowNumber, columnName, issues) {
+   				var cell = this.rows[rowNumber].data[columnName];
+   				cell.error = true;
+   				if(issues)
+   				{
+	   				if(typeof issues === 'string')
+	   				{
+	   					cell.errorMessage = issues; 
+	   				}
+	   				else
+	   				{
+		    			$.each(this.issues, function(idx, issue){
+		    				cell.errorMessage = issue.message;
+		    			});
+	   				}
+   				}
     		},
     		
+    		/*
     		getCell: function(evt) {
     			var nodeName = evt.target.nodeName;
     			if("G-CELL" == nodeName)
@@ -228,7 +266,7 @@
     			}
 				return null;
     		},
-    		
+
     		whenMouseOver: function(evt, detail, sender) {
     			var cell = this.getCell(evt);
     			if(cell)
@@ -253,6 +291,7 @@
 					cell.onClick(evt, detail, sender);    			
     			}
     		},
+    		*/
 
     		selectAllRows: function(select) {
     			for (var i = 0; i < this.rows.length; i++)
@@ -300,7 +339,15 @@
     			});
 	
 				return result;
-    		}
+    		},
+    		
+    		schemaChanged: function() {
+    			var columns = [];
+    			$.each(this.schema, function(key, value){
+    				columns.push({name: key, title: key});
+    			});
+    			this.columns = columns;
+    		},
     	});
 	</script>
 </polymer-element>
