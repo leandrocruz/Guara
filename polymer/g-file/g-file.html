@@ -1,4 +1,4 @@
-<polymer-element name="g-file" attributes="title class accept isDirectory onChange sample">
+<polymer-element name="g-file" attributes="title class accept isDirectory multiple onChange sample">
 	<template>
 		<link rel="stylesheet" href="g-file.css">
 
@@ -28,14 +28,16 @@
 		<input 	id="file"
 				type="file"
 				class="hidden"
-				on-change="{{ onFileSelected }}" title="{{title}}" accept="{{accept}}" 
-				webkitdirectory?={{ isDirectory }}
-				directory?={{ isDirectory }} />
+				on-change="{{ onFileSelected }}" title="{{title}}" accept="{{ accept ? accep : '*' }}" 
+				multiple?="{{ multiple }}"
+				webkitdirectory?="{{ isDirectory }}"
+				directory?="{{ isDirectory }}" />
 	</template>
 	<script>
     	Polymer('g-file', {
 
     		isDirectory: false,
+    		multiple: false,
     		
     		attached: function() {
     			this.$.button.addEventListener('dragenter', this.onDragEnter, false);
