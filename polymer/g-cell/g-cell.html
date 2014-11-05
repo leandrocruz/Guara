@@ -1,14 +1,9 @@
 <polymer-element name="g-cell" extends="g-base" attributes="text error errorMessage">
 	<template>
 		<link rel="stylesheet" href="g-cell.css">
-		<template if="{{ errorMessage }}">
-			<g-tooltip label='{{ errorMessage }}' position="top">
-				<div id="cell" class="{{ error ? 'error' : '' }}">{{ text ? text : '&nbsp;' }}</div>
-	        </g-tooltip>
-		</template>
-		<template if="{{ !errorMessage }}">
-				<div id="cell" class="{{ error ? 'error' : '' }}">{{ text ? text : '&nbsp;' }}</div>
-		</template>
+		<g-tooltip label='{{ errorMessage }}' disabled?="{{ !error }}" position="top">
+			<div id="cell" class="{{ error ? 'error' : '' }}"></div>
+        </g-tooltip>
 	</template>
 	<script>
     	Polymer('g-cell', {
@@ -18,7 +13,7 @@
     			 * This code breaks when we update the 'errorMessage' attribute to something truthy,
     			 showing an empty cell. For now, we must use '{{ text ? text : '&nbsp;' }}' as above
     			 */
-				//this.byId('cell').innerHTML = this.text ? this.text : '&nbsp;';
+				this.byId('cell').innerHTML = this.text ? this.text : '&nbsp;';
     		},
     		
     		/*
