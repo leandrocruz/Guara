@@ -21,7 +21,10 @@ define(function (require) {
         		table: this.$.table,
 
         		render: function(file, schema, array) {
-       				
+        			if(console && console.table)
+        			{
+        				console.table(array);
+        			}
         			this.table.clear();
         			this.table.title  = file.name;
         			this.table.schema = schema;
