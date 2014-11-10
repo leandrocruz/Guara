@@ -4,11 +4,6 @@
   "authors": [
     "Leandro Cruz <leandro.saad@gmail.com>"
   ],
-  "main": "main.js",
-  "moduleType": [
-    "amd"
-  ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -21,7 +16,7 @@
     "moment": "~2.8.3",
     "js-xls": "0.7.1",
     "bootstrap": "~3.2.0",
-    "platform": "Polymer/platform#~0.4.2",
+    "polymer": "Polymer/polymer#~0.4.2",
     "requirejs-bower": "~2.1.14",
     "js-xlsx": "~0.7.11"
   }
