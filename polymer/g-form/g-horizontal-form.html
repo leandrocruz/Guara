@@ -1,0 +1,23 @@
+<polymer-element name="g-horizontal-form" extends="g-form" attributes="orientation fields onSubmit">
+	<template>
+		<link rel="stylesheet" href="g-form.css">
+		<form id="form" class="form-{{ orientation }}">
+			<template repeat="{{ field, i in fields }}">
+				<div class="{{ {'form-group':true, 'has-error': false} | tokenList }}">
+					<label for="{{ field.id }}" class="col-md-2 control-label">{{ field.label }}</label>
+					<div class="col-md-2">
+						<template if="{{ field.type == 'spacer' }}">
+							<p class="form-control-static">{{ field.placeholder }}</p>
+						</template>
+						<template if="{{ field.type != 'spacer' }}">
+							<g-input id="{{ field.id }}" form="{{ me }}" field="{{ field }}"></g-input>
+						</template>
+					</div>
+				</div>					
+			</template>
+		</form>
+	</template>
+	<script>
+    	Polymer('g-horizontal-form', {});
+	</script>
+</polymer-element>
