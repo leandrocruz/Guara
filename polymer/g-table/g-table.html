@@ -94,7 +94,7 @@
 										<td class="{{ error ? 'error' : '' }}">
 											<g-cell text="{{ value }}"
 													error="{{ error }}"
-													errorMessage="{{ errorMessage }}"></g-cell>
+													issues="{{ issues }}"></g-cell>
 										</td>
 									</template>
 								</template>
@@ -180,28 +180,27 @@
     			var $this    = this;
     			var rowData  = {rowError: false};
     			
-    			$.each(this.schema, function(name, validators) {
+    			$.each(this.schema, function(name, item) {
     				
-    				var value = raw[name];
-    				var error = false;
-    				var msg   = '';
+    				var value  = raw[name];
+    				var error  = false;
+    				var issues = null;
 
-    				if($this.validate && validators)
+    				if($this.validate && item.validators)
     				{
-    					//console.log('Validating', name, value);
-    					var result = $g.validator.validateValue(value, validators);
+    					var result = $g.validator.validateValue(value, item.validators);
     					error = !result.isValid;
     					if(error)
     					{
     						rowData.rowError = true;
-	    					msg = result.issues[0].message;
+	    					issues = result.issues;
     					}
     				}
     				
     				rowData[name] = {
-   						value        : value,
-   						error        : error,
-   						errorMessage : msg
+   						value  : value,
+   						error  : error,
+   						issues : issues
    					};
     			});
     			
@@ -218,7 +217,6 @@
     				error : rowData.rowError
     			};
 
-    			//console.log(entry);
     			this.rows.push(entry);
     		},
     		
@@ -226,26 +224,14 @@
     			var data = this.rows[rowNumber].data;
     			$.each(data, function(name, cell) {
     				cell.error = false;
-    				cell.errorMessage = null;
+    				cell.issues = null;
     			});
     		},
 
     		mark: function(rowNumber, columnName, issues) {
    				var cell = this.rows[rowNumber].data[columnName];
    				cell.error = true;
-   				if(issues)
-   				{
-	   				if(typeof issues === 'string')
-	   				{
-	   					cell.errorMessage = issues; 
-	   				}
-	   				else
-	   				{
-		    			$.each(this.issues, function(idx, issue){
-		    				cell.errorMessage = issue.message;
-		    			});
-	   				}
-   				}
+   				cell.issues = issues;
     		},
     		
     		/*

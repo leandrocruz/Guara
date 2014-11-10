@@ -1,7 +1,7 @@
-<polymer-element name="g-cell" extends="g-base" attributes="text error errorMessage">
+<polymer-element name="g-cell" extends="g-base" attributes="text error issues">
 	<template>
 		<link rel="stylesheet" href="g-cell.css">
-		<g-tooltip label='{{ errorMessage }}' disabled?="{{ !error }}" position="top">
+		<g-tooltip label='{{ issues }}' disabled?="{{ !error }}" position="top">
 			<div id="cell" class="{{ error ? 'error' : '' }}"></div>
         </g-tooltip>
 	</template>
