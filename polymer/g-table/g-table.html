@@ -342,8 +342,16 @@
     		
     		schemaChanged: function() {
     			var columns = [];
-    			$.each(this.schema, function(key, value){
-    				columns.push({name: key, title: key});
+    			$.each(this.schema, function(key, item) {
+    				var column = item.column;
+    				if(column)
+    				{
+    					columns.push(column);
+    				}
+    				else
+    				{
+    					columns.push({name: key, title: key})
+    				}
     			});
     			this.columns = columns;
     		},
