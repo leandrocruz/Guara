@@ -3,52 +3,6 @@
 	require(['gl!guara/guara'], function (guara) {
 		window.$g = guara;
 	});
-
-	
-	function FieldEntry(field, el) {
-		this.field   = field;
-		this.el      = el;
-		this.errors  = [];
-	}
-	
-	FieldEntry.prototype.value = function() {
-		var tag = this.el.prop('tagName');
-		if(tag.startsWith("G-"))
-		{
-			return this.el[0].getFormValue();
-		}
-		return this.el.val();
-	}
-
-	FieldEntry.prototype.isValid = function() {
-		var validators = this.field.validators;
-		var value      = this.value();
-		var result     = $g.validator.validateValue(value, validators);
-		return result;
-	};
-	
-	FieldEntry.prototype.highlight = function(status) {
-		var group = this.el.closest(".form-group");
-		var target = null;
-		if(group && group.size() > 0)
-		{
-			target = group;
-		}
-		else
-		{
-			target = this.el;
-		}
-		if(status.isValid)
-		{
-			target.removeClass("has-error");
-		}
-		else
-		{
-			var issues = status.issues;
-			target.addClass("has-error");
-		}
-	};
-
 </script>
 
 <link rel="import" href="g-base/g-base.html">
@@ -75,3 +29,4 @@
 <link rel="import" href="g-button/g-button.html">
 <link rel="import" href="g-input/g-input.html">
 <link rel="import" href="g-form/g-form.html">
+<link rel="import" href="g-form/g-horizontal-form.html">

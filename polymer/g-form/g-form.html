@@ -1,7 +1,7 @@
 <polymer-element name="g-form" extends="g-base" attributes="orientation fields onSubmit">
 	<template>
 		<link rel="stylesheet" href="g-form.css">
-		<form id="form" class="form-{{ orientation }}" role="form">
+		<form id="form" class="form-{{ orientation }}">
 			<template repeat="{{ field, i in fields }}">
 				<g-input id="{{ field.id }}" form="{{ me }}" field="{{ field }}"></g-input>
 			</template>
@@ -52,7 +52,7 @@
 					{
 						/* Ignores spacers and other controls */ 
 						var input  = $this.toInput(field);
-						var status = input.status();
+						var status = input.validate();
 	        			valid = valid && status.isValid;
 	        			input.highlight();
 					}
