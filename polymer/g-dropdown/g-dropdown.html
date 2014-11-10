@@ -1,11 +1,11 @@
-<polymer-element name="g-dropdown" attributes="label options type noOptionAllowed">
+<polymer-element name="g-dropdown" attributes="label value options type noOptionAllowed">
 	<template>
 		<link rel="stylesheet" href="g-dropdown.css">
 		<div id="container" class="dropdown">
 			<button on-click="{{ toggleOpen }}" class="btn btn-{{ type }}" type="button" id="dropdownMenu" _style="width: 400px;">
 				{{ label }} <span class="caret"></span>
 			</button>
-			<ul class="dropdown-menu" role="menu" _aria-labelledby="dropdownMenu">
+			<ul class="dropdown-menu">
 				<template if="{{ noOptionAllowed }}">
 					<li role="presentation">
 						<a on-click="{{ optionChanged }}" role="menuitem" data-idx="reset" tabindex="-1" href="#">
@@ -34,11 +34,11 @@
 	<script>
     	Polymer('g-dropdown', {
     		
+    		value           : null,
     		noOptionAllowed : true,
     		originalLabel   : null,
     		type            : "default",
     		options         : [],
-    		currentValue    : null,
     		
     		ready: function() {
     			if(!this.originalLabel)
@@ -55,10 +55,6 @@
 				//console.log("Options changed: ", oldVal, newVal);
 			},
 			
-			getFormValue: function() {
-				return this.currentValue;	
-			},
-
 			optionChanged: function(event, detail, sender) {
 				event.preventDefault();
 				/*
@@ -71,7 +67,7 @@
 				if("reset" == idx)
 				{
 					this.label = this.originalLabel;
-					this.currentValue = null;
+					this.value = null;
 				}
 				else
 				{
@@ -79,7 +75,7 @@
 					this.label = op.label;
 					if(op.value)
 					{
-						this.currentValue = op.value;
+						this.value = op.value;
 					}
 
 					if(op.onClick)
