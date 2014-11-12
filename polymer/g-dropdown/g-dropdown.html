@@ -73,10 +73,7 @@
 				{
 					op = this.options[idx];
 					this.label = op.label;
-					if(op.value)
-					{
-						this.value = op.value;
-					}
+					this.value = op.value ? op.value : op.label;
 
 					if(op.onClick)
 					{
