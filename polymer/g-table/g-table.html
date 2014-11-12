@@ -343,27 +343,34 @@
     		},
     		
     		filter: function(column, value, matcher) {
-    			console.log('Filtrando', column, value);
-    			var result = [];
-    			$.each(this.rows, function(idx, entry) {
-    				var include = false;
-    				var item = entry.data;
-    				var keys = Object.keys(item);
-    				for(var i = 0; i < keys.length; i++)
-    				{
-    					var key	= keys[i];
-    					if(key == column)
-    					{
-    						var valueToMatch = item[key].value;
-    						include = matcher(value, valueToMatch);
-    					}
-    				}
-    				if(include)
-    				{
-    					result.push(entry);
-    				}
-    			});
-    			this.buffer = result;
+    			console.log('Filtering table. Column:', column, '. Value:', value);
+    			if(!column || !value)
+    			{
+    				this.show();
+    			}
+    			else
+    			{
+	    			var result = [];
+	    			$.each(this.rows, function(idx, entry) {
+	    				var include = false;
+	    				var item = entry.data;
+	    				var keys = Object.keys(item);
+	    				for(var i = 0; i < keys.length; i++)
+	    				{
+	    					var key	= keys[i];
+	    					if(key == column)
+	    					{
+	    						var valueToMatch = item[key].value;
+	    						include = matcher(value, valueToMatch);
+	    					}
+	    				}
+	    				if(include)
+	    				{
+	    					result.push(entry);
+	    				}
+	    			});
+	    			this.buffer = result;
+    			}
     		}
     	});
 	</script>
