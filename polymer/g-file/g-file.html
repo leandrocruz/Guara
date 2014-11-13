@@ -71,8 +71,7 @@
     			var reader = new FileReader();
     			reader.onloadend = function(e) {
     				var base64  = btoa(e.target.result);
-    				var encoded = encodeURIComponent(base64);
-    				whenReady(file, encoded);
+    				whenReady(file, base64);
 				};
     			reader.readAsBinaryString(file);
     		},
