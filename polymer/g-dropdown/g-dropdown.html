@@ -55,6 +55,11 @@
 				//console.log("Options changed: ", oldVal, newVal);
 			},
 			
+			clear: function() {
+				this.label = this.originalLabel;
+				this.value = null;
+			},
+			
 			optionChanged: function(event, detail, sender) {
 				event.preventDefault();
 				/*
@@ -66,8 +71,7 @@
 				var op  = null;
 				if("reset" == idx)
 				{
-					this.label = this.originalLabel;
-					this.value = null;
+					this.clear();
 				}
 				else
 				{

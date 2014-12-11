@@ -40,6 +40,10 @@
     		isFormControl : true,
     		isValid       : true,
 
+    		clear: function() {
+    			this.field.value = null;
+    		},
+
     		getElement: function(name) {
     			var input = this.$.input;
     			return $(name, input)[0];
