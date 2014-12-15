@@ -2,6 +2,11 @@
 	<script>
     	Polymer({
     		
+    		todo: function(evt, detail, sender) {
+    			evt.preventDefault();
+    			alert('TODO');
+    		},
+    		
     		byId: function(id) {
     			return this.shadowRoot.getElementById(id);
     		},
