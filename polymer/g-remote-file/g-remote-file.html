@@ -10,6 +10,10 @@
     		
     		files: null,
     		
+    		clear: function() {
+    			this.onFileSelected();
+    		},
+
     		disable: function() {
     			this.$.button.setAttribute('disabled', 'true');
     		},
@@ -36,7 +40,7 @@
        			var options = {
      				    linkType    : "direct", // or "preview"
      				    multiselect : true,
-     				    extensions  : ['.pdf'],
+     				    //extensions  : ['.pdf'],
      				    success: function(files) {
      						$this.onFileSelected(files);
      				    },

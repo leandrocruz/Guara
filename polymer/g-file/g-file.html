@@ -88,6 +88,15 @@
     			this.getInput().trigger('click');
     		},
     		
+    		clear: function() {
+    			/*
+    			 * See: http://css-tricks.com/snippets/jquery/clear-a-file-input/
+    			 */
+    			var input = this.getInput();
+    			input.val('');
+    			this.onFileSelected();
+    		},
+
     		onFileSelected: function() {
     			
 				var label = this.title;
