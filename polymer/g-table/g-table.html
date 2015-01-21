@@ -43,7 +43,7 @@
 				<tfoot></tfoot>
 				<tbody>
 					<template repeat="{{ row, i in buffer }}">
-
+					
 						<tr class="{{ (row.error ? 'danger' : 'noerror') }}" >
 
 							<template if="{{ lineCount }}">
@@ -84,11 +84,12 @@
 												<g-dropdown label="Ações" options="{{ column.options }}" type="primary"></g-dropdown>
 											</template>
 											<template if="{{ column.type == 'button' }}">
-												<template repeat="{{ option in  column.options }}">
-													<g-button	label="{{ option.label }}"
-																type="{{ option.type }}"
-																href="{{ option.href }}"
-																onClick="{{ option.onClick }}"></g-button>
+												<template bind="{{ row.data[column.name].value }}">
+													<template repeat>
+														<g-button	label="{{ label }}"
+																	type="{{ type }}"
+																	onClick="{{ onClick }}" ></g-button>
+													</template>
 												</template>
 											</template>
 										</td>
@@ -243,6 +244,7 @@
     				rowData[name] = {
    						value  : value,
    						error  : error,
+   						show   : true,
    						issues : issues
    					};
     			});
@@ -383,6 +385,11 @@
     			this.clearSelectedRows();
     			this.selection = null;
     			this.show();
+    		},
+    		
+    		_handleActionClick: function(e, detail, sender) {
+				var model = e.target.templateInstance.model;
+				console.log("Clicked ", model);
     		}
     	});
 	</script>
