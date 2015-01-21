@@ -13,11 +13,11 @@
     "tests"
   ],
   "dependencies": {
-    "moment": "~2.8.3",
-    "js-xls": "0.7.1",
     "bootstrap": "~3.2.0",
-    "polymer": "Polymer/polymer#~0.4.2",
-    "requirejs-bower": "~2.1.14",
+    "polymer": "Polymer/polymer#^0.5.0",
+    "requirejs-bower": "~2.1.15",
+    "moment": "~2.8.4",
+    "js-xls": "~0.7.2",
     "js-xlsx": "~0.7.11"
   }
 }
