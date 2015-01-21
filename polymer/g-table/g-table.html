@@ -85,7 +85,10 @@
 											</template>
 											<template if="{{ column.type == 'button' }}">
 												<template repeat="{{ option in  column.options }}">
-													<g-button label="{{ option.label }}" type="{{ option.type }}" href="{{ option.href }}"></g-button>
+													<g-button	label="{{ option.label }}"
+																type="{{ option.type }}"
+																href="{{ option.href }}"
+																onClick="{{ option.onClick }}"></g-button>
 												</template>
 											</template>
 										</td>
