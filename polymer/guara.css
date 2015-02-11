@@ -1,4 +1,4 @@
-@import "bootstrap.css";
+@import "../bootstrap/dist/css/bootstrap.css";
 
 html, body {
 	height: 100%;
