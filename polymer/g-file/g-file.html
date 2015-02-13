@@ -44,8 +44,8 @@
     			this.$.button.addEventListener('dragleave', this.onDragLeave, false);
     		},
     		
-    		disable: function() {
-    			this.$.button.setAttribute('disabled', 'true');
+    		enable: function(enable) {
+    			this.$.button.setAttribute('disabled', enable ? 'false' : 'true');
     		},
     		
     		getInput: function() {
