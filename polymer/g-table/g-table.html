@@ -16,17 +16,14 @@
 			<table id="table" class="table table-hover" on-click="{{ whenClicked }}" on-mouseover="{{ whenMouseOver }}" on-mouseout="{{ whenMouseOut }}">
 				<thead>
 					<tr>
-
 						<template if="{{ lineCount }}">
 							<th>#</th>
 						</template>
-						
 						<template if="{{ enableRowSelection }}">
 							<th>
-							<span class="glyphicon glyphicon-pushpin" style="font-size:80%;" on-click="{{  selectAll }}"></span>
+								<span class="glyphicon glyphicon-pushpin" style="font-size:80%;" on-click="{{ selectAll }}"></span>
 							</th>
 						</template>
-						
 						<template repeat="{{ column, j in columns }}">
 							<template if="{{ column.name | include }}">
 								<template if="{{ column.length }}">
@@ -37,7 +34,6 @@
 								</template>
 							</template>
 						</template>
-
 					</tr>
 				</thead>
 				<tfoot></tfoot>
@@ -221,6 +217,8 @@
 
     		toRowData: function(raw) {
 
+    			console.log(raw);
+
     			var $this    = this;
     			var rowData  = {rowError: false};
     			
@@ -245,7 +243,7 @@
    						value  : value,
    						error  : error,
    						show   : true,
-   						issues : issues
+   						issues : issues,
    					};
     			});
     			
@@ -257,9 +255,11 @@
     			var rowData = this.toRowData(raw);
 
     			var entry = {
-					index : index,
-					data  : rowData,
-    				error : rowData.rowError
+					index    : index,
+					data     : rowData,
+    				error    : raw.options ? raw.options.error || rowData.rowError : rowData.rowError,
+    				disabled : raw.options ? raw.options.disabled : false,
+    			
     			};
 
     			this.rows.push(entry);
@@ -312,7 +312,10 @@
     			for (var i = 0; i < view.length; i++)
     			{
     				var row = view[i];
-    				row.selected = select;
+    				if(!row.disabled)
+    				{
+	    				row.selected = select;
+    				}
     			}
     		},
     		
