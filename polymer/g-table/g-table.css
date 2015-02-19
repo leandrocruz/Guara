@@ -21,3 +21,7 @@ tr.selected {
 tr.selected:hover > td {
 	background-color: #ccc !important;
 }
+
+td.span-multiple {
+	vertical-align: middle !important;
+}

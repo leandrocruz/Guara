@@ -46,8 +46,8 @@
 								<td>{{ row.index + 1}}</td>
 							</template>
 							
-							<template if="{{ enableRowSelection }}">
-								<td>
+							<template if="{{ enableRowSelection && row.span > 0 }}">
+								<td rowspan="{{ row.span }}" class="span-{{ row.span > 1 ? 'multiple' : '1' }}">
 									<template if="{{ row.selected }}">
 										<template if="{{ row.disabled }}">
 											<span class="glyphicon glyphicon-{{ row.disabled }}"></span>
@@ -217,7 +217,7 @@
 
     		toRowData: function(raw) {
 
-    			console.log(raw);
+    			//console.log(raw);
 
     			var $this    = this;
     			var rowData  = {rowError: false};
@@ -257,9 +257,9 @@
     			var entry = {
 					index    : index,
 					data     : rowData,
-    				error    : raw.options ? raw.options.error || rowData.rowError : rowData.rowError,
-    				disabled : raw.options ? raw.options.disabled : false,
-    			
+    				error    : raw.options 	? raw.options.error || rowData.rowError : rowData.rowError,
+    				disabled : raw.options 	? raw.options.disabled : false,
+    				span	 : raw.span === 'undefined'	? 1 : raw.span,
     			};
 
     			this.rows.push(entry);
