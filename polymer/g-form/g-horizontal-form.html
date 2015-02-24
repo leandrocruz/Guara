@@ -1,14 +1,14 @@
-<polymer-element name="g-horizontal-form" extends="g-form" attributes="labelClass inputClass spacerClass">
+<polymer-element name="g-horizontal-form" extends="g-form" attributes="labelClass spacerClass">
 	<template>
 		<link rel="stylesheet" href="g-form.css">
 		<form id="form" class="form-{{ orientation }}">
 			<template repeat="{{ field, i in fields }}">
 				<div class="{{ {'form-group':true, 'has-error': false} | tokenList }}">
+					<!-- Label -->
+					<label for="{{ field.id }}" class="{{ labelClass }}">{{ field.label }}</label>
 					
-					<label 	for="{{ field.id }}"
-							class="{{ labelClass }}">{{ field.label }}</label>
-							
-					<div class="{{ inputClass }}">
+					<!-- The input -->
+					<div class="{{ field.inputClass ? field.inputClass : 'col-md-3' }}">
 						<template if="{{ field.type == 'spacer' }}">
 							<p class="{{ spacerClass }}">{{ field.placeholder }}</p>
 						</template>
@@ -16,7 +16,6 @@
 							<g-input id="{{ field.id }}" form="{{ me }}" field="{{ field }}" reset="{{ reset }}"></g-input>
 						</template>
 					</div>
-
 				</div>					
 			</template>
 		</form>
@@ -24,7 +23,6 @@
 	<script>
     	Polymer('g-horizontal-form', {
     		labelClass  : 'col-md-2 control-label',
-    		inputClass  : 'col-md-2',
     		spacerClass : 'form-control-static',
     	});
 	</script>
