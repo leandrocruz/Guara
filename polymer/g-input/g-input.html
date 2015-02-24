@@ -21,7 +21,7 @@
 				<!--  One time binding for label -->
 				<g-dropdown label="[[ field.placeholder ]]"
 							options="{{ field.options }}"
-							value="{{ field.value }}"></g-dropdown>
+							value="{{ field.value }}" fill="{{ field.fill }}"></g-dropdown>
 			</template>
 			<template if="{{ field.type == 'button' }}">
 				<button	on-click="{{ buttonClicked }}" 
