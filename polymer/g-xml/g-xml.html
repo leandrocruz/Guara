@@ -1,0 +1,112 @@
+<script type="text/javascript" src="../../jquery-xpath/jquery.xpath.min.js"></script>
+<polymer-element name="g-xml" attributes="pageSize debug">
+	<template>
+		<link rel="stylesheet" href="g-xml.css">
+		<g-table id="table" pageSize="{{ pageSize }}"></g-table>
+	</template>
+	<script>
+		Polymer({
+	        ready: function() {
+	        	this.tableRender = {
+	        		table: this.$.table,
+
+	        		render: function(file, schema, array) {
+	        			if(console && console.table)
+	        			{
+	        				console.table(array);
+	        			}
+	        			this.table.clear();
+	        			this.table.title  = file.name;
+	        			this.table.schema = schema;
+	       				for(var i = 0; i < array.length; i++)
+	     				{
+	     					var row = array[i];
+	     					this.handleRow(row, i);
+	     				}
+	        		
+	                    this.data = array;
+	                    this.table.show();
+	        		},
+
+					handleRow: function(row, i) {
+						this.table.appendRow(row);
+					}
+	        	};
+	        },
+			
+	        toJson: function(schema, item) {
+				var result = {};
+	        	$.each(schema, function(key, meta) {
+					if(typeof meta !== 'function')
+					{
+						var value = null;
+						if(meta.xpath)
+						{
+							value = $(item).xpath(meta.xpath).text();
+						}
+						else
+						{
+							value = item.querySelector(key.toLowerCase()).textContent;
+							
+						}
+						if(value.startsWith('![CDATA[') && value.endsWith(']]'))
+						{
+							var start = '![CDATA['.length;
+							value = value.substring(start, value.length - 2);
+						}
+						var k = meta.column ? meta.column.name : key;
+						result[k] = value;
+					}
+				});
+				return result;
+	        },
+
+			parse: function(file, sheetNumber /* legacy */, whenDone, schema, sanitizer) {
+				var $this = this;
+				try
+				{
+					$g.utils.read(file, 'text', function(e) {
+						var data     = e.target.result;
+						var parser   = new DOMParser();
+						var doc      = parser.parseFromString(data, "application/xml");
+						var tag      = schema.getTag();
+						var elements = doc.querySelectorAll(tag);
+						var array    = [];
+
+						$.each(elements, function(idx, element) {
+							var item = $this.toJson(schema, element);
+							array.push(item);
+						});						
+						
+						if(sanitizer)
+						{
+							$.each(array, function(idx, item){
+								array[idx] = sanitizer(idx, item);
+							});
+						}
+
+						$this.tableRender.render(file, schema, array);
+						whenDone.success(file, sheetNumber, array);
+					});
+				}
+				catch(e)
+				{
+					whenDone.error(file, sheetNumber, e);
+				}
+			},
+
+			clear: function() {
+				this.$.table.clear();
+			},
+
+			unmark: function(rowNumber) {
+				return this.$.table.unmark(rowNumber);
+			},
+			
+			mark: function(rowNumber, columnName, issues) {
+				return this.$.table.mark(rowNumber, columnName, issues);
+			}
+			
+		});
+	</script>
+</polymer-element>
