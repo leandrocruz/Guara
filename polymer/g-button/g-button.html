@@ -14,7 +14,14 @@
 			handleOnClick: function(evt, detail, sender) {
 				if(this.onClick)
 				{
-					this.onClick.apply(this.context, [evt, detail, sender]);
+					if(this.context)
+					{
+						this.onClick.apply(this.context, [evt, detail, sender]);
+					}
+					else
+					{
+						this.onClick(evt, detail, sender);
+					}
 				}
 			}
     	});
