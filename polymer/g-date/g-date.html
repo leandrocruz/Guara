@@ -5,7 +5,19 @@
 	</template>
 	<script>
     	Polymer('g-date', {
-			get result() /* A getter. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/get */ {
+    		ready: function() {
+	   			this.result = this.getDateFormatted();
+    		},
+
+			millisChanged: function(previous, next) {
+				this.result = this.getDateFormatted();
+			},
+			
+			formatChanged: function(previous, next) {
+				this.result = this.getDateFormatted();
+			},
+
+			getDateFormatted: function() {
 				var format = this.format ? this.format : "HH:mm:ss - DD/MM/YYYY";
 				if(this.millis)
 				{
@@ -15,7 +27,7 @@
 				{
 					return moment().format(format);
 				}
-			}
+			},
     	});
 	</script>
 </polymer-element>
