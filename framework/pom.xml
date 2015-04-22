@@ -4,7 +4,7 @@
 	<parent>
  		<groupId>br.com.ibnetwork.guara</groupId>
  		<artifactId>guara</artifactId>
- 		<version>1.38</version>
+ 		<version>1.39-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.ibnetwork.guara</groupId>
