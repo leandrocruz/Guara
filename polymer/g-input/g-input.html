@@ -21,7 +21,8 @@
 				<!--  One time binding for label -->
 				<g-dropdown label="[[ field.placeholder ]]"
 							options="{{ field.options }}"
-							value="{{ field.value }}" fill="{{ field.fill }}"></g-dropdown>
+							value="{{ field.value }}" fill="{{ field.fill }}"
+							onChange="{{ onDropDownChange }}"></g-dropdown>
 			</template>
 			<template if="{{ field.type == 'button' }}">
 				<button	on-click="{{ buttonClicked }}" 
@@ -33,53 +34,66 @@
 		</div>			
 	</template>
 	<script>
-    	Polymer({
+
+		Polymer({
+			form          : null,
+			class         : 'form-control',
+			isFormControl : true,
+			isValid       : true,
+			dropDownChangeHandler: null,
 			
-    		form          : null,
-    		class         : 'form-control',
-    		isFormControl : true,
-    		isValid       : true,
-
-    		clear: function() {
-    			this.field.value = null;
-    		},
-
-    		getElement: function(name) {
-    			var input = this.$.input;
-    			return $(name, input)[0];
-    		},
+			created: function() {
+				var _this = this;
+				this.dropDownChangeHandler = function() {
+					_this.highlight();
+					$g.utils.apply(_this.onChange, [_this]);
+				};
+			},
+			
+			clear: function() {
+				this.field.value = null;
+			},
+	
+			getElement: function(name) {
+				var input = this.$.input;
+				return $(name, input)[0];
+			},
 			
 			value: function() {
 				return this.field.value;
 			},
-    		
+			
 			validate: function() {
 				var validators = this.field.validators;
 				var value      = this.field.value;
 				var result     = $g.validator.validateValue(value, validators);
 				return result;
 			},
-
+	
 			highlight: function() {
-    			var status = this.validate();
-    			this.isValid = status.isValid;
+				var status = this.validate();
+				this.isValid = status.isValid;
 			},
-
-    		onKeyUp: function(evt, detail, sender) {
+	
+			onKeyUp: function(evt, detail, sender) {
 				this.highlight();
 				$g.utils.apply(this.onChange, [this]);
-    		},
-    		
-    		buttonClicked: function(evt, detail, sender) {
-    			if(this.field.onClick)
-    			{
-    				this.field.onClick(this.form, this.field, evt, detail, sender);
-    			}
-    			else
-    			{
-    				evt.preventDefault();
-    			}
-    		},
-    	});
+			},
+			
+			get onDropDownChange () {
+				return this.dropDownChangeHandler;
+			},
+			
+			buttonClicked: function(evt, detail, sender) {
+				if(this.field.onClick)
+				{
+					this.field.onClick(this.form, this.field, evt, detail, sender);
+				}
+				else
+				{
+					evt.preventDefault();
+				}
+			},
+		});
 	</script>
 </polymer-element>

@@ -1,4 +1,4 @@
-<polymer-element name="g-dropdown" attributes="label value options type noOptionAllowed fill">
+<polymer-element name="g-dropdown" attributes="label value options type noOptionAllowed fill onChange">
 	<template>
 		<link rel="stylesheet" href="g-dropdown.css">
 		<div id="container" class="dropdown">
@@ -89,6 +89,11 @@
 					}
 				}
 				
+				if(this.onChange)
+				{
+					this.onChange({option: op});	
+				}
+
 				this.fire('option-changed', {option: op});
 			}
     	});
