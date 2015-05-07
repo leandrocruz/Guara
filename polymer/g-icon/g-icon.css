@@ -1,1 +1,5 @@
 @import "../guara.css";
+
+.show {
+	display: inline !important;
+}
