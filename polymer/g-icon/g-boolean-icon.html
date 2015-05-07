@@ -11,11 +11,27 @@
     		
 			states: {
 				ok  : {color: '#5cb85c', name: 'ok-circle'},
-    			err : {color: '#d9534f', name: 'remove-circle'}
+    			warn: {color: '#ec971f', name: 'exclamation-sign'},
+				err : {color: '#d9534f', name: 'remove-circle'}
+				
 			},
 			
     		toState: function(state) {
-				var name = state ? 'ok' : 'err';
+				
+    			var name = null;
+				switch(typeof state)
+				{
+					case 'string':
+		    			name = state;
+		    			break;
+					
+					case 'boolean':
+	    				name = state ? 'ok' : 'err';
+	    				break;
+					
+					default:
+						throw 'Unknown type: ' + typeof state;
+				}
 				var st   = this.states[name];
 				this.name  = st.name;
 				this.color = st.color;
