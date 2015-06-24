@@ -22,6 +22,7 @@
 				<g-dropdown label="[[ field.placeholder ]]"
 							options="{{ field.options }}"
 							value="{{ field.value }}" fill="{{ field.fill }}"
+							type="{{ isValid ? 'default' : 'danger' }}"
 							onChange="{{ onDropDownChange }}"></g-dropdown>
 			</template>
 			<template if="{{ field.type == 'button' }}">
