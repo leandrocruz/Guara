@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
 import br.com.ibnetwork.guara.message.SystemMessage;
 import br.com.ibnetwork.guara.message.SystemMessageBroker;
 import br.com.ibnetwork.guara.message.SystemMessageException;
-import br.com.ibnetwork.xingu.container.Environment;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.utils.FSUtils;
+import xingu.container.Environment;
+import xingu.container.Inject;
+import xingu.utils.FSUtils;
 
 
 public class SystemMessageBrokerImpl

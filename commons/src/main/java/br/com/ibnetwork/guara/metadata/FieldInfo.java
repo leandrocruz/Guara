@@ -21,11 +21,11 @@ import br.com.ibnetwork.guara.annotation.InputInfo;
 import br.com.ibnetwork.guara.forms.Option;
 import br.com.ibnetwork.guara.forms.ReferenceCache;
 import br.com.ibnetwork.guara.forms.ReferenceLoader;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.JdbcUtils;
-import br.com.ibnetwork.xingu.utils.annotation.AnnotationHelper;
-import br.com.ibnetwork.xingu.validator.ann.ValidateRequired;
+import xingu.container.Inject;
+import xingu.factory.Factory;
+import xingu.utils.JdbcUtils;
+import xingu.utils.annotation.AnnotationHelper;
+import xingu.validator.ann.ValidateRequired;
 
 public class FieldInfo 
 	implements Comparable<FieldInfo>

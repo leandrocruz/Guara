@@ -7,9 +7,9 @@ import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-import br.com.ibnetwork.xingu.utils.io.FileVisitor;
-import br.com.ibnetwork.xingu.utils.io.TreeVisitor;
-import br.com.ibnetwork.xingu.utils.io.zip.ZipUtils;
+import xingu.utils.io.FileVisitor;
+import xingu.utils.io.TreeVisitor;
+import xingu.utils.io.zip.ZipUtils;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.internal.Mimetypes;

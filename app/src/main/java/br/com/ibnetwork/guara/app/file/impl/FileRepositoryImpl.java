@@ -11,8 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.com.ibnetwork.guara.app.file.FileRepository;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.container.Environment;
+import xingu.container.Inject;
+import xingu.container.Environment;
 import xingu.store.PersistentBean;
 
 public class FileRepositoryImpl

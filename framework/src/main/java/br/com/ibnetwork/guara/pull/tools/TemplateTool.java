@@ -6,7 +6,7 @@ import java.io.Writer;
 import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
 import xingu.template.TemplateEngine;
 import xingu.template.TemplateEngineException;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 
 /**
  * @author leandro

@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 
 public class InjectorTest
     extends GuaraTestCase

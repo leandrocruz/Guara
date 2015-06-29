@@ -19,7 +19,7 @@ import org.junit.Test;
 import br.com.ibnetwork.guara.metadata.BeanInfo;
 import br.com.ibnetwork.guara.metadata.FieldInfo;
 import br.com.ibnetwork.guara.myapp.om.Bean;
-import br.com.ibnetwork.xingu.container.XinguTestCase;
+import xingu.container.XinguTestCase;
 
 public class BeanInfoTest
     extends XinguTestCase

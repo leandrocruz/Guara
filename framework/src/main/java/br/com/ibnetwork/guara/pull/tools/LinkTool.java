@@ -14,7 +14,7 @@ import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
 import br.com.ibnetwork.guara.rundata.PageInfo;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.util.ServletUtils;
-import br.com.ibnetwork.xingu.utils.StringUtils;
+import xingu.utils.StringUtils;
 
 public class LinkTool
 	extends ApplicationToolSupport

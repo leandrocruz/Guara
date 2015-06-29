@@ -12,8 +12,8 @@ import org.apache.avalon.framework.configuration.ConfigurationException;
 import org.apache.commons.io.IOUtils;
 
 import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
-import br.com.ibnetwork.xingu.lang.Sys;
-import br.com.ibnetwork.xingu.utils.StringUtils;
+import xingu.lang.Sys;
+import xingu.utils.StringUtils;
 
 public class PathTranslatorContentTool
 	extends ApplicationToolSupport

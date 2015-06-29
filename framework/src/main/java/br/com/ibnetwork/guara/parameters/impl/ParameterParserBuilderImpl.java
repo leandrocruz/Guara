@@ -22,8 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import br.com.ibnetwork.guara.parameters.ParameterParserBuilder;
 import br.com.ibnetwork.guara.parameters.Parameters;
 import br.com.ibnetwork.guara.rundata.URLHandler;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 
 public class ParameterParserBuilderImpl
     implements ParameterParserBuilder, Configurable

@@ -9,8 +9,8 @@ import org.junit.Test;
 import br.com.ibnetwork.guara.forms.Option;
 import br.com.ibnetwork.guara.pull.tools.ReferenceTool;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 
 public class ReferenceToolTest
     extends GuaraTestCase

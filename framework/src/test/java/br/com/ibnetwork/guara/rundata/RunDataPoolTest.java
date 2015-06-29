@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 
 public class RunDataPoolTest
 	extends GuaraTestCase

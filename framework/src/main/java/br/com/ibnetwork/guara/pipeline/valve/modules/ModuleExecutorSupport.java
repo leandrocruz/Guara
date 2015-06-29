@@ -18,7 +18,7 @@ import br.com.ibnetwork.guara.pipeline.PipelineException;
 import br.com.ibnetwork.guara.pipeline.valve.ValveSupport;
 import br.com.ibnetwork.guara.rundata.Outcome;
 import br.com.ibnetwork.guara.rundata.RunData;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 import xingu.template.Context;
 
 public abstract class ModuleExecutorSupport

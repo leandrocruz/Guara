@@ -14,8 +14,8 @@ import br.com.ibnetwork.guara.pipeline.PipelineException;
 import br.com.ibnetwork.guara.pipeline.PipelineManager;
 import br.com.ibnetwork.guara.pipeline.factory.PipelineFactory;
 import br.com.ibnetwork.guara.util.ConfigurationLoader;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 
 public class PipelineManagerImpl
 	implements PipelineManager, Configurable

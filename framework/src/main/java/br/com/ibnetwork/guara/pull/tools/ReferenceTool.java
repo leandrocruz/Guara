@@ -10,8 +10,8 @@ import br.com.ibnetwork.guara.forms.ReferenceCache;
 import br.com.ibnetwork.guara.forms.ReferenceLoader;
 import br.com.ibnetwork.guara.forms.impl.OptionImpl;
 import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 
 /**
  * @author leandro

@@ -3,8 +3,8 @@ package br.com.ibnetwork.guara.forms;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.ObjectUtils;
+import xingu.factory.Factory;
+import xingu.utils.ObjectUtils;
 
 public class ReferenceCache
 {

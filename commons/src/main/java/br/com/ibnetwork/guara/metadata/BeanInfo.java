@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.com.ibnetwork.guara.bean.BeanUtils;
 import xingu.store.PersistentBean;
-import br.com.ibnetwork.xingu.utils.FieldUtils;
+import xingu.utils.FieldUtils;
 
 public class BeanInfo
 {

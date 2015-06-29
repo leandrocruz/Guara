@@ -3,7 +3,7 @@ package br.com.ibnetwork.guara.app.test;
 import java.util.Date;
 
 import br.com.ibnetwork.guara.app.crud.BeanSupport;
-import br.com.ibnetwork.xingu.validator.ann.ValidateRequired;
+import xingu.validator.ann.ValidateRequired;
 
 public class SampleBean
 	extends BeanSupport

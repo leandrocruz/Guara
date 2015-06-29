@@ -9,7 +9,7 @@ import br.com.ibnetwork.guara.rundata.Outcome;
 import br.com.ibnetwork.guara.rundata.RunData;
 import xingu.store.PersistentBean;
 import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.validator.ValidatorContext;
+import xingu.validator.ValidatorContext;
 
 public abstract class SingleCrudControlSupport
     extends CrudControlSupport

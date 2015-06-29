@@ -26,14 +26,14 @@ import br.com.ibnetwork.guara.pipeline.PipelineManager;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.rundata.RunDataPool;
 import br.com.ibnetwork.guara.view.TemplateUtils;
-import br.com.ibnetwork.xingu.container.Container;
-import br.com.ibnetwork.xingu.container.ContainerUtils;
-import br.com.ibnetwork.xingu.container.Environment;
-import br.com.ibnetwork.xingu.container.impl.EnvironmentImpl;
+import xingu.container.Container;
+import xingu.container.ContainerUtils;
+import xingu.container.Environment;
+import xingu.container.impl.EnvironmentImpl;
 import xingu.template.Context;
 import xingu.template.TemplateEngine;
 import xingu.template.TemplateEngineException;
-import br.com.ibnetwork.xingu.utils.StringUtils;
+import xingu.utils.StringUtils;
 
 public class Guara 
 	extends HttpServlet

@@ -2,10 +2,10 @@ package br.com.ibnetwork.guara.app.modules;
 
 import br.com.ibnetwork.guara.bean.BeanUtils;
 import br.com.ibnetwork.guara.metadata.BeanInfo;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 import xingu.store.PersistentBean;
-import br.com.ibnetwork.xingu.validator.ValidatorContext;
+import xingu.validator.ValidatorContext;
 
 public class Result
 {

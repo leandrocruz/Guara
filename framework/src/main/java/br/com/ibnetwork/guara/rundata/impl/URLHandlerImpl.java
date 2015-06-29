@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.com.ibnetwork.guara.rundata.PageInfo;
 import br.com.ibnetwork.guara.rundata.URLHandler;
-import br.com.ibnetwork.xingu.utils.StringUtils;
+import xingu.utils.StringUtils;
 
 public class URLHandlerImpl 
 	implements URLHandler

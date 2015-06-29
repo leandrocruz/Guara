@@ -11,12 +11,12 @@ import org.apache.avalon.framework.configuration.ConfigurationException;
 
 import br.com.ibnetwork.guara.metadata.BeanInfo;
 import br.com.ibnetwork.guara.pull.impl.ApplicationToolSupport;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 import xingu.store.ObjectStore;
-import br.com.ibnetwork.xingu.utils.ObjectUtils;
-import br.com.ibnetwork.xingu.validator.BeanValidator;
-import br.com.ibnetwork.xingu.validator.ValidatorContext;
+import xingu.utils.ObjectUtils;
+import xingu.validator.BeanValidator;
+import xingu.validator.ValidatorContext;
 
 public class BeanTool
     extends ApplicationToolSupport

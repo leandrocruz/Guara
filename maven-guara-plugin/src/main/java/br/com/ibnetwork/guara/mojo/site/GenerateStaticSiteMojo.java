@@ -25,13 +25,13 @@ import org.sonatype.aether.resolution.DependencyResolutionException;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 
 import br.com.ibnetwork.guara.mojo.MojoSupport;
-import br.com.ibnetwork.xingu.utils.MD5Utils;
-import br.com.ibnetwork.xingu.utils.StringUtils;
-import br.com.ibnetwork.xingu.utils.classloader.TryChildClassLoader;
-import br.com.ibnetwork.xingu.utils.io.CopyDirectory;
-import br.com.ibnetwork.xingu.utils.io.FileUtils;
-import br.com.ibnetwork.xingu.utils.io.FileVisitor;
-import br.com.ibnetwork.xingu.utils.io.TreeVisitor;
+import xingu.utils.MD5Utils;
+import xingu.utils.StringUtils;
+import xingu.utils.classloader.TryChildClassLoader;
+import xingu.utils.io.CopyDirectory;
+import xingu.utils.io.FileUtils;
+import xingu.utils.io.FileVisitor;
+import xingu.utils.io.TreeVisitor;
 
 import com.jcabi.aether.Aether;
 

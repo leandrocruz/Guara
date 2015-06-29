@@ -11,9 +11,9 @@ import br.com.ibnetwork.guara.pipeline.Pipeline;
 import br.com.ibnetwork.guara.pipeline.Valve;
 import br.com.ibnetwork.guara.pipeline.factory.PipelineFactory;
 import br.com.ibnetwork.guara.pipeline.impl.PipelineImpl;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.ObjectUtils;
+import xingu.container.Inject;
+import xingu.factory.Factory;
+import xingu.utils.ObjectUtils;
 
 
 public class PipelineFactoryImpl

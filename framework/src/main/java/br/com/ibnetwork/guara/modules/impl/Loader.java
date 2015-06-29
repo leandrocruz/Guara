@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import br.com.ibnetwork.guara.modules.Module;
 import br.com.ibnetwork.guara.modules.ThreadSafe;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 
 public class Loader
 {

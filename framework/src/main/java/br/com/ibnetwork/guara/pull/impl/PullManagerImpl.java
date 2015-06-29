@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import br.com.ibnetwork.guara.pull.ApplicationTool;
 import br.com.ibnetwork.guara.pull.ApplicationToolHandler;
 import br.com.ibnetwork.guara.pull.PullManager;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 
 public class PullManagerImpl 
 	implements PullManager, Configurable

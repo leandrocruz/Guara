@@ -20,7 +20,7 @@ import br.com.ibnetwork.guara.rundata.Outcome;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.rundata.impl.RunDataImpl;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 import xingu.template.Context;
 
 /**

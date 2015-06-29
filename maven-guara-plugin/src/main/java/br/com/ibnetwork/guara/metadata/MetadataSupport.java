@@ -10,9 +10,9 @@ import org.apache.maven.project.MavenProject;
 import br.com.ibnetwork.guara.MavenUtils;
 import br.com.ibnetwork.guara.metadata.handler.FileHandler;
 import br.com.ibnetwork.guara.metadata.handler.WriteStringToFile;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.ObjectUtils;
+import xingu.container.Inject;
+import xingu.factory.Factory;
+import xingu.utils.ObjectUtils;
 
 public abstract class MetadataSupport
     implements Metadata

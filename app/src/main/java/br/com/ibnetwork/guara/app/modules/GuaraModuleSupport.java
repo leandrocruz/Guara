@@ -11,14 +11,14 @@ import br.com.ibnetwork.guara.message.SystemMessageBroker;
 import br.com.ibnetwork.guara.modules.ModuleSupport;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.view.TemplateUtils;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Inject;
+import xingu.factory.Factory;
 import xingu.store.ObjectStore;
 import xingu.store.PersistentBean;
 import br.com.ibnetwork.xingu.template.Context;
 import br.com.ibnetwork.xingu.template.TemplateEngine;
-import br.com.ibnetwork.xingu.validator.BeanValidator;
-import br.com.ibnetwork.xingu.validator.ValidatorContext;
+import xingu.validator.BeanValidator;
+import xingu.validator.ValidatorContext;
 
 public abstract class GuaraModuleSupport
 	extends ModuleSupport

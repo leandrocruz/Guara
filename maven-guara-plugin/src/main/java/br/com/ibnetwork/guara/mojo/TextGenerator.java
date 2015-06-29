@@ -13,9 +13,9 @@ import br.com.ibnetwork.guara.generator.Generator;
 import br.com.ibnetwork.guara.generator.XinguTextGenerator;
 import br.com.ibnetwork.guara.metadata.Metadata;
 import br.com.ibnetwork.guara.metadata.handler.FileHandler;
-import br.com.ibnetwork.xingu.container.Container;
-import br.com.ibnetwork.xingu.container.ContainerUtils;
-import br.com.ibnetwork.xingu.factory.Factory;
+import xingu.container.Container;
+import xingu.container.ContainerUtils;
+import xingu.factory.Factory;
 
 public abstract class TextGenerator
 	extends OldMojoSupport

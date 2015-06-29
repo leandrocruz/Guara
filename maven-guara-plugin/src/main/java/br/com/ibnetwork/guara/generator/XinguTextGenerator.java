@@ -3,7 +3,7 @@ package br.com.ibnetwork.guara.generator;
 import java.io.StringWriter;
 
 import br.com.ibnetwork.guara.metadata.Metadata;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 import xingu.template.Context;
 import xingu.template.TemplateEngine;
 

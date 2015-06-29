@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import br.com.ibnetwork.guara.pipeline.PipelineException;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.rundata.UrlRedirector;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 
 public class RedirectRequest
     extends ValveSupport

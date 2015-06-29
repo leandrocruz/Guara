@@ -3,8 +3,8 @@ package br.com.ibnetwork.guara.pull.impl;
 import org.apache.avalon.framework.configuration.Configuration;
 import org.apache.avalon.framework.configuration.ConfigurationException;
 
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.ObjectUtils;
+import xingu.factory.Factory;
+import xingu.utils.ObjectUtils;
 import br.com.ibnetwork.guara.pull.ApplicationTool;
 import br.com.ibnetwork.guara.pull.ApplicationToolHandler;
 import br.com.ibnetwork.guara.pull.PullManager;

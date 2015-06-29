@@ -2,8 +2,8 @@ package br.com.ibnetwork.guara.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-//import br.com.ibnetwork.xingu.container.Container;
-//import br.com.ibnetwork.xingu.container.ContainerUtils;
+//import xingu.container.Container;
+//import xingu.container.ContainerUtils;
 
 /**
  * @goal printEnv

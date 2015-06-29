@@ -17,11 +17,11 @@ import br.com.ibnetwork.guara.test.mock.MockHttpServletRequest;
 import br.com.ibnetwork.guara.test.mock.MockHttpServletResponse;
 import br.com.ibnetwork.guara.test.mock.MockServletConfig;
 import br.com.ibnetwork.guara.test.mock.MockServletContext;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.container.XinguTestCase;
+import xingu.container.Inject;
+import xingu.container.XinguTestCase;
 import xingu.template.Context;
 import xingu.template.TemplateEngine;
-import br.com.ibnetwork.xingu.utils.FSUtils;
+import xingu.utils.FSUtils;
 
 public abstract class GuaraTestCase
     extends XinguTestCase

@@ -12,7 +12,7 @@ import br.com.ibnetwork.guara.pipeline.valve.ValveSupport;
 import br.com.ibnetwork.guara.pull.ApplicationToolHandler;
 import br.com.ibnetwork.guara.pull.PullManager;
 import br.com.ibnetwork.guara.rundata.RunData;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 import xingu.template.Context;
 
 public class PopulateContextWithTools 

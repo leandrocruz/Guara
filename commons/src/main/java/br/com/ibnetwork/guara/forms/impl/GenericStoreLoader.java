@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.com.ibnetwork.guara.forms.Option;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 import xingu.store.ObjectStore;
 import xingu.store.PersistentBean;
 

@@ -25,9 +25,9 @@ import org.apache.commons.logging.LogFactory;
 
 import br.com.ibnetwork.guara.injector.Injector;
 import br.com.ibnetwork.guara.parameters.Parameters;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.convert.DateConverter;
+import xingu.container.Inject;
+import xingu.factory.Factory;
+import xingu.utils.convert.DateConverter;
 
 public class InjectorImpl
 	implements Injector, Configurable

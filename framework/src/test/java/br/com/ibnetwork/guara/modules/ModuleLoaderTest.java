@@ -14,7 +14,7 @@ import br.com.ibnetwork.guara.modules.screens.ConcreteModule;
 import br.com.ibnetwork.guara.modules.screens.ScreenTestModule;
 import br.com.ibnetwork.guara.modules.screens.subpackage.InSubpackage;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 
 public class ModuleLoaderTest
 	extends GuaraTestCase

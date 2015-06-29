@@ -14,7 +14,7 @@ import br.com.ibnetwork.guara.modules.ModuleLoader;
 import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
 import br.com.ibnetwork.xingu.template.Context;
-import br.com.ibnetwork.xingu.validator.ValidatorContext;
+import xingu.validator.ValidatorContext;
 
 public class CrudControlTest
     extends GuaraTestCase

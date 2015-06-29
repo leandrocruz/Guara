@@ -2,7 +2,7 @@ package br.com.ibnetwork.guara.metadata.impl;
 
 import br.com.ibnetwork.guara.metadata.DatabaseMetadata;
 import br.com.ibnetwork.guara.metadata.MetadataSupport;
-import br.com.ibnetwork.xingu.utils.JdbcUtils;
+import xingu.utils.JdbcUtils;
 
 public class PostgreSQL
 	extends MetadataSupport

@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import br.com.ibnetwork.guara.pull.tools.SkinTool;
 import br.com.ibnetwork.guara.test.GuaraTestCase;
-import br.com.ibnetwork.xingu.utils.FSUtils;
+import xingu.utils.FSUtils;
 
 public class SkinToolTest
 	extends GuaraTestCase

@@ -17,7 +17,7 @@ import br.com.ibnetwork.guara.rundata.RunData;
 import br.com.ibnetwork.guara.rundata.RunDataException;
 import br.com.ibnetwork.guara.rundata.RunDataPool;
 import br.com.ibnetwork.guara.util.ServletUtils;
-import br.com.ibnetwork.xingu.container.Inject;
+import xingu.container.Inject;
 import xingu.template.Context;
 import xingu.template.TemplateEngine;
 

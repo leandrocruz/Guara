@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import br.com.ibnetwork.guara.app.file.FileRepository;
 import br.com.ibnetwork.guara.app.test.SampleBean;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.container.XinguTestCase;
+import xingu.container.Inject;
+import xingu.container.XinguTestCase;
 
 public class FileRepositoryTest
     extends XinguTestCase

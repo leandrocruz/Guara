@@ -9,7 +9,7 @@ import org.junit.Test;
 import br.com.ibnetwork.guara.annotation.ColumnInfo;
 import br.com.ibnetwork.guara.annotation.InputInfo;
 import br.com.ibnetwork.guara.myapp.om.SingleField;
-import br.com.ibnetwork.xingu.utils.annotation.AnnotationHelper;
+import xingu.utils.annotation.AnnotationHelper;
 
 public class AnnotationTest
 {

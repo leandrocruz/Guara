@@ -3,7 +3,7 @@ package br.com.ibnetwork.guara.message.impl;
 import java.text.MessageFormat;
 
 import br.com.ibnetwork.guara.message.SystemMessage;
-import br.com.ibnetwork.xingu.utils.ArrayUtils;
+import xingu.utils.ArrayUtils;
 
 
 public class SystemMessageImpl 

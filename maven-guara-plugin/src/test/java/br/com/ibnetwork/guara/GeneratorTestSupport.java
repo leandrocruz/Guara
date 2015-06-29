@@ -11,10 +11,10 @@ import br.com.ibnetwork.guara.generator.Generator;
 import br.com.ibnetwork.guara.generator.XinguTextGenerator;
 import br.com.ibnetwork.guara.metadata.Metadata;
 import br.com.ibnetwork.guara.metadata.handler.FileHandler;
-import br.com.ibnetwork.xingu.container.Inject;
-import br.com.ibnetwork.xingu.container.XinguTestCase;
-import br.com.ibnetwork.xingu.factory.Factory;
-import br.com.ibnetwork.xingu.utils.FSUtils;
+import xingu.container.Inject;
+import xingu.container.XinguTestCase;
+import xingu.factory.Factory;
+import xingu.utils.FSUtils;
 
 public class GeneratorTestSupport
     extends XinguTestCase
