@@ -275,6 +275,10 @@
 
     		mark: function(rowNumber, columnName, issues) {
    				var cell = this.rows[rowNumber].data[columnName];
+   				if(!cell)
+   				{
+   					throw new Error("Unknown cell row: "+rowNumber+", column: "+columnName);
+   				}
    				cell.error = true;
    				cell.issues = issues;
     		},
