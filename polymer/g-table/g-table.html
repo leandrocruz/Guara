@@ -25,7 +25,7 @@
 							</th>
 						</template>
 						<template repeat="{{ column, j in columns }}">
-							<template if="{{ column.name | include }}">
+							<template if="{{ column | include }}">
 								<template if="{{ column.length }}">
 									<th style="width: {{ column.length }};">{{ column.title }}</th>
 								</template>
@@ -73,7 +73,7 @@
 							</template>
 
 							<template repeat="{{ column, j in columns }}">
-								<template if="{{ column.name | include }}">
+								<template if="{{ column | include }}">
 									<template if="{{ column.name == '_actions' }}">
 										<td>
 											<template if="{{ column.type == 'dropdown' }}">
@@ -155,8 +155,12 @@
 				return  start + ' - ' + end + ' / total: ' + total + ' / página: ' + page;
     		},
     		
-    		include: function(value) { /* filter */
-    			return !value.startsWith('__');
+    		include: function(column) { /* filter */
+    			if(column.hide)
+    			{
+    				return false
+    			}
+    			return !column.name.startsWith('__');
     		},
 
     		view: function() {
@@ -260,6 +264,13 @@
     				error    : raw.options 	? raw.options.error || rowData.rowError : rowData.rowError,
     				disabled : raw.options 	? raw.options.disabled : false,
     				span	 : raw.span === undefined ? 1 : raw.span,
+    				select: function(selected) {
+        				entry.selected = selected;
+						if(raw.onSelected)
+						{
+	        				raw.onSelected(selected, entry);
+						}
+        			},
     			};
 
     			this.rows.push(entry);
@@ -328,7 +339,7 @@
     			var row = this.rowByIndex(idx);
     			if(row)
     			{
-    				row.selected = !row.selected;
+    				row.select(!row.selected);
     			}
     		},
     		
@@ -341,6 +352,19 @@
     					return row;
     				}
     			}
+    		},
+    		
+    		rowByAttributeValue: function(attr, value) {
+    			var result = [];
+    			for (var i = 0; i < this.rows.length; i++)
+    			{
+    				var row = this.rows[i];
+    				if(row.data[attr].value == value)
+    				{
+    					result.push(row);	
+    				}
+    			}
+    			return result;
     		},
     		
     		schemaChanged: function() {
