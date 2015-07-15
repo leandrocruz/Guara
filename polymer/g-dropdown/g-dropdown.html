@@ -1,6 +1,5 @@
 <polymer-element name="g-dropdown" attributes="label value options type noOptionAllowed fill onChange">
 	<template>
-		Value: {{ value }}
 		<link rel="stylesheet" href="g-dropdown.css">
 		<div id="container" class="dropdown">
 			<button on-click="{{ toggleOpen }}" class="btn btn-{{ type }}" type="button" id="dropdownMenu" style="{{ fill ? 'width: 100%;' : ''}}">
