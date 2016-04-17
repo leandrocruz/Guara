@@ -386,13 +386,24 @@
     			this.columns = columns;
     		},
     		
-    		filter: function(column, value, matcher) {
-    			
-    			console.log('Filtering table. Column: "%s" Value: "%s"', column, value);
-
+    		filterRows: function(filter) {
     			this.clearSelectedRows();
     			var result = [];
     			$.each(this.rows, function(idx, entry) {
+    				var include = filter(idx, entry);
+    				if(include)
+    				{
+    					result.push(entry);
+    				}
+    			});
+    			this.selection = result;
+    			this.show();				
+    		},
+    		
+    		filter: function(column, value, matcher) {
+    			console.log('Filtering table. Column: "%s" Value: "%s"', column, value);
+
+    			return this.filterRows(function(idx, entry){
     				var include = false;
     				var item = entry.data;
     				var keys = Object.keys(item);
@@ -405,14 +416,8 @@
     						include = matcher(value, valueToMatch);
     					}
     				}
-    				if(include)
-    				{
-    					result.push(entry);
-    				}
+					return include;    				
     			});
-    			console.log("Filter Done!");
-    			this.selection = result;
-    			this.show();				
     		},
     		
     		clearFilter: function() {
