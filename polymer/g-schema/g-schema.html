@@ -1,0 +1,15 @@
+<script src="../../js-xls/xls.js"></script>
+<script src="../../js-xlsx/xlsx.js"></script>
+<script src="../../jquery-xpath/jquery.xpath.min.js"></script>
+
+<polymer-element name="g-schema" attributes="pageSize debug">
+	<template>
+		<link rel="stylesheet" href="g-schema.css">
+		<g-table id="table" pageSize="{{ pageSize }}"></g-table>
+	</template>
+	<script>
+		require(['gl!bower/guara/g-schema/g-schema.js'], function (module) {
+			Polymer('g-schema', module);
+		});
+	</script>
+</polymer-element>

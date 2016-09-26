@@ -48,7 +48,7 @@
 								var name = file.querySelector(meta.file.name).textContent;
 								var data = file.querySelector(meta.file.data).textContent;
 								result.files.push({name: name, data: data});
-								value = !value ? name : value + ', ' + name; 
+								value = !value ? name : value + '|' + name; 
 							});
 						}
 						else if(meta.xpath)
