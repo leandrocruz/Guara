@@ -83,23 +83,17 @@ define(function (require) {
 		
 		parse : function(file, sheetNumber, whenDone, schema, sanitizer) 
 		{
-			var name  = file.name;
-			var f     = _xlsSchemaParse;
-			var isXml = file.name.endsWith("xml");
-			
-			if(schema.constructor === Array && isXml)
+			var name          = file.name;
+			var f             = _xlsSchemaParse;
+			var isXml         = file.name.endsWith("xml");			
+			if(schema.isMultiSchema)
 			{
-				schema = schema[1];
+				schema = isXml ? schema["xml"] : schema = schema["xls"];
 			}
-			else
-			{
-				schema = schema[0];
-			}						
 			if(file.name.endsWith("xml"))
 			{
 				f = _xmlSchemaParse;
-			}
-			
+			}			
 			f(this, file, sheetNumber, whenDone, schema, sanitizer);
 		},
 		
