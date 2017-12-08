@@ -4,30 +4,46 @@ define(function (require) {
 	
 	var _this = null;
 	
+	// WARNING: too painful to include supplementary planes, these characters (0x10000 and higher) 
+	// will be stripped by this function. See what you are missing (heiroglyphics, emoji, etc) at:
+	// http://en.wikipedia.org/wiki/Plane_(Unicode)#Supplementary_Multilingual_Plane
+	var NOT_SAFE_IN_XML_1_0 = /[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]/gm;
+	function _sanitizeStringForXML(theString) 
+	{
+	    "use strict";
+	    return theString.replace(NOT_SAFE_IN_XML_1_0, '');
+	}
+	
 	var _xmlSchemaParse = function($this, file, sheetNumber /* legacy */, whenDone, schema, sanitizer) 
 	{
 		try
 		{
-			$g.utils.read(file, 'text', function(e) {
+			$g.utils.read(file, 'text', function(e) 
+			{
 				var data     = e.target.result;
 				var parser   = new DOMParser();
+				
+				data = _sanitizeStringForXML(data);
+				
 				var doc      = parser.parseFromString(data, "application/xml");
 				var tag      = schema.getTag();
 				var elements = doc.querySelectorAll(tag);
 				var array    = [];
-
-				$.each(elements, function(idx, element) {
+				
+				$.each(elements, function(idx, element)
+				{
 					var item = $this.toJson(schema, element);
 					array.push(item);
-				});						
+				});
 				
 				if(sanitizer)
 				{
-					$.each(array, function(idx, item){
+					$.each(array, function(idx, item)
+					{
 						array[idx] = sanitizer(idx, item);
 					});
 				}
-
+				
 				$this.tableRender.render(file, schema, array);
 				whenDone.success(file, sheetNumber, array);
 			});
@@ -42,10 +58,9 @@ define(function (require) {
 	{
 		try
 		{
-			$excel.sheetByIndex(file, sheetNumber, function(sheet) {
-
-				//reading is async. Here we have the sheet.
-				
+			$excel.sheetByIndex(file, sheetNumber, function(sheet) 
+			{
+				//reading is async. Here we have the sheet.				
 				try
 				{
 					var array = $excel.toJson(sheet);
