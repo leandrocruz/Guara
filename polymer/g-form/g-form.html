@@ -31,7 +31,7 @@
     					result = field;
     					return;
     				}
-    			});
+    			});    			
 				return result;
     		},
     		
@@ -52,9 +52,12 @@
 					{
 						/* Ignores spacers and other controls */ 
 						var input  = $this.toInput(field);
-						var status = input.validate();
-	        			valid = valid && status.isValid;
-	        			input.highlight();
+						if(input)
+						{
+							var status = input.validate();
+	        				valid = valid && status.isValid;
+	        				input.highlight();
+	        			}
 					}
     			});
     			return valid;
@@ -68,7 +71,7 @@
 					{
 						/* Ignores spacers and other controls */ 
 	    				var input = $this.toInput(field);
-	    				result[field.id] = input.value();
+	    				result[field.id] = input ? input.value() : '';
 					}
     			});
     			return result;
